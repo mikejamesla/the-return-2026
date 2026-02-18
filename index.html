@@ -1468,6 +1468,103 @@ footer {
   .stats-bar .stat-item { text-align: center; }
 }
 
+
+/* ============================================================
+   MOBILE ALIGNMENT FIXES
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Center all section headers */
+  .section-eyebrow, .section-title, .section-body {
+    text-align: center !important;
+  }
+  
+  /* Center mission text */
+  .mission-quote { text-align: center !important; }
+  .mission-body { text-align: center !important; }
+  .mission-hashtags { justify-content: center !important; }
+  
+  /* Center flyer details */
+  .flyer-details { align-items: center !important; text-align: center !important; }
+  .flyer-details .fd-body { 
+    text-align: center !important; 
+    border-left: none !important; 
+    padding-left: 0 !important;
+    border-top: 2px solid var(--red-border);
+    padding-top: 16px;
+  }
+  .flyer-details .fd-tagline { text-align: center !important; }
+  .flyer-details .fd-meta { align-items: center !important; }
+  .flyer-details .fd-meta-row { justify-content: center !important; }
+  
+  /* Center venue text */
+  .venue-header { text-align: center !important; }
+  .venue-header p { text-align: center !important; }
+  
+  /* Even spacing on talent cards */
+  .talent-card { 
+    text-align: center !important; 
+    margin-bottom: 20px !important;
+  }
+  .tc-img { margin: 0 auto !important; display: block !important; }
+  .tc-role { text-align: center !important; }
+  .tc-bio { text-align: center !important; }
+  .tc-bar { margin: 16px auto !important; }
+  
+  /* Center performers */
+  .performers-grid { justify-items: center !important; }
+  .perf-card { text-align: center !important; }
+  
+  /* Center committee row */
+  .committee-row { text-align: center !important; }
+  
+  /* Uniform section spacing */
+  section { padding-top: 60px !important; padding-bottom: 60px !important; }
+  
+  /* Stats bar centered */
+  .stat-item { text-align: center !important; width: 100% !important; }
+  
+  /* Venue images full width */
+  .venue-img-cell img { width: 100% !important; }
+  
+  /* Level cards even */
+  .level-card { margin-bottom: 20px !important; }
+  
+  /* Sponsor cards even */
+  .sponsor-tier { margin-bottom: 20px !important; }
+  
+  /* Footer centered */
+  .footer-col { text-align: center !important; }
+  .footer-bottom { text-align: center !important; }
+  .footer-bottom-text { text-align: center !important; }
+  .footer-links { justify-content: center !important; }
+  
+  /* CTA section */
+  #tickets { text-align: center !important; }
+  #tickets .section-title { text-align: center !important; }
+  
+  /* VIP strip centered */
+  .vip-label, .vip-desc { text-align: center !important; }
+  .nav-cta { margin: 0 auto !important; display: inline-block !important; }
+  
+  /* Consistent padding */
+  .talent-inner, .exp-inner, .venue-inner, .mission-inner {
+    padding-left: 0 !important; padding-right: 0 !important;
+  }
+  
+  /* Menu cards even spacing */
+  .menu-card { margin-bottom: 16px !important; }
+  
+  /* Guest cards even */
+  .sig-guest { margin-bottom: 0 !important; }
+  
+  /* Table cards even */  
+  .table-card { margin-bottom: 0 !important; }
+  
+  /* Ensure no horizontal overflow */
+  body { overflow-x: hidden !important; }
+  .top-ticker { overflow: hidden !important; }
+}
+
 </style>
 </head>
 <body>
