@@ -851,6 +851,10 @@ footer {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
   gap: 60px; align-items: start;
 }
+.footer-brand-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
 .footer-brand {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900; font-size: 28px;
@@ -926,7 +930,7 @@ footer {
   .performers-grid { grid-template-columns: 1fr; }
   .exp-grid { grid-template-columns: 1fr; }
   .committee-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
   #tickets { padding: 80px 24px; }
   footer { padding: 48px 24px; }
@@ -1448,7 +1452,7 @@ footer {
   .sponsor-tiers { flex-direction: column !important; }
   
   /* Footer */
-  .footer-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .footer-inner { grid-template-columns: 1fr !important; gap: 32px !important; text-align: center !important; }
   footer { padding: 40px 20px !important; }
   
   /* General sections */
@@ -2138,9 +2142,11 @@ footer {
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
+  <div class="footer-brand-wrapper">
+    <div class="footer-brand">THE <span>RETURN</span></div>
+  </div>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">THE <span>RETURN</span></div>
       <div class="footer-tagline">
         Maryland Black Alumni Weekend 2026<br>
         Presented by UMBA — UMD Black Terps Alumni Network
