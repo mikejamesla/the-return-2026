@@ -141,7 +141,7 @@ nav {
 }
 .nav-links a {
   font-size: 14px; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--gold); text-decoration: none;
+  color: var(--dim); text-decoration: none;
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--white); }
@@ -1538,9 +1538,9 @@ footer {
     <span>Citizens & Culture</span><span class="dot">◆</span>
     <span>Silver Spring, MD</span><span class="dot">◆</span>
     <span>9PM – 2AM</span><span class="dot">◆</span>
+    <span>DJ M.O.S.</span><span class="dot">◆</span>
     <span>Big Tigger</span><span class="dot">◆</span>
     <span>Robyn Dixon</span><span class="dot">◆</span>
-    <span>DJ M.O.S.</span><span class="dot">◆</span>
     <span>UMBA</span><span class="dot">◆</span>
     <span>One Night · One Community · All Terps</span><span class="dot">◆</span>
     <!-- repeat for infinite -->
@@ -1550,9 +1550,9 @@ footer {
     <span>Citizens & Culture</span><span class="dot">◆</span>
     <span>Silver Spring, MD</span><span class="dot">◆</span>
     <span>9PM – 2AM</span><span class="dot">◆</span>
+    <span>DJ M.O.S.</span><span class="dot">◆</span>
     <span>Big Tigger</span><span class="dot">◆</span>
     <span>Robyn Dixon</span><span class="dot">◆</span>
-    <span>DJ M.O.S.</span><span class="dot">◆</span>
     <span>UMBA</span><span class="dot">◆</span>
     <span>One Night · One Community · All Terps</span><span class="dot">◆</span>
   </div>
@@ -1562,14 +1562,14 @@ footer {
 <nav>
   <div class="nav-brand">THE <span>RETURN</span></div>
   <ul class="nav-links">
-    <li><a href="#talent">Talent</a></li>
-    <li><a href="#experience">Special Guests</a></li>
-    <li><a href="#committee">Committee</a></li>
+    <li><a href="#mission">Mission</a></li>
     <li><a href="#venue">Venue</a></li>
-    <li><a href="#golf">Golf</a></li>
+    <li><a href="#talent">Talent</a></li>
+    <li><a href="#experience">Guests</a></li>
     <li><a href="#tables">Tables</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
   </ul>
-  <a class="nav-cta" href="#tickets">Buy Tickets</a>
+  <a class="nav-cta" href="#tickets">Get Tickets</a>
 </nav>
 
 <!-- ===================== HERO ===================== -->
@@ -1629,7 +1629,7 @@ footer {
   <div class="mission-inner">
     <div class="reveal">
       <div class="mission-quote">
-        "For Years, we dreamed about the future at the University of Maryland. Today we are the future."
+        "For years, we walked the halls of College Park dreaming about the future. Today, we are the future."
       </div>
     </div>
     <div class="reveal reveal-delay-2">
@@ -1642,7 +1642,6 @@ footer {
       <div class="mission-hashtags">
         <div class="hashtag">#UMDBAW2026</div>
         <div class="hashtag">#TheReturn</div>
-        <div class="hashtag">#BlackTerp</div>
       </div>
     </div>
   </div>
@@ -1761,7 +1760,33 @@ footer {
       <h2 class="section-title">The Names<br>Behind the Night</h2>
     </div>
 
-
+    <!-- Event Committee -->
+    <div class="committee-row reveal" style="margin-top:40px; margin-bottom:60px;">
+      <div class="committee-row-label">Event Committee</div>
+      <div class="committee-row-names">
+        <span class="cr-name">JAMES BROWN <em>'82</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">WAYNE BRUCE <em>'89</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">TIMI JORDAN <em>'91</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">FLAVIUS GAILBER <em>'91</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">CARMEN JONES <em>'93</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">LAURIN BROWN <em>'95</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">DERRIN WOODHOUSE <em>'95</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">JASON WILES <em>'00</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">MASUD SEMPLE <em>'01</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">DARIEN STRACHAN JR. <em>'18</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">JULIAN HALL <em>'19</em></span>
+      </div>
+    </div>
 
     <div class="talent-grid">
       <!-- Big Tigger -->
@@ -1804,65 +1829,7 @@ footer {
       </div>
     </div>
 
-    
-    <!-- Event Committee -->
-    <div id="committee" class="committee-row reveal" style="margin-top:40px; margin-bottom:60px;">
-      <div class="committee-row-label">Event Committee</div>
-      <div class="committee-row-names">
-        <span class="cr-name">JAMES BROWN <em>'82</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">WAYNE BRUCE <em>'89</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">TIMI JORDAN <em>'91</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">FLAVIUS GAILBER <em>'91</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">CARMEN JONES <em>'93</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">LAURIN BROWN <em>'95</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">DERRIN WOODHOUSE <em>'95</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">JASON WILES <em>'00</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">MASUD SEMPLE <em>'01</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">DARIEN STRACHAN JR. <em>'18</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">JULIAN HALL <em>'19</em></span>
-      </div>
-    
-
-
-    <!-- Event Committee -->
-    <div id="committee" class="committee-row reveal" style="margin-top:40px; margin-bottom:60px;">
-      <div class="committee-row-label">Event Committee</div>
-      <div class="committee-row-names">
-        <span class="cr-name">JAMES BROWN <em>'82</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">WAYNE BRUCE <em>'89</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">TIMI JORDAN <em>'91</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">FLAVIUS GAILBER <em>'91</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">CARMEN JONES <em>'93</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">LAURIN BROWN <em>'95</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">DERRIN WOODHOUSE <em>'95</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">JASON WILES <em>'00</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">MASUD SEMPLE <em>'01</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">DARIEN STRACHAN JR. <em>'18</em></span>
-        <span class="cr-sep">·</span>
-        <span class="cr-name">JULIAN HALL <em>'19</em></span>
-      </div>
-    </div>
-
-        <!-- Performers section removed - talent consolidated above -->
+    <!-- Performers section removed - talent consolidated above -->
     </div>
     </div>
 
@@ -1966,17 +1933,6 @@ footer {
   </div>
 </section>
 
-<!-- ===================== GOLF ===================== -->
-<section id="golf">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <div class="reveal">
-      <div class="section-eyebrow">Alumni Golf</div>
-      <h2 class="section-title">Hit the<br>Links</h2>
-      <p class="section-body">Details coming soon — check back for golf outing information from Derrin and Wayne.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== TABLE RESERVATIONS ===================== -->
 <section id="tables">
   <div class="tables-inner">
@@ -2057,6 +2013,65 @@ footer {
   </div>
 </section>
 
+<!-- ===================== SPONSORS ===================== -->
+<section id="sponsors">
+  <div class="sponsors-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Partnership Opportunities</div>
+      <h2 class="section-title">Your Brand<br>Belongs Here</h2>
+      <p class="section-body">This event is about who is in the room — not how loud a logo is. Your brand gains access to talent, alignment with Black excellence, and connection to a powerful network.</p>
+    </div>
+
+    <div class="sponsor-tiers">
+      <div class="sponsor-tier reveal">
+        <div class="tier-label">2 Available</div>
+        <div class="tier-name">Title Sponsor</div>
+        <div class="tier-price">$10,000</div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Event naming rights across all materials, digital marketing & video recap</li>
+          <li>Curated on-site brand integration (step-and-repeat, photo moment, or experiential touchpoint)</li>
+          <li>One specialty cocktail, bar POS & back bar display</li>
+          <li>VIP booth on 2nd Floor Mezzanine</li>
+          <li>Six (6) complimentary tickets + one (1) table</li>
+          <li>One (1) swag item for distribution</li>
+          <li>Logo on official event website</li>
+        </ul>
+        <a class="tier-cta" href="mailto:info@mdbaw2026.com">Become Title Sponsor</a>
+      </div>
+      <div class="sponsor-tier reveal reveal-delay-1">
+        <div class="tier-label">Platinum Sponsor</div>
+        <div class="tier-name">Platinum</div>
+        <div class="tier-price">$7,500</div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Secondary logo on event invitations & promotional materials</li>
+          <li>One dedicated social media spotlight post</li>
+          <li>Recognition from stage during event</li>
+          <li>Logo in post-event recap video credits</li>
+          <li>Four (4) complimentary tickets</li>
+          <li>Logo on official event website</li>
+        </ul>
+        <a class="tier-cta" href="mailto:info@mdbaw2026.com">Become Platinum Sponsor</a>
+      </div>
+      <div class="sponsor-tier reveal reveal-delay-2">
+        <div class="tier-label">Gold Sponsor</div>
+        <div class="tier-name">Gold</div>
+        <div class="tier-price">$5,000</div>
+        <div class="tier-divider"></div>
+        <ul class="tier-perks">
+          <li>Logo inclusion on invitation footer & digital promotions</li>
+          <li>Branded signage within high-traffic moment (bar, Gobo lights, etc.)</li>
+          <li>Included in group social media thank-you post</li>
+          <li>Two (2) complimentary tickets</li>
+        </ul>
+        <a class="tier-cta" href="mailto:info@mdbaw2026.com">Become Gold Sponsor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 
 <!-- ===================== TICKETS CTA ===================== -->
@@ -2067,7 +2082,7 @@ footer {
     <p class="tickets-sub">
       Be in the room. Join fellow Terps for a night of music, connection, and celebration. Dress sharp. Bring your people. Come ready to reconnect.
     </p>
-    <a class="tickets-btn" href="https://www.eventbrite.com" target="_blank">Buy Tickets</a>
+    <a class="tickets-btn" href="https://www.eventbrite.com" target="_blank">Get Your Tickets</a>
     <div class="tickets-date-badge">Friday, April 10, 2026 · 9:00 PM · Citizens & Culture · 8113 Georgia Ave, Silver Spring, MD 20910</div>
   </div>
 </section>
@@ -2086,13 +2101,13 @@ footer {
     </div>
     <div>
       <ul class="footer-links">
-        <li><a href="#talent">Talent</a></li>
-        <li><a href="#experience">Special Guests</a></li>
-        <li><a href="#committee">Committee</a></li>
+        <li><a href="#mission">Mission</a></li>
         <li><a href="#venue">Venue</a></li>
-        <li><a href="#golf">Golf</a></li>
+        <li><a href="#talent">Talent</a></li>
+        <li><a href="#experience">Guests</a></li>
         <li><a href="#tables">Tables</a></li>
-        <li><a href="#tickets">Buy Tickets</a></li>
+        <li><a href="#sponsors">Sponsors</a></li>
+        <li><a href="#tickets">Get Tickets</a></li>
       </ul>
     </div>
     <div>
