@@ -1525,6 +1525,77 @@ footer {
   .top-ticker { overflow: hidden !important; }
 }
 
+
+/* ============================================================
+   MOBILE FIXES — NEW ELEMENTS (2/28)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Venue grid: 1 column on mobile */
+  .venue-grid { grid-template-columns: 1fr !important; }
+  
+  /* Pricing tiles stack vertically */
+  #tickets div[style*="display:flex"][style*="gap:24px"] {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  #tickets div[style*="min-width:260px"] {
+    max-width: 100% !important;
+    min-width: auto !important;
+    width: 100% !important;
+  }
+  
+  /* Registration notice box */
+  #tickets div[style*="max-width:600px"] {
+    max-width: 100% !important;
+    padding: 16px 20px !important;
+  }
+  
+  /* Parking & venue link row stack */
+  #venue div[style*="display:flex"][style*="gap:24px"][style*="flex-wrap"] {
+    flex-direction: column !important;
+  }
+  
+  /* Nav links — hamburger not implemented, just hide overflow gracefully */
+  .nav-links { gap: 20px !important; overflow-x: auto; }
+  .nav-links a { font-size: 11px !important; letter-spacing: 0.2em !important; white-space: nowrap; }
+  
+  /* Committee row inside talent */
+  .committee-row-label { font-size: 16px !important; }
+  .cr-name { font-size: 18px !important; }
+  
+  /* Golf section */
+  #golf { padding: 60px 20px !important; }
+  
+  /* Table reservations button */
+  #tables .hero-cta { min-width: auto !important; width: 100% !important; max-width: 320px; }
+  
+  /* Ticket section pricing */
+  .tickets-btn { padding: 18px 40px !important; font-size: 14px !important; }
+  
+  /* UMDBA link */
+  #tickets a[href*="alumni.umd.edu"] { font-size: 15px !important; }
+  
+  /* Date badge */
+  .tickets-date-badge { font-size: 13px !important; line-height: 1.8 !important; }
+  
+  /* Footer links */
+  .footer-links { align-items: center !important; }
+  .footer-links a { font-size: 13px !important; }
+}
+
+@media (max-width: 420px) {
+  /* Talent cards tighter */
+  .talent-card { padding: 32px 16px !important; }
+  .tc-bio { font-size: 13px !important; }
+  
+  /* Table cards */
+  .tc-price { font-size: 40px !important; }
+  
+  /* Guest grid single column */
+  .sig-guest-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .sig-guest { padding: 16px 10px !important; }
+  .sig-guest-name { font-size: 16px !important; }
+}
 </style>
 </head>
 <body>
