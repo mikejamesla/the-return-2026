@@ -1596,6 +1596,29 @@ footer {
   .sig-guest { padding: 16px 10px !important; }
   .sig-guest-name { font-size: 16px !important; }
 }
+
+.venue-grid-2x2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 768px) { .venue-grid-2x2 { grid-template-columns: 1fr !important; } }
+
+@media (max-width: 768px) { .venue-info-row { flex-direction: column !important; } }
+
+/* Hamburger menu */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex !important; }
+  .nav-links {
+    display: none !important;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: rgba(4,3,10,0.97); backdrop-filter: blur(16px);
+    flex-direction: column; padding: 20px 24px; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.nav-open { display: flex !important; }
+  .nav-links a { font-size: 14px !important; letter-spacing: 0.3em !important; color: var(--gold) !important; }
+  .nav-links a:hover { color: var(--white) !important; }
+}
 </style>
 </head>
 <body>
@@ -1642,6 +1665,10 @@ footer {
     <li><a href="#tables">Tables</a></li>
   </ul>
   <a class="nav-cta" href="#tickets">Buy Tickets</a>
+
+  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('nav-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ===================== HERO ===================== -->
@@ -1774,7 +1801,7 @@ footer {
       
     </div>
 
-    <div class="venue-grid reveal" style="grid-template-columns: 1fr 1fr;">
+    <div class="venue-grid venue-grid-2x2 reveal">
       <div class="venue-img-cell">
         <img src="images/venue-lounge.jpg" alt="Citizens & Culture">
         <div class="venue-img-overlay"></div>
@@ -1794,7 +1821,7 @@ footer {
     </div>
 
     <!-- Parking & Venue Link -->
-    <div style="margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+    <div class="venue-info-row" style="margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
       <div style="flex:1;min-width:280px;padding:20px 28px;border:1px solid var(--border);background:var(--panel);">
         <p style="font-size:14px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;">Parking & Transportation</p>
         <p style="font-size:15px;line-height:1.8;color:var(--gray);">Convenient garage parking is available just around the corner from the venue. For a seamless and stress-free evening, we encourage guests to utilize rideshare services.</p>
