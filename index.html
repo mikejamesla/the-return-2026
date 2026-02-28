@@ -1619,6 +1619,16 @@ footer {
   .nav-links a { font-size: 14px !important; letter-spacing: 0.3em !important; color: var(--gold) !important; }
   .nav-links a:hover { color: var(--white) !important; }
 }
+
+@media (max-width: 768px) {
+  .marquee-strip { height: 28px; }
+  .marquee-inner span { font-size: 12px !important; letter-spacing: 0.2em !important; padding: 0 20px !important; }
+  .marquee-inner .dot { padding: 0 6px !important; }
+  /* Push nav down for marquee */
+  nav { top: 28px !important; }
+  /* Push hero down for nav+marquee */
+  #hero { padding-top: 92px !important; }
+}
 </style>
 </head>
 <body>
