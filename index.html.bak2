@@ -2064,16 +2064,12 @@ footer {
   <div style="max-width: 1200px; margin: 0 auto;">
     <div class="reveal">
       <div class="section-eyebrow">Alumni Golf</div>
-      <h2 class="section-title">Black Alumni<br>Fairway Classic</h2>
+      <h2 class="section-title">UMD Black Alumni<br>Fairway Classic</h2>
 
       <!-- Golf course photo -->
       <div style="margin: 30px auto; max-width: 800px; border-radius: 12px; overflow: hidden;">
-        <img src="umd-golf-course.jpg" alt="Oak Creek Golf Club, Upper Marlboro MD" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+        <img src="umd-golf-course.jpg" alt="University of Maryland Golf Course" style="width: 100%; height: 300px; object-fit: cover; display: block;">
       </div>
-
-            <!-- Tagline -->
-      <p style="color: #FFD600; font-size: 18px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin: 20px auto 10px;">A Day of Fellowship, Competition, and Terp Excellence</p>
-      <p style="color: #ccc; font-size: 15px; text-align: center; max-width: 700px; margin: 0 auto 30px; line-height: 1.7;">A Celebration of Black Alumni, Culture, and Terp Pride. This dynamic gathering honors legacy, celebrates excellence, and uplifts the next generation of Black leadership through fellowship, competition, and community connection.</p>
 
       <!-- Event details -->
       <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin: 40px auto; max-width: 900px;">
@@ -2083,11 +2079,11 @@ footer {
           <h3 style="color: #FFD600; font-family: 'Oswald', sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Event Details</h3>
           <div style="color: #ccc; font-size: 16px; line-height: 2;">
             <div>&#x1F4C5; <strong style="color: #fff;">Friday, April 10, 2026</strong></div>
-            <div>&#x26F3; <strong style="color: #fff;">Oak Creek Golf Club</strong></div>
-            <div>&#x1F4CD; <strong style="color: #fff;">600 Boweville Manor Rd, Upper Marlboro, MD</strong></div>
-            <div>&#x23F0; <strong style="color: #fff;">9:00 AM</strong></div>
+            <div>&#x26F3; <strong style="color: #fff;">University of Maryland Golf Course</strong></div>
+            <div>&#x1F4CD; <strong style="color: #fff;">3800 Golf Course Road, College Park, MD</strong></div>
+            <div>&#x23F0; <strong style="color: #fff;">Check-In Time: TBD</strong></div>
           </div>
-          <p style="color: #999; font-size: 13px; margin-top: 15px; line-height: 1.6;"></p>
+          <p style="color: #999; font-size: 13px; margin-top: 15px; line-height: 1.6;">18-hole championship course &middot; Par 71 &middot; Designed by George Cobb (1955)</p>
         </div>
 
         <!-- Pricing card -->
