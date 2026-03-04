@@ -1458,7 +1458,22 @@ footer {
   }
   .flyer-details .fd-tagline { text-align: center !important; }
   .flyer-details .fd-meta { align-items: center !important; }
-  .flyer-details .fd-meta-row { justify-content: center !important; }
+  .flyer-details .fd-meta-row { 
+    flex-direction: column !important; 
+    align-items: center !important; 
+    gap: 2px !important; 
+    text-align: center !important;
+    margin-bottom: 8px !important;
+  }
+  .flyer-details .fd-meta-label { 
+    min-width: unset !important; 
+    font-size: 12px !important; 
+    text-align: center !important; 
+  }
+  .flyer-details .fd-meta-value { 
+    font-size: 20px !important; 
+    text-align: center !important; 
+  }
   
   /* Center venue text */
   .venue-header { text-align: center !important; }
