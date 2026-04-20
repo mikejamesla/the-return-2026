@@ -1707,10 +1707,107 @@ footer {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 6px;
+  display: none;
 }
+
+/* Inline Slideshow Viewer */
+.slideshow-viewer {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 70vh;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slideshow-viewer img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+.slideshow-viewer video {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+.slideshow-viewer .sv-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(224,0,27,0.7);
+  border: none;
+  color: white;
+  font-size: 36px;
+  width: 48px;
+  height: 64px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.slideshow-viewer .sv-nav:hover { background: var(--red); }
+.slideshow-viewer .sv-prev { left: 0; border-radius: 0 4px 4px 0; }
+.slideshow-viewer .sv-next { right: 0; border-radius: 4px 0 0 4px; }
+.slideshow-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.sv-control-btn {
+  background: rgba(224,0,27,0.6);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sv-control-btn:hover { background: var(--red); }
+.sv-control-btn.active { background: var(--gold); color: var(--deep); }
+.sv-counter {
+  color: rgba(255,255,255,0.5);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+}
+.sv-progress {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+.sv-progress-bar {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width linear;
+}
+.sv-fullscreen-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sv-fullscreen-btn:hover { background: rgba(255,255,255,0.25); }
 
 .gallery-item {
   position: relative;
@@ -1861,16 +1958,70 @@ footer {
 .lightbox-prev { left: 12px; }
 .lightbox-next { right: 12px; }
 
-.lightbox-counter {
+.lightbox-bottom-bar {
   position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  z-index: 10001;
+}
+
+.slideshow-btn {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.slideshow-btn:hover { background: var(--gold); color: var(--deep); }
+.slideshow-btn.playing { background: var(--gold); color: var(--deep); }
+
+.slideshow-speed {
+  display: flex;
+  gap: 6px;
+}
+.speed-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.speed-btn:hover { background: rgba(255,255,255,0.3); }
+.speed-btn.active { background: var(--red); border-color: var(--red); }
+
+.slideshow-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gold);
+  z-index: 10002;
+  width: 0%;
+  transition: width linear;
+}
+.slideshow-progress.animating {
+  width: 100% !important;
+}
+
+.lightbox-counter {
   color: rgba(255,255,255,0.6);
   font-family: 'DM Mono', monospace;
   font-size: 14px;
   letter-spacing: 0.2em;
-  z-index: 10001;
 }
 
 /* Gallery responsive */
@@ -2069,9 +2220,8 @@ footer {
       <button class="gallery-filter active" data-filter="all">ALL <span class="filter-count">387</span></button>
       <button class="gallery-filter" data-filter="pro">PARTY PHOTOS <span class="filter-count">327</span></button>
       <button class="gallery-filter" data-filter="event">PHOTO BOOTH <span class="filter-count">50</span></button>
-      <button class="gallery-filter" data-filter="clips">CLIPS <span class="filter-count">10</span></button>
       <button class="gallery-filter" data-filter="guest">GUEST PHOTOS <span class="filter-count">0</span></button>
-      <button class="gallery-filter" data-filter="videos">VIDEOS <span class="filter-count">0</span></button>
+
     </div>
 
     <!-- Upload Section -->
@@ -2083,15 +2233,29 @@ footer {
           <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" onchange="handlePhotoUpload(event)">
           <div style="background:var(--red);color:white;padding:12px 24px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.3s;">Upload Photos</div>
         </label>
-        <label style="cursor:pointer;">
-          <input type="file" id="videoInput" accept="video/*" multiple style="display:none;" onchange="handleVideoUpload(event)">
-          <div style="background:rgba(224,0,27,0.5);color:white;padding:12px 24px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;border:1px solid var(--red-border);transition:all 0.3s;" onmouseover="this.style.background='rgba(224,0,27,0.7)'" onmouseout="this.style.background='rgba(224,0,27,0.5)'">Upload Videos</div>
-        </label>
+
       </div>
       <div id="uploadStatus" style="margin-top:16px;font-size:13px;color:var(--gold);"></div>
     </div>
 
-    <!-- Gallery grid -->
+    <!-- Slideshow Viewer -->
+    <div class="slideshow-viewer" id="slideshowViewer">
+      <button class="sv-nav sv-prev" onclick="svNav(-1)">&#8249;</button>
+      <button class="sv-nav sv-next" onclick="svNav(1)">&#8250;</button>
+      <img id="svImage" src="" alt="Slideshow">
+      <video id="svVideo" style="display:none" controls muted playsinline></video>
+    </div>
+    <div class="sv-progress"><div class="sv-progress-bar" id="svProgressBar"></div></div>
+    <div class="slideshow-controls">
+      <button class="sv-control-btn" id="svPlayBtn" onclick="svTogglePlay()">&#9654; PLAY</button>
+      <button class="sv-control-btn" onclick="setSvSpeed(2)">2s</button>
+      <button class="sv-control-btn active" onclick="setSvSpeed(4)" id="svSpeed4">4s</button>
+      <button class="sv-control-btn" onclick="setSvSpeed(7)">7s</button>
+      <span class="sv-counter" id="svCounter">1 / 387</span>
+      <button class="sv-fullscreen-btn" onclick="svFullscreen()" title="Fullscreen">⛶</button>
+    </div>
+
+    <!-- Gallery grid (hidden data source) -->
     <div class="gallery-grid" id="galleryGrid">
       <div class="gallery-item" data-cat="pro" data-idx="0">
         <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pAYz638RAEY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pAYz638RAEY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pAYz638RAEY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pAYz638RAEY.jpg" alt="The Return 2026 - Photo 1" onclick="openGalleryLightbox(this)">
@@ -3224,62 +3388,39 @@ footer {
       <div class="gallery-item" data-cat="event" data-idx="376">
         <img loading="lazy" src="https://drive.google.com/thumbnail?id=1zPwgK9HaJSl5tQ5mJHAdD10E_8bPKca4&sz=w400" data-full="https://drive.google.com/thumbnail?id=1zPwgK9HaJSl5tQ5mJHAdD10E_8bPKca4&sz=w1200" alt="The Return 2026 - Event Photo 50" onclick="openGalleryLightbox(this)">
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="377">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-1.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="378">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-2.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="379">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-3.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="380">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-4.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="381">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-5.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="382">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-6.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="383">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-7.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="384">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-8.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="385">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-9.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
-      <div class="gallery-item gallery-video" data-cat="clips" data-idx="386">
-        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-10.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
-        <div class="video-play-icon">▶</div>
       </div>
     </div>
 
     <!-- Load more button -->
-    <div style="text-align:center;margin-top:40px;">
-      <button class="gallery-load-more" id="loadMoreBtn" onclick="loadMore()">LOAD MORE</button>
-    </div>
+    
   </div>
 </section>
 
-<!-- Lightbox overlay -->
+<!-- Lightbox / Slideshow overlay -->
 <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeGalleryLightbox(event)">
   <button class="lightbox-close" onclick="closeGalleryLightbox(event)">&times;</button>
   <button class="lightbox-nav lightbox-prev" onclick="navGalleryLightbox(-1,event)">&#8249;</button>
   <button class="lightbox-nav lightbox-next" onclick="navGalleryLightbox(1,event)">&#8250;</button>
   <img id="lightboxImg" src="" alt="">
-  <div class="lightbox-counter" id="lightboxCounter"></div>
+  <div class="lightbox-bottom-bar">
+    <button class="slideshow-btn" id="slideshowPlayBtn" onclick="toggleSlideshow(event)">&#9654; SLIDESHOW</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+    <div class="slideshow-speed" id="slideshowSpeed">
+      <button onclick="setSlideshowSpeed(2,event)" class="speed-btn" data-speed="2">2s</button>
+      <button onclick="setSlideshowSpeed(4,event)" class="speed-btn active" data-speed="4">4s</button>
+      <button onclick="setSlideshowSpeed(7,event)" class="speed-btn" data-speed="7">7s</button>
+    </div>
+  </div>
+  <div class="slideshow-progress" id="slideshowProgress"></div>
 </div>
 
 
@@ -3861,8 +4002,138 @@ function loadMore() {
   showItems();
 }
 
+// ===== INLINE SLIDESHOW VIEWER =====
+let svItems = [];
+let svIdx = 0;
+let svInterval = null;
+let svSpeed = 4000;
+let svPlaying = false;
+
+function svInit() {
+  svBuildItems();
+  if (svItems.length > 0) svShowItem(0);
+}
+
+function svBuildItems(filter) {
+  filter = filter || 'all';
+  svItems = [];
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    const cat = item.getAttribute('data-cat');
+    if (filter !== 'all' && cat !== filter) return;
+    const img = item.querySelector('img');
+    const video = item.querySelector('video');
+    if (img) {
+      svItems.push({ type: 'image', src: img.getAttribute('data-full') || img.src, thumb: img.src, cat: cat });
+    } else if (video) {
+      svItems.push({ type: 'video', src: video.src, cat: cat });
+    }
+  });
+}
+
+function svShowItem(idx) {
+  if (!svItems.length) return;
+  svIdx = ((idx % svItems.length) + svItems.length) % svItems.length;
+  const item = svItems[svIdx];
+  const imgEl = document.getElementById('svImage');
+  const vidEl = document.getElementById('svVideo');
+  if (item.type === 'image') {
+    imgEl.src = item.src;
+    imgEl.style.display = '';
+    vidEl.style.display = 'none';
+    vidEl.pause();
+  } else {
+    vidEl.src = item.src;
+    vidEl.style.display = '';
+    imgEl.style.display = 'none';
+    vidEl.play();
+  }
+  document.getElementById('svCounter').textContent = (svIdx + 1) + ' / ' + svItems.length;
+}
+
+function svNav(dir) {
+  svShowItem(svIdx + dir);
+  if (svPlaying) svResetProgress();
+}
+
+function svTogglePlay() {
+  if (svPlaying) svStop(); else svStart();
+}
+
+function svStart() {
+  svPlaying = true;
+  const btn = document.getElementById('svPlayBtn');
+  btn.innerHTML = '&#9646;&#9646; PAUSE';
+  btn.classList.add('active');
+  svResetProgress();
+  svInterval = setInterval(function() {
+    svShowItem(svIdx + 1);
+    svResetProgress();
+  }, svSpeed);
+}
+
+function svStop() {
+  svPlaying = false;
+  const btn = document.getElementById('svPlayBtn');
+  btn.innerHTML = '&#9654; PLAY';
+  btn.classList.remove('active');
+  clearInterval(svInterval);
+  svInterval = null;
+  const bar = document.getElementById('svProgressBar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+}
+
+function svResetProgress() {
+  const bar = document.getElementById('svProgressBar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  void bar.offsetWidth;
+  bar.style.transition = 'width ' + (svSpeed / 1000) + 's linear';
+  bar.style.width = '100%';
+}
+
+function setSvSpeed(seconds) {
+  svSpeed = seconds * 1000;
+  document.querySelectorAll('.sv-control-btn').forEach(b => {
+    if (b.id === 'svPlayBtn') return;
+    b.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  if (svPlaying) {
+    clearInterval(svInterval);
+    svResetProgress();
+    svInterval = setInterval(function() {
+      svShowItem(svIdx + 1);
+      svResetProgress();
+    }, svSpeed);
+  }
+}
+
+function svFullscreen() {
+  const viewer = document.getElementById('slideshowViewer');
+  if (viewer.requestFullscreen) viewer.requestFullscreen();
+  else if (viewer.webkitRequestFullscreen) viewer.webkitRequestFullscreen();
+}
+
+// Filter integration: rebuild slideshow items when filter changes
+function svApplyFilter(filter) {
+  svBuildItems(filter);
+  svShowItem(0);
+  if (svPlaying) {
+    clearInterval(svInterval);
+    svResetProgress();
+    svInterval = setInterval(function() {
+      svShowItem(svIdx + 1);
+      svResetProgress();
+    }, svSpeed);
+  }
+}
+
+// Init slideshow on load
+svInit();
+
 function openGalleryLightbox(img) {
-  lightboxItems = Array.from(document.querySelectorAll('.gallery-item.visible:not(.gallery-video) img'));
+  lightboxItems = Array.from(document.querySelectorAll('.gallery-item img'));
   lightboxIdx = lightboxItems.indexOf(img);
   if (lightboxIdx === -1) return;
   const overlay = document.getElementById('lightboxOverlay');
@@ -3875,6 +4146,7 @@ function openGalleryLightbox(img) {
 
 function closeGalleryLightbox(e) {
   if (e) e.stopPropagation();
+  stopSlideshow();
   document.getElementById('lightboxOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -3894,16 +4166,24 @@ function updateGalleryCounter() {
 // Keyboard nav for gallery lightbox
 document.addEventListener('keydown', function(e) {
   const overlay = document.getElementById('lightboxOverlay');
-  if (!overlay.classList.contains('open')) return;
-  if (e.key === 'Escape') closeGalleryLightbox(e);
-  if (e.key === 'ArrowRight') navGalleryLightbox(1, e);
-  if (e.key === 'ArrowLeft') navGalleryLightbox(-1, e);
+  if (overlay.classList.contains('open')) {
+    if (e.key === 'Escape') closeGalleryLightbox(e);
+    if (e.key === 'ArrowRight') navGalleryLightbox(1, e);
+    if (e.key === 'ArrowLeft') navGalleryLightbox(-1, e);
+    return;
+  }
+  // Inline slideshow keyboard nav
+  if (e.key === 'ArrowRight') svNav(1);
+  if (e.key === 'ArrowLeft') svNav(-1);
+  if (e.key === ' ') { e.preventDefault(); svTogglePlay(); }
 });
 
 // Filter click handlers
 document.querySelectorAll('.gallery-filter').forEach(btn => {
   btn.addEventListener('click', function() {
-    applyFilter(this.getAttribute('data-filter'));
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    svApplyFilter(this.getAttribute('data-filter'));
   });
 });
 
@@ -3938,12 +4218,12 @@ async function handleVideoUpload(event) {
   const files = Array.from(event.target.files);
   if (!files.length) return;
   const status = document.getElementById('uploadStatus');
-  status.textContent = `Uploading ${files.length} video(s)...`;
   let success = 0;
   for (const file of files) {
-    if (file.size > 50 * 1024 * 1024) { status.textContent = `${file.name} is too large (max 50MB)`; continue; }
+    if (file.size > 100 * 1024 * 1024) { status.textContent = `${file.name} is too large (max 100MB)`; continue; }
+    status.textContent = `Uploading ${file.name} (${(file.size/1024/1024).toFixed(1)}MB)...`;
     try {
-      const res = await fetch('/api/upload', {
+      const res = await fetch('/api/upload-url', {
         method: 'POST',
         headers: { 'Content-Type': file.type, 'X-Filename': file.name, 'X-Category': 'videos' },
         body: file,
@@ -3952,30 +4232,36 @@ async function handleVideoUpload(event) {
         const data = await res.json();
         addGuestItem(data.url, 'videos', 'video');
         success++;
+      } else {
+        const err = await res.json().catch(() => ({}));
+        console.error('Upload error:', err);
+        status.textContent = `Upload failed: ${err.error || 'unknown error'}`;
       }
-    } catch (e) { console.error('Upload failed:', e); }
+    } catch (e) { console.error('Upload failed:', e); status.textContent = 'Upload failed. Check connection.'; }
   }
-  status.textContent = success ? `✓ ${success} video(s) uploaded!` : 'Upload failed. Try again.';
+  if (success) status.textContent = `✓ ${success} video(s) uploaded!`;
   updateFilterCounts();
+  svBuildItems();
   event.target.value = '';
-  setTimeout(() => { status.textContent = ''; }, 4000);
+  setTimeout(() => { status.textContent = ''; }, 5000);
 }
 
 function addGuestItem(url, category, type) {
   const grid = document.getElementById('galleryGrid');
   const idx = grid.children.length;
   const div = document.createElement('div');
-  div.className = 'gallery-item visible' + (type === 'video' ? ' gallery-video' : '');
+  div.className = 'gallery-item';
   div.setAttribute('data-cat', category);
   div.setAttribute('data-idx', idx);
   if (type === 'video') {
-    div.innerHTML = `<video src="${url}" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video><div class="video-play-icon">▶</div>`;
-    div.addEventListener('mouseenter', () => { div.querySelector('video').play(); div.querySelector('.video-play-icon').style.opacity = '0'; });
-    div.addEventListener('mouseleave', () => { div.querySelector('video').pause(); div.querySelector('.video-play-icon').style.opacity = '1'; });
+    div.innerHTML = `<video src="${url}" muted loop playsinline preload="metadata"></video>`;
   } else {
-    div.innerHTML = `<img src="${url}" data-full="${url}" alt="Guest Photo" onclick="openGalleryLightbox(this)">`;
+    div.innerHTML = `<img src="${url}" data-full="${url}" alt="Guest Upload">`;
   }
   grid.prepend(div);
+  // Rebuild slideshow to include the new item
+  svBuildItems();
+  updateFilterCounts();
 }
 
 function updateFilterCounts() {
@@ -3995,18 +4281,13 @@ function updateFilterCounts() {
 // Load existing guest uploads from Vercel Blob
 async function loadGuestUploads() {
   try {
-    const [guestRes, videosRes] = await Promise.all([
-      fetch('/api/list?category=guest'),
-      fetch('/api/list?category=videos'),
-    ]);
-    if (guestRes.ok) {
-      const { items } = await guestRes.json();
+    const res = await fetch('/api/list?category=guest');
+    if (res.ok) {
+      const { items } = await res.json();
       items.forEach(item => addGuestItem(item.url, 'guest', 'photo'));
     }
-    if (videosRes.ok) {
-      const { items } = await videosRes.json();
-      items.forEach(item => addGuestItem(item.url, 'videos', 'video'));
-    }
+    svBuildItems();
+    svShowItem(0);
     updateFilterCounts();
   } catch (e) { console.log('No guest uploads yet'); }
 }
