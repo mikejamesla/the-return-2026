@@ -1656,6 +1656,237 @@ footer {
 @media (max-width: 420px) {
   .tickets-date-badge { font-size: 11px !important; letter-spacing: 0.1em !important; }
 }
+
+/* ============================================================
+   PHOTO GALLERY
+   ============================================================ */
+#gallery {
+  padding: 120px 60px;
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.gallery-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.gallery-filter {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,0.5);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.gallery-filter:hover {
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
+
+.gallery-filter.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+  box-shadow: 0 0 20px rgba(224,0,27,0.3);
+}
+
+.filter-count {
+  opacity: 0.6;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  display: none;
+  background: rgba(255,255,255,0.03);
+}
+
+.gallery-item.visible {
+  display: block;
+}
+
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  display: block;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+  transform: scale(1.08);
+  filter: brightness(1.15);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-video .video-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: white;
+  background: rgba(224,0,27,0.8);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 2;
+}
+
+.gallery-video:hover .video-play-icon {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: rgba(224,0,27,1);
+}
+
+.gallery-load-more {
+  background: transparent;
+  border: 1px solid var(--red-border);
+  color: var(--red);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 0.35em;
+  padding: 16px 48px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.gallery-load-more:hover {
+  background: var(--red);
+  color: white;
+  box-shadow: 0 0 40px rgba(224,0,27,0.4);
+}
+
+/* Lightbox */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox-overlay.open {
+  display: flex;
+}
+
+.lightbox-overlay img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: default;
+  box-shadow: 0 0 80px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 48px;
+  cursor: pointer;
+  z-index: 10001;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(224,0,27,0.6);
+  border: none;
+  color: white;
+  font-size: 48px;
+  width: 56px;
+  height: 72px;
+  cursor: pointer;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover { background: var(--red); }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+
+.lightbox-counter {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.6);
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  z-index: 10001;
+}
+
+/* Gallery responsive */
+@media (max-width: 768px) {
+  #gallery { padding: 60px 20px !important; }
+  .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 4px; }
+  .gallery-filters { gap: 6px; }
+  .gallery-filter { padding: 8px 16px; font-size: 11px; }
+  .lightbox-nav { width: 40px; height: 56px; font-size: 36px; }
+  .lightbox-close { font-size: 36px; top: 12px; right: 16px; }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 3px; }
+}
+
 </style>
 </head>
 <body>
@@ -1700,6 +1931,7 @@ footer {
     <li><a href="#experience">Special Guests</a></li>
     <li><a href="#tables">Tables</a></li>
     <li><a href="#golf">Golf</a></li>
+    <li><a href="#gallery" style="color:var(--gold);">Gallery ✦</a></li>
   </ul>
   <a class="nav-cta" href="http://umdthereturn.simpletix.com" target="_blank">Buy Tickets</a>
 
@@ -1732,6 +1964,7 @@ footer {
       <a class="hero-cta-outline" href="mailto:info@umdthereturn.com">Reserve a Table →</a>
     </div>
     <div style="margin-top:18px;font-family:'Barlow',sans-serif;font-size:15px;letter-spacing:0.15em;color:rgba(240,237,234,0.7);text-align:center;">For more information please call <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);padding-bottom:1px;">(301) 709-9821</a></div>
+    <div style="margin-top:14px;font-family:'Barlow',sans-serif;font-size:14px;letter-spacing:0.12em;color:rgba(240,237,234,0.6);text-align:center;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;">Tables — A Limited Quantity of Tables are Available For Purchase — Please Inquire Onsite <span style="display:block;margin-top:4px;color:var(--gold);font-weight:600;">(A Ticket is Required For Party Entry!)</span></div>
 
   </div>
 
@@ -1823,6 +2056,1232 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ============ PHOTO GALLERY SECTION ============ -->
+<section id="gallery" style="scroll-margin-top:96px;">
+  <div style="max-width:1400px;margin:0 auto;">
+    <div class="section-eyebrow">The Recap</div>
+    <h2 class="section-title">Relive<br>The Night</h2>
+    <p class="section-body" style="margin-bottom:40px;">The Return was everything and more. 327 professional photos by <a href="https://www.soulbphotos.com" target="_blank" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-dim);">Soul Brother</a>, plus exclusive event moments and video clips.</p>
+
+    <!-- Filter tabs -->
+    <div class="gallery-filters">
+      <button class="gallery-filter active" data-filter="all">ALL <span class="filter-count">387</span></button>
+      <button class="gallery-filter" data-filter="pro">PARTY PHOTOS <span class="filter-count">327</span></button>
+      <button class="gallery-filter" data-filter="event">PHOTO BOOTH <span class="filter-count">50</span></button>
+      <button class="gallery-filter" data-filter="clips">CLIPS <span class="filter-count">10</span></button>
+      <button class="gallery-filter" data-filter="guest">GUEST PHOTOS <span class="filter-count">0</span></button>
+      <button class="gallery-filter" data-filter="videos">VIDEOS <span class="filter-count">0</span></button>
+    </div>
+
+    <!-- Upload Section -->
+    <div style="background:rgba(224,0,27,0.08);border:1px solid var(--red-border);padding:32px;margin:40px 0;border-radius:8px;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">📸 Share Your Moment</div>
+      <p style="margin:0 0 24px 0;color:rgba(255,255,255,0.7);font-size:15px;">Upload photos and videos from the party. They'll appear instantly in the gallery.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <label style="cursor:pointer;">
+          <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" onchange="handlePhotoUpload(event)">
+          <div style="background:var(--red);color:white;padding:12px 24px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.3s;">Upload Photos</div>
+        </label>
+        <label style="cursor:pointer;">
+          <input type="file" id="videoInput" accept="video/*" multiple style="display:none;" onchange="handleVideoUpload(event)">
+          <div style="background:rgba(224,0,27,0.5);color:white;padding:12px 24px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;border:1px solid var(--red-border);transition:all 0.3s;" onmouseover="this.style.background='rgba(224,0,27,0.7)'" onmouseout="this.style.background='rgba(224,0,27,0.5)'">Upload Videos</div>
+        </label>
+      </div>
+      <div id="uploadStatus" style="margin-top:16px;font-size:13px;color:var(--gold);"></div>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item" data-cat="pro" data-idx="0">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pAYz638RAEY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pAYz638RAEY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pAYz638RAEY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pAYz638RAEY.jpg" alt="The Return 2026 - Photo 1" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="1">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000E1sEMJnXF1I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000E1sEMJnXF1I.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000E1sEMJnXF1I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000E1sEMJnXF1I.jpg" alt="The Return 2026 - Photo 2" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="2">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000y96SytnSkVA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000y96SytnSkVA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000y96SytnSkVA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000y96SytnSkVA.jpg" alt="The Return 2026 - Photo 3" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="3">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000wxTJ1Dis._Q/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000wxTJ1Dis._Q.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000wxTJ1Dis._Q/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000wxTJ1Dis._Q.jpg" alt="The Return 2026 - Photo 4" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="4">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000UPkOv.YBsgs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000UPkOv.YBsgs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000UPkOv.YBsgs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000UPkOv.YBsgs.jpg" alt="The Return 2026 - Photo 5" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="5">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000hHkx_u9YDcQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000hHkx_u9YDcQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000hHkx_u9YDcQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000hHkx_u9YDcQ.jpg" alt="The Return 2026 - Photo 6" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="6">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000..QexfPkIjE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000..QexfPkIjE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000..QexfPkIjE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000..QexfPkIjE.jpg" alt="The Return 2026 - Photo 7" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="7">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008hz2A9xfelk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008hz2A9xfelk.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008hz2A9xfelk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008hz2A9xfelk.jpg" alt="The Return 2026 - Photo 8" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="8">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000GnFYvTp3nrM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000GnFYvTp3nrM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000GnFYvTp3nrM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000GnFYvTp3nrM.jpg" alt="The Return 2026 - Photo 9" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="9">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_reQ7_rNYhc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_reQ7_rNYhc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_reQ7_rNYhc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_reQ7_rNYhc.jpg" alt="The Return 2026 - Photo 10" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="10">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000vyzsYDxN9_I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000vyzsYDxN9_I.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000vyzsYDxN9_I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000vyzsYDxN9_I.jpg" alt="The Return 2026 - Photo 11" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="11">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000vPmpMt.GBH4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000vPmpMt.GBH4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000vPmpMt.GBH4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000vPmpMt.GBH4.jpg" alt="The Return 2026 - Photo 12" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="12">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000dPukQBZWf.Y/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000dPukQBZWf.Y.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000dPukQBZWf.Y/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000dPukQBZWf.Y.jpg" alt="The Return 2026 - Photo 13" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="13">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MFGfY901..M/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MFGfY901..M.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MFGfY901..M/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MFGfY901..M.jpg" alt="The Return 2026 - Photo 14" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="14">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000dIeeyjJ_8mQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000dIeeyjJ_8mQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000dIeeyjJ_8mQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000dIeeyjJ_8mQ.jpg" alt="The Return 2026 - Photo 15" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="15">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qRzPtjZ5nyI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qRzPtjZ5nyI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qRzPtjZ5nyI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qRzPtjZ5nyI.jpg" alt="The Return 2026 - Photo 16" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="16">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000wRSeSA1i6lw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000wRSeSA1i6lw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000wRSeSA1i6lw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000wRSeSA1i6lw.jpg" alt="The Return 2026 - Photo 17" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="17">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001PpbqyCYp80/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001PpbqyCYp80.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001PpbqyCYp80/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001PpbqyCYp80.jpg" alt="The Return 2026 - Photo 18" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="18">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000tz5CrNzaqxM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000tz5CrNzaqxM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000tz5CrNzaqxM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000tz5CrNzaqxM.jpg" alt="The Return 2026 - Photo 19" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="19">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008cv122lSnKY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008cv122lSnKY.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008cv122lSnKY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008cv122lSnKY.jpg" alt="The Return 2026 - Photo 20" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="20">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000EvXk8qIgm2M/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000EvXk8qIgm2M.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000EvXk8qIgm2M/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000EvXk8qIgm2M.jpg" alt="The Return 2026 - Photo 21" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="21">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000PXpdTB.7zQQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000PXpdTB.7zQQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000PXpdTB.7zQQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000PXpdTB.7zQQ.jpg" alt="The Return 2026 - Photo 22" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="22">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000UOG5dneO3NA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000UOG5dneO3NA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000UOG5dneO3NA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000UOG5dneO3NA.jpg" alt="The Return 2026 - Photo 23" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="23">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000dqUjjWKzqpk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000dqUjjWKzqpk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000dqUjjWKzqpk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000dqUjjWKzqpk.jpg" alt="The Return 2026 - Photo 24" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="24">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000T._eaolCky8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000T._eaolCky8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000T._eaolCky8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000T._eaolCky8.jpg" alt="The Return 2026 - Photo 25" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="25">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nJtU4dcZIwY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nJtU4dcZIwY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nJtU4dcZIwY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nJtU4dcZIwY.jpg" alt="The Return 2026 - Photo 26" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="26">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000OaAo3ChGpoQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000OaAo3ChGpoQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000OaAo3ChGpoQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000OaAo3ChGpoQ.jpg" alt="The Return 2026 - Photo 27" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="27">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000peo.E4zaLKs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000peo.E4zaLKs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000peo.E4zaLKs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000peo.E4zaLKs.jpg" alt="The Return 2026 - Photo 28" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="28">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000DhLmu8f5weE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000DhLmu8f5weE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000DhLmu8f5weE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000DhLmu8f5weE.jpg" alt="The Return 2026 - Photo 29" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="29">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000TdBSzkpyIsk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000TdBSzkpyIsk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000TdBSzkpyIsk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000TdBSzkpyIsk.jpg" alt="The Return 2026 - Photo 30" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="30">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000okjNyERo.RY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000okjNyERo.RY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000okjNyERo.RY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000okjNyERo.RY.jpg" alt="The Return 2026 - Photo 31" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="31">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001gbzpc866d4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001gbzpc866d4.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001gbzpc866d4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001gbzpc866d4.jpg" alt="The Return 2026 - Photo 32" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="32">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000rjiTB3dq3xM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000rjiTB3dq3xM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000rjiTB3dq3xM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000rjiTB3dq3xM.jpg" alt="The Return 2026 - Photo 33" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="33">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000x95vMZS37y8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000x95vMZS37y8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000x95vMZS37y8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000x95vMZS37y8.jpg" alt="The Return 2026 - Photo 34" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="34">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nGooxHqXTmA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nGooxHqXTmA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nGooxHqXTmA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nGooxHqXTmA.jpg" alt="The Return 2026 - Photo 35" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="35">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000unD8iRge_sk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000unD8iRge_sk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000unD8iRge_sk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000unD8iRge_sk.jpg" alt="The Return 2026 - Photo 36" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="36">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00004BYoMWvlQMw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00004BYoMWvlQMw.jpg" data-full="https://www.soulbphotos.com/img-get2/I00004BYoMWvlQMw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00004BYoMWvlQMw.jpg" alt="The Return 2026 - Photo 37" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="37">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006sbdm6l.3D0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006sbdm6l.3D0.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006sbdm6l.3D0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006sbdm6l.3D0.jpg" alt="The Return 2026 - Photo 38" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="38">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Cx9xwD3Btok/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Cx9xwD3Btok.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Cx9xwD3Btok/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Cx9xwD3Btok.jpg" alt="The Return 2026 - Photo 39" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="39">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ExIKQRD26Tc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ExIKQRD26Tc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ExIKQRD26Tc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ExIKQRD26Tc.jpg" alt="The Return 2026 - Photo 40" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="40">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MIo2QX.Z5yQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MIo2QX.Z5yQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MIo2QX.Z5yQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MIo2QX.Z5yQ.jpg" alt="The Return 2026 - Photo 41" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="41">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000LtOFEoSYClM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000LtOFEoSYClM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000LtOFEoSYClM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000LtOFEoSYClM.jpg" alt="The Return 2026 - Photo 42" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="42">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000vy18d8si0pI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000vy18d8si0pI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000vy18d8si0pI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000vy18d8si0pI.jpg" alt="The Return 2026 - Photo 43" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="43">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000wPAawBkgRvk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000wPAawBkgRvk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000wPAawBkgRvk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000wPAawBkgRvk.jpg" alt="The Return 2026 - Photo 44" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="44">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000oPqTljv1LEU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000oPqTljv1LEU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000oPqTljv1LEU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000oPqTljv1LEU.jpg" alt="The Return 2026 - Photo 45" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="45">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000SXBW8qtWefs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000SXBW8qtWefs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000SXBW8qtWefs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000SXBW8qtWefs.jpg" alt="The Return 2026 - Photo 46" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="46">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000xL6Oi3_Znvk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000xL6Oi3_Znvk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000xL6Oi3_Znvk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000xL6Oi3_Znvk.jpg" alt="The Return 2026 - Photo 47" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="47">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000O23s7dLuwBw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000O23s7dLuwBw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000O23s7dLuwBw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000O23s7dLuwBw.jpg" alt="The Return 2026 - Photo 48" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="48">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000rjDqE1GAa8A/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000rjDqE1GAa8A.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000rjDqE1GAa8A/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000rjDqE1GAa8A.jpg" alt="The Return 2026 - Photo 49" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="49">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nMM5Cyk6UTA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nMM5Cyk6UTA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nMM5Cyk6UTA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nMM5Cyk6UTA.jpg" alt="The Return 2026 - Photo 50" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="50">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000EsGEk.r1CSI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000EsGEk.r1CSI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000EsGEk.r1CSI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000EsGEk.r1CSI.jpg" alt="The Return 2026 - Photo 51" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="51">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000psea5zRH2nM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000psea5zRH2nM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000psea5zRH2nM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000psea5zRH2nM.jpg" alt="The Return 2026 - Photo 52" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="52">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000eINfvPRSTHU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000eINfvPRSTHU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000eINfvPRSTHU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000eINfvPRSTHU.jpg" alt="The Return 2026 - Photo 53" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="53">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006Xx2hbW.0T4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006Xx2hbW.0T4.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006Xx2hbW.0T4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006Xx2hbW.0T4.jpg" alt="The Return 2026 - Photo 54" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="54">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006HvKjgaf4G0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006HvKjgaf4G0.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006HvKjgaf4G0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006HvKjgaf4G0.jpg" alt="The Return 2026 - Photo 55" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="55">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qqcZb8mQns4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qqcZb8mQns4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qqcZb8mQns4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qqcZb8mQns4.jpg" alt="The Return 2026 - Photo 56" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="56">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000YjhzCqeaJEs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000YjhzCqeaJEs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000YjhzCqeaJEs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000YjhzCqeaJEs.jpg" alt="The Return 2026 - Photo 57" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="57">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000j9kjmqx72FU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000j9kjmqx72FU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000j9kjmqx72FU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000j9kjmqx72FU.jpg" alt="The Return 2026 - Photo 58" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="58">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000k6u45dGB4yo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000k6u45dGB4yo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000k6u45dGB4yo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000k6u45dGB4yo.jpg" alt="The Return 2026 - Photo 59" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="59">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000m3QR4fEVMPw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000m3QR4fEVMPw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000m3QR4fEVMPw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000m3QR4fEVMPw.jpg" alt="The Return 2026 - Photo 60" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="60">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000L0yFD6DF5_M/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000L0yFD6DF5_M.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000L0yFD6DF5_M/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000L0yFD6DF5_M.jpg" alt="The Return 2026 - Photo 61" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="61">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000m3uAmdQ7fo0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000m3uAmdQ7fo0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000m3uAmdQ7fo0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000m3uAmdQ7fo0.jpg" alt="The Return 2026 - Photo 62" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="62">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000b0uh4e9HQYc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000b0uh4e9HQYc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000b0uh4e9HQYc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000b0uh4e9HQYc.jpg" alt="The Return 2026 - Photo 63" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="63">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pij18PxrTuw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pij18PxrTuw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pij18PxrTuw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pij18PxrTuw.jpg" alt="The Return 2026 - Photo 64" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="64">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000XLThH0hq5iA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000XLThH0hq5iA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000XLThH0hq5iA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000XLThH0hq5iA.jpg" alt="The Return 2026 - Photo 65" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="65">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000wRpBfW0aEO4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000wRpBfW0aEO4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000wRpBfW0aEO4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000wRpBfW0aEO4.jpg" alt="The Return 2026 - Photo 66" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="66">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000xrCdRhzVC5c/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000xrCdRhzVC5c.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000xrCdRhzVC5c/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000xrCdRhzVC5c.jpg" alt="The Return 2026 - Photo 67" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="67">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I000098LKrJGQjPk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I000098LKrJGQjPk.jpg" data-full="https://www.soulbphotos.com/img-get2/I000098LKrJGQjPk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I000098LKrJGQjPk.jpg" alt="The Return 2026 - Photo 68" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="68">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00004L6d4WagI1k/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00004L6d4WagI1k.jpg" data-full="https://www.soulbphotos.com/img-get2/I00004L6d4WagI1k/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00004L6d4WagI1k.jpg" alt="The Return 2026 - Photo 69" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="69">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cJercIXH4.o/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cJercIXH4.o.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cJercIXH4.o/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cJercIXH4.o.jpg" alt="The Return 2026 - Photo 70" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="70">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006TImeH7iIMs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006TImeH7iIMs.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006TImeH7iIMs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006TImeH7iIMs.jpg" alt="The Return 2026 - Photo 71" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="71">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00000SdXnr0izmI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00000SdXnr0izmI.jpg" data-full="https://www.soulbphotos.com/img-get2/I00000SdXnr0izmI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00000SdXnr0izmI.jpg" alt="The Return 2026 - Photo 72" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="72">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ShEoVCKdErs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ShEoVCKdErs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ShEoVCKdErs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ShEoVCKdErs.jpg" alt="The Return 2026 - Photo 73" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="73">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000C5vFADkqUgo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000C5vFADkqUgo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000C5vFADkqUgo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000C5vFADkqUgo.jpg" alt="The Return 2026 - Photo 74" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="74">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000yfCOuTaPB8c/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000yfCOuTaPB8c.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000yfCOuTaPB8c/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000yfCOuTaPB8c.jpg" alt="The Return 2026 - Photo 75" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="75">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00003Iw0tXThs2I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00003Iw0tXThs2I.jpg" data-full="https://www.soulbphotos.com/img-get2/I00003Iw0tXThs2I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00003Iw0tXThs2I.jpg" alt="The Return 2026 - Photo 76" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="76">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000i2y8lUt0JFQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000i2y8lUt0JFQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000i2y8lUt0JFQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000i2y8lUt0JFQ.jpg" alt="The Return 2026 - Photo 77" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="77">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000oAqN8Mn9bhg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000oAqN8Mn9bhg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000oAqN8Mn9bhg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000oAqN8Mn9bhg.jpg" alt="The Return 2026 - Photo 78" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="78">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000GfyNSemvYLQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000GfyNSemvYLQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000GfyNSemvYLQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000GfyNSemvYLQ.jpg" alt="The Return 2026 - Photo 79" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="79">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Te9zhjfGIdE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Te9zhjfGIdE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Te9zhjfGIdE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Te9zhjfGIdE.jpg" alt="The Return 2026 - Photo 80" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="80">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00007vo9Z1dM6qs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00007vo9Z1dM6qs.jpg" data-full="https://www.soulbphotos.com/img-get2/I00007vo9Z1dM6qs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00007vo9Z1dM6qs.jpg" alt="The Return 2026 - Photo 81" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="81">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VAgC7SsaZjA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VAgC7SsaZjA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VAgC7SsaZjA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VAgC7SsaZjA.jpg" alt="The Return 2026 - Photo 82" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="82">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000XWa_RmOFObM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000XWa_RmOFObM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000XWa_RmOFObM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000XWa_RmOFObM.jpg" alt="The Return 2026 - Photo 83" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="83">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JKp4FxLvA8I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JKp4FxLvA8I.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JKp4FxLvA8I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JKp4FxLvA8I.jpg" alt="The Return 2026 - Photo 84" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="84">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000TWw7VMgKpA8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000TWw7VMgKpA8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000TWw7VMgKpA8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000TWw7VMgKpA8.jpg" alt="The Return 2026 - Photo 85" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="85">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MiSD5XZ4JmM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MiSD5XZ4JmM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MiSD5XZ4JmM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MiSD5XZ4JmM.jpg" alt="The Return 2026 - Photo 86" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="86">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000QtejHXIM4es/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000QtejHXIM4es.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000QtejHXIM4es/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000QtejHXIM4es.jpg" alt="The Return 2026 - Photo 87" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="87">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000s6qsD_Y__qY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000s6qsD_Y__qY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000s6qsD_Y__qY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000s6qsD_Y__qY.jpg" alt="The Return 2026 - Photo 88" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="88">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pmlx9oieSsk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pmlx9oieSsk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pmlx9oieSsk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pmlx9oieSsk.jpg" alt="The Return 2026 - Photo 89" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="89">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000hn1xPJOMNF4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000hn1xPJOMNF4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000hn1xPJOMNF4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000hn1xPJOMNF4.jpg" alt="The Return 2026 - Photo 90" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="90">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VAUR9U.Iprw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VAUR9U.Iprw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VAUR9U.Iprw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VAUR9U.Iprw.jpg" alt="The Return 2026 - Photo 91" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="91">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000azSgb1Tg4cE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000azSgb1Tg4cE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000azSgb1Tg4cE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000azSgb1Tg4cE.jpg" alt="The Return 2026 - Photo 92" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="92">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000khT0HoG8SKQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000khT0HoG8SKQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000khT0HoG8SKQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000khT0HoG8SKQ.jpg" alt="The Return 2026 - Photo 93" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="93">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000WgMOt82NPU4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000WgMOt82NPU4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000WgMOt82NPU4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000WgMOt82NPU4.jpg" alt="The Return 2026 - Photo 94" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="94">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nJReNWh.eNw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nJReNWh.eNw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nJReNWh.eNw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nJReNWh.eNw.jpg" alt="The Return 2026 - Photo 95" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="95">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000uSRQtxzdN.E/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000uSRQtxzdN.E.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000uSRQtxzdN.E/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000uSRQtxzdN.E.jpg" alt="The Return 2026 - Photo 96" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="96">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fRZhfzXKMDs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fRZhfzXKMDs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fRZhfzXKMDs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fRZhfzXKMDs.jpg" alt="The Return 2026 - Photo 97" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="97">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000q_sg2sT1uRg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000q_sg2sT1uRg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000q_sg2sT1uRg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000q_sg2sT1uRg.jpg" alt="The Return 2026 - Photo 98" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="98">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000PkhjxKVdd2Y/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000PkhjxKVdd2Y.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000PkhjxKVdd2Y/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000PkhjxKVdd2Y.jpg" alt="The Return 2026 - Photo 99" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="99">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000y2vwU_KYgDI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000y2vwU_KYgDI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000y2vwU_KYgDI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000y2vwU_KYgDI.jpg" alt="The Return 2026 - Photo 100" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="100">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000V6N0Rl5rGlQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000V6N0Rl5rGlQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000V6N0Rl5rGlQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000V6N0Rl5rGlQ.jpg" alt="The Return 2026 - Photo 101" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="101">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000QcFn2.4jvh4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000QcFn2.4jvh4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000QcFn2.4jvh4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000QcFn2.4jvh4.jpg" alt="The Return 2026 - Photo 102" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="102">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000uFuCJj791vI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000uFuCJj791vI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000uFuCJj791vI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000uFuCJj791vI.jpg" alt="The Return 2026 - Photo 103" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="103">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cOupchjxUD8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cOupchjxUD8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cOupchjxUD8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cOupchjxUD8.jpg" alt="The Return 2026 - Photo 104" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="104">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000csEoj3Irn8w/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000csEoj3Irn8w.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000csEoj3Irn8w/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000csEoj3Irn8w.jpg" alt="The Return 2026 - Photo 105" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="105">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008jJpR7oorjQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008jJpR7oorjQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008jJpR7oorjQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008jJpR7oorjQ.jpg" alt="The Return 2026 - Photo 106" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="106">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000WvtBvEUZOm8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000WvtBvEUZOm8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000WvtBvEUZOm8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000WvtBvEUZOm8.jpg" alt="The Return 2026 - Photo 107" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="107">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000AefgDmy_n3I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000AefgDmy_n3I.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000AefgDmy_n3I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000AefgDmy_n3I.jpg" alt="The Return 2026 - Photo 108" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="108">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000hS31LR97zTs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000hS31LR97zTs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000hS31LR97zTs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000hS31LR97zTs.jpg" alt="The Return 2026 - Photo 109" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="109">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000LH7DhM7XRDg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000LH7DhM7XRDg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000LH7DhM7XRDg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000LH7DhM7XRDg.jpg" alt="The Return 2026 - Photo 110" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="110">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000vZ9A9P6oO18/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000vZ9A9P6oO18.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000vZ9A9P6oO18/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000vZ9A9P6oO18.jpg" alt="The Return 2026 - Photo 111" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="111">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00004S29zLdDIuA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00004S29zLdDIuA.jpg" data-full="https://www.soulbphotos.com/img-get2/I00004S29zLdDIuA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00004S29zLdDIuA.jpg" alt="The Return 2026 - Photo 112" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="112">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Xam.1Y6_Hrg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Xam.1Y6_Hrg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Xam.1Y6_Hrg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Xam.1Y6_Hrg.jpg" alt="The Return 2026 - Photo 113" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="113">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000S7fFm5vH4Zg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000S7fFm5vH4Zg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000S7fFm5vH4Zg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000S7fFm5vH4Zg.jpg" alt="The Return 2026 - Photo 114" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="114">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000HNJXCsxyZCQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000HNJXCsxyZCQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000HNJXCsxyZCQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000HNJXCsxyZCQ.jpg" alt="The Return 2026 - Photo 115" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="115">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Q.pOdhihAjI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Q.pOdhihAjI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Q.pOdhihAjI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Q.pOdhihAjI.jpg" alt="The Return 2026 - Photo 116" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="116">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000B57rio6avrI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000B57rio6avrI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000B57rio6avrI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000B57rio6avrI.jpg" alt="The Return 2026 - Photo 117" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="117">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00005.IaIAIvd1I/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00005.IaIAIvd1I.jpg" data-full="https://www.soulbphotos.com/img-get2/I00005.IaIAIvd1I/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00005.IaIAIvd1I.jpg" alt="The Return 2026 - Photo 118" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="118">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000bzV1po5saE8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000bzV1po5saE8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000bzV1po5saE8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000bzV1po5saE8.jpg" alt="The Return 2026 - Photo 119" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="119">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JUkx9WqcBqc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JUkx9WqcBqc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JUkx9WqcBqc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JUkx9WqcBqc.jpg" alt="The Return 2026 - Photo 120" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="120">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.UsDb.ai9JI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.UsDb.ai9JI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.UsDb.ai9JI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.UsDb.ai9JI.jpg" alt="The Return 2026 - Photo 121" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="121">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000CsFExPnr5Ws/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000CsFExPnr5Ws.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000CsFExPnr5Ws/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000CsFExPnr5Ws.jpg" alt="The Return 2026 - Photo 122" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="122">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000PR3ZjC0JxvE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000PR3ZjC0JxvE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000PR3ZjC0JxvE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000PR3ZjC0JxvE.jpg" alt="The Return 2026 - Photo 123" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="123">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000FjnVMJn0O2Q/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000FjnVMJn0O2Q.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000FjnVMJn0O2Q/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000FjnVMJn0O2Q.jpg" alt="The Return 2026 - Photo 124" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="124">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000t..6BFNo6GA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000t..6BFNo6GA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000t..6BFNo6GA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000t..6BFNo6GA.jpg" alt="The Return 2026 - Photo 125" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="125">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000e5VOZONWAzA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000e5VOZONWAzA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000e5VOZONWAzA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000e5VOZONWAzA.jpg" alt="The Return 2026 - Photo 126" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="126">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00003YPeteneFvU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00003YPeteneFvU.jpg" data-full="https://www.soulbphotos.com/img-get2/I00003YPeteneFvU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00003YPeteneFvU.jpg" alt="The Return 2026 - Photo 127" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="127">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00009nqizjRU_pg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00009nqizjRU_pg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00009nqizjRU_pg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00009nqizjRU_pg.jpg" alt="The Return 2026 - Photo 128" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="128">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I000048uBShGjrq0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I000048uBShGjrq0.jpg" data-full="https://www.soulbphotos.com/img-get2/I000048uBShGjrq0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I000048uBShGjrq0.jpg" alt="The Return 2026 - Photo 129" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="129">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000xg3Q5Zx_X3U/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000xg3Q5Zx_X3U.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000xg3Q5Zx_X3U/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000xg3Q5Zx_X3U.jpg" alt="The Return 2026 - Photo 130" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="130">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MVnOx_ikOBc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MVnOx_ikOBc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MVnOx_ikOBc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MVnOx_ikOBc.jpg" alt="The Return 2026 - Photo 131" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="131">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00003BkBaMYUKNE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00003BkBaMYUKNE.jpg" data-full="https://www.soulbphotos.com/img-get2/I00003BkBaMYUKNE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00003BkBaMYUKNE.jpg" alt="The Return 2026 - Photo 132" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="132">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001ctpSBRySe0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001ctpSBRySe0.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001ctpSBRySe0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001ctpSBRySe0.jpg" alt="The Return 2026 - Photo 133" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="133">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006805xK6Aya4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006805xK6Aya4.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006805xK6Aya4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006805xK6Aya4.jpg" alt="The Return 2026 - Photo 134" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="134">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Rn6PjNIryiA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Rn6PjNIryiA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Rn6PjNIryiA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Rn6PjNIryiA.jpg" alt="The Return 2026 - Photo 135" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="135">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000l9yIV67eWR4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000l9yIV67eWR4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000l9yIV67eWR4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000l9yIV67eWR4.jpg" alt="The Return 2026 - Photo 136" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="136">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000jiOXI_C9OJw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000jiOXI_C9OJw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000jiOXI_C9OJw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000jiOXI_C9OJw.jpg" alt="The Return 2026 - Photo 137" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="137">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000..CyUfzFf_Q/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000..CyUfzFf_Q.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000..CyUfzFf_Q/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000..CyUfzFf_Q.jpg" alt="The Return 2026 - Photo 138" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="138">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000bSU7F8TICyk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000bSU7F8TICyk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000bSU7F8TICyk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000bSU7F8TICyk.jpg" alt="The Return 2026 - Photo 139" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="139">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MzfrNEGDcsg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MzfrNEGDcsg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MzfrNEGDcsg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MzfrNEGDcsg.jpg" alt="The Return 2026 - Photo 140" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="140">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000QGU3Yw6OGzk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000QGU3Yw6OGzk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000QGU3Yw6OGzk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000QGU3Yw6OGzk.jpg" alt="The Return 2026 - Photo 141" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="141">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000G2NKUKnGA_k/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000G2NKUKnGA_k.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000G2NKUKnGA_k/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000G2NKUKnGA_k.jpg" alt="The Return 2026 - Photo 142" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="142">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006RwL5ft04U8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006RwL5ft04U8.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006RwL5ft04U8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006RwL5ft04U8.jpg" alt="The Return 2026 - Photo 143" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="143">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VRtgDdCceCo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VRtgDdCceCo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VRtgDdCceCo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VRtgDdCceCo.jpg" alt="The Return 2026 - Photo 144" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="144">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00009qtAV8TKHsg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00009qtAV8TKHsg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00009qtAV8TKHsg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00009qtAV8TKHsg.jpg" alt="The Return 2026 - Photo 145" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="145">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000x5ojN2kfD1E/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000x5ojN2kfD1E.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000x5ojN2kfD1E/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000x5ojN2kfD1E.jpg" alt="The Return 2026 - Photo 146" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="146">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000WGRhljs.yBE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000WGRhljs.yBE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000WGRhljs.yBE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000WGRhljs.yBE.jpg" alt="The Return 2026 - Photo 147" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="147">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000KbKA7Ix0Jzc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000KbKA7Ix0Jzc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000KbKA7Ix0Jzc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000KbKA7Ix0Jzc.jpg" alt="The Return 2026 - Photo 148" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="148">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000NFB9QrRSokI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000NFB9QrRSokI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000NFB9QrRSokI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000NFB9QrRSokI.jpg" alt="The Return 2026 - Photo 149" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="149">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pOlly_fTbl0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pOlly_fTbl0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pOlly_fTbl0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pOlly_fTbl0.jpg" alt="The Return 2026 - Photo 150" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="150">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000eclvUAIY3dE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000eclvUAIY3dE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000eclvUAIY3dE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000eclvUAIY3dE.jpg" alt="The Return 2026 - Photo 151" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="151">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000dKoIblVV6rw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000dKoIblVV6rw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000dKoIblVV6rw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000dKoIblVV6rw.jpg" alt="The Return 2026 - Photo 152" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="152">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000NhPJKriUmnQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000NhPJKriUmnQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000NhPJKriUmnQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000NhPJKriUmnQ.jpg" alt="The Return 2026 - Photo 153" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="153">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000rvBow8HhS34/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000rvBow8HhS34.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000rvBow8HhS34/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000rvBow8HhS34.jpg" alt="The Return 2026 - Photo 154" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="154">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JWh7CYyPI.A/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JWh7CYyPI.A.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JWh7CYyPI.A/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JWh7CYyPI.A.jpg" alt="The Return 2026 - Photo 155" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="155">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I000077LGPsq63pY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I000077LGPsq63pY.jpg" data-full="https://www.soulbphotos.com/img-get2/I000077LGPsq63pY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I000077LGPsq63pY.jpg" alt="The Return 2026 - Photo 156" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="156">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JutANf2wS3g/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JutANf2wS3g.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JutANf2wS3g/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JutANf2wS3g.jpg" alt="The Return 2026 - Photo 157" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="157">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000QtIP.KL5h34/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000QtIP.KL5h34.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000QtIP.KL5h34/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000QtIP.KL5h34.jpg" alt="The Return 2026 - Photo 158" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="158">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000wEijd_Uj8TE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000wEijd_Uj8TE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000wEijd_Uj8TE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000wEijd_Uj8TE.jpg" alt="The Return 2026 - Photo 159" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="159">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008dIt6NkLofU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008dIt6NkLofU.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008dIt6NkLofU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008dIt6NkLofU.jpg" alt="The Return 2026 - Photo 160" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="160">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00002Po_Qub_3GQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00002Po_Qub_3GQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I00002Po_Qub_3GQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00002Po_Qub_3GQ.jpg" alt="The Return 2026 - Photo 161" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="161">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00000b8u_400UeM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00000b8u_400UeM.jpg" data-full="https://www.soulbphotos.com/img-get2/I00000b8u_400UeM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00000b8u_400UeM.jpg" alt="The Return 2026 - Photo 162" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="162">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000YfEFfXW7.ek/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000YfEFfXW7.ek.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000YfEFfXW7.ek/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000YfEFfXW7.ek.jpg" alt="The Return 2026 - Photo 163" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="163">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000j.Xfo6wizq4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000j.Xfo6wizq4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000j.Xfo6wizq4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000j.Xfo6wizq4.jpg" alt="The Return 2026 - Photo 164" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="164">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cXYxpp2lUZ4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cXYxpp2lUZ4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cXYxpp2lUZ4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cXYxpp2lUZ4.jpg" alt="The Return 2026 - Photo 165" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="165">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000OGlT67Kn_7U/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000OGlT67Kn_7U.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000OGlT67Kn_7U/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000OGlT67Kn_7U.jpg" alt="The Return 2026 - Photo 166" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="166">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cXiqlNnZxoI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cXiqlNnZxoI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cXiqlNnZxoI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cXiqlNnZxoI.jpg" alt="The Return 2026 - Photo 167" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="167">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000InCRwK6NL0k/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000InCRwK6NL0k.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000InCRwK6NL0k/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000InCRwK6NL0k.jpg" alt="The Return 2026 - Photo 168" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="168">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008Wd5r4sXTqQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008Wd5r4sXTqQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008Wd5r4sXTqQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008Wd5r4sXTqQ.jpg" alt="The Return 2026 - Photo 169" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="169">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qKtQc6Td3TU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qKtQc6Td3TU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qKtQc6Td3TU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qKtQc6Td3TU.jpg" alt="The Return 2026 - Photo 170" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="170">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JluSPrHkj68/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JluSPrHkj68.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JluSPrHkj68/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JluSPrHkj68.jpg" alt="The Return 2026 - Photo 171" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="171">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000onC6lqMvofw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000onC6lqMvofw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000onC6lqMvofw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000onC6lqMvofw.jpg" alt="The Return 2026 - Photo 172" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="172">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000AFjPUJK4gNs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000AFjPUJK4gNs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000AFjPUJK4gNs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000AFjPUJK4gNs.jpg" alt="The Return 2026 - Photo 173" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="173">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00004jspGaqxywo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00004jspGaqxywo.jpg" data-full="https://www.soulbphotos.com/img-get2/I00004jspGaqxywo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00004jspGaqxywo.jpg" alt="The Return 2026 - Photo 174" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="174">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000zE9KQtFo.fE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000zE9KQtFo.fE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000zE9KQtFo.fE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000zE9KQtFo.fE.jpg" alt="The Return 2026 - Photo 175" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="175">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Vw3oYeO0FjQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Vw3oYeO0FjQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Vw3oYeO0FjQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Vw3oYeO0FjQ.jpg" alt="The Return 2026 - Photo 176" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="176">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00003mIAkywaiMI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00003mIAkywaiMI.jpg" data-full="https://www.soulbphotos.com/img-get2/I00003mIAkywaiMI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00003mIAkywaiMI.jpg" alt="The Return 2026 - Photo 177" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="177">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000X821MyVZbbo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000X821MyVZbbo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000X821MyVZbbo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000X821MyVZbbo.jpg" alt="The Return 2026 - Photo 178" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="178">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000BqSvL9nMWxw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000BqSvL9nMWxw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000BqSvL9nMWxw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000BqSvL9nMWxw.jpg" alt="The Return 2026 - Photo 179" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="179">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MRLXFz208DE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MRLXFz208DE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MRLXFz208DE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MRLXFz208DE.jpg" alt="The Return 2026 - Photo 180" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="180">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_ULPCqLslpo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_ULPCqLslpo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_ULPCqLslpo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_ULPCqLslpo.jpg" alt="The Return 2026 - Photo 181" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="181">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_cUuWCC7eH8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_cUuWCC7eH8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_cUuWCC7eH8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_cUuWCC7eH8.jpg" alt="The Return 2026 - Photo 182" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="182">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pD6FuOpupkQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pD6FuOpupkQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pD6FuOpupkQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pD6FuOpupkQ.jpg" alt="The Return 2026 - Photo 183" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="183">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000UsKVz9xrmU8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000UsKVz9xrmU8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000UsKVz9xrmU8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000UsKVz9xrmU8.jpg" alt="The Return 2026 - Photo 184" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="184">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000foxPnm9Jr9s/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000foxPnm9Jr9s.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000foxPnm9Jr9s/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000foxPnm9Jr9s.jpg" alt="The Return 2026 - Photo 185" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="185">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000l3u0DkidnWQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000l3u0DkidnWQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000l3u0DkidnWQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000l3u0DkidnWQ.jpg" alt="The Return 2026 - Photo 186" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="186">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000q4G8BZ2VlT4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000q4G8BZ2VlT4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000q4G8BZ2VlT4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000q4G8BZ2VlT4.jpg" alt="The Return 2026 - Photo 187" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="187">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000C0cVNLaU0b0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000C0cVNLaU0b0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000C0cVNLaU0b0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000C0cVNLaU0b0.jpg" alt="The Return 2026 - Photo 188" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="188">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00003Pn21vSo844/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00003Pn21vSo844.jpg" data-full="https://www.soulbphotos.com/img-get2/I00003Pn21vSo844/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00003Pn21vSo844.jpg" alt="The Return 2026 - Photo 189" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="189">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000AYvt7xbuKTw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000AYvt7xbuKTw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000AYvt7xbuKTw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000AYvt7xbuKTw.jpg" alt="The Return 2026 - Photo 190" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="190">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001MDT94pjVNY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001MDT94pjVNY.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001MDT94pjVNY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001MDT94pjVNY.jpg" alt="The Return 2026 - Photo 191" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="191">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VJdI4Tff1Dw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VJdI4Tff1Dw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VJdI4Tff1Dw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VJdI4Tff1Dw.jpg" alt="The Return 2026 - Photo 192" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="192">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001Ibkmtm3dJg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001Ibkmtm3dJg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001Ibkmtm3dJg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001Ibkmtm3dJg.jpg" alt="The Return 2026 - Photo 193" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="193">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000zrvQiA_MS9A/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000zrvQiA_MS9A.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000zrvQiA_MS9A/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000zrvQiA_MS9A.jpg" alt="The Return 2026 - Photo 194" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="194">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000hkB6hqqOKcs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000hkB6hqqOKcs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000hkB6hqqOKcs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000hkB6hqqOKcs.jpg" alt="The Return 2026 - Photo 195" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="195">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ariADKPNbAc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ariADKPNbAc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ariADKPNbAc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ariADKPNbAc.jpg" alt="The Return 2026 - Photo 196" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="196">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000E3udtkusAXI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000E3udtkusAXI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000E3udtkusAXI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000E3udtkusAXI.jpg" alt="The Return 2026 - Photo 197" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="197">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_HF68IzTiAY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_HF68IzTiAY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_HF68IzTiAY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_HF68IzTiAY.jpg" alt="The Return 2026 - Photo 198" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="198">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000eYMFRotZhyw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000eYMFRotZhyw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000eYMFRotZhyw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000eYMFRotZhyw.jpg" alt="The Return 2026 - Photo 199" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="199">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ITzJRQt06sM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ITzJRQt06sM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ITzJRQt06sM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ITzJRQt06sM.jpg" alt="The Return 2026 - Photo 200" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="200">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.lWOjzs4fVQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.lWOjzs4fVQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.lWOjzs4fVQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.lWOjzs4fVQ.jpg" alt="The Return 2026 - Photo 201" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="201">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.rD9akhqKkU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.rD9akhqKkU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.rD9akhqKkU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.rD9akhqKkU.jpg" alt="The Return 2026 - Photo 202" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="202">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VunKeJIa.JA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VunKeJIa.JA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VunKeJIa.JA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VunKeJIa.JA.jpg" alt="The Return 2026 - Photo 203" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="203">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fAIy9JR6vW8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fAIy9JR6vW8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fAIy9JR6vW8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fAIy9JR6vW8.jpg" alt="The Return 2026 - Photo 204" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="204">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qFp1_4UOtYA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qFp1_4UOtYA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qFp1_4UOtYA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qFp1_4UOtYA.jpg" alt="The Return 2026 - Photo 205" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="205">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I000033DQusyaeaM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I000033DQusyaeaM.jpg" data-full="https://www.soulbphotos.com/img-get2/I000033DQusyaeaM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I000033DQusyaeaM.jpg" alt="The Return 2026 - Photo 206" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="206">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000T89drGm1_98/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000T89drGm1_98.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000T89drGm1_98/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000T89drGm1_98.jpg" alt="The Return 2026 - Photo 207" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="207">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000RKnJjd2D52M/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000RKnJjd2D52M.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000RKnJjd2D52M/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000RKnJjd2D52M.jpg" alt="The Return 2026 - Photo 208" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="208">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000GA8myZOO48U/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000GA8myZOO48U.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000GA8myZOO48U/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000GA8myZOO48U.jpg" alt="The Return 2026 - Photo 209" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="209">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000mQ5r4GxtQP0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000mQ5r4GxtQP0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000mQ5r4GxtQP0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000mQ5r4GxtQP0.jpg" alt="The Return 2026 - Photo 210" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="210">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VvjQsbfJ7nM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VvjQsbfJ7nM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VvjQsbfJ7nM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VvjQsbfJ7nM.jpg" alt="The Return 2026 - Photo 211" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="211">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nCyFAqpqCKE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nCyFAqpqCKE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nCyFAqpqCKE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nCyFAqpqCKE.jpg" alt="The Return 2026 - Photo 212" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="212">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.Ib7JU9nhB0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.Ib7JU9nhB0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.Ib7JU9nhB0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.Ib7JU9nhB0.jpg" alt="The Return 2026 - Photo 213" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="213">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00005nqdQnLji8o/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00005nqdQnLji8o.jpg" data-full="https://www.soulbphotos.com/img-get2/I00005nqdQnLji8o/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00005nqdQnLji8o.jpg" alt="The Return 2026 - Photo 214" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="214">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00009yjBuO40rTo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00009yjBuO40rTo.jpg" data-full="https://www.soulbphotos.com/img-get2/I00009yjBuO40rTo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00009yjBuO40rTo.jpg" alt="The Return 2026 - Photo 215" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="215">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000e_IuTXa77fo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000e_IuTXa77fo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000e_IuTXa77fo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000e_IuTXa77fo.jpg" alt="The Return 2026 - Photo 216" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="216">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000abAVYZXbTNM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000abAVYZXbTNM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000abAVYZXbTNM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000abAVYZXbTNM.jpg" alt="The Return 2026 - Photo 217" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="217">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Ys7xrMOZ6HI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Ys7xrMOZ6HI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Ys7xrMOZ6HI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Ys7xrMOZ6HI.jpg" alt="The Return 2026 - Photo 218" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="218">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000i29wtJ1EnVU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000i29wtJ1EnVU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000i29wtJ1EnVU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000i29wtJ1EnVU.jpg" alt="The Return 2026 - Photo 219" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="219">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006JYo3nS7RI0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006JYo3nS7RI0.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006JYo3nS7RI0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006JYo3nS7RI0.jpg" alt="The Return 2026 - Photo 220" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="220">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000T904ox.BIyQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000T904ox.BIyQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000T904ox.BIyQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000T904ox.BIyQ.jpg" alt="The Return 2026 - Photo 221" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="221">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000BITNSPsqsog/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000BITNSPsqsog.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000BITNSPsqsog/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000BITNSPsqsog.jpg" alt="The Return 2026 - Photo 222" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="222">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000iVlrpKbHxWs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000iVlrpKbHxWs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000iVlrpKbHxWs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000iVlrpKbHxWs.jpg" alt="The Return 2026 - Photo 223" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="223">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000O6bV.LoX7gs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000O6bV.LoX7gs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000O6bV.LoX7gs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000O6bV.LoX7gs.jpg" alt="The Return 2026 - Photo 224" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="224">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001USDiz3opm8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001USDiz3opm8.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001USDiz3opm8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001USDiz3opm8.jpg" alt="The Return 2026 - Photo 225" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="225">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I000045PDihzstxg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I000045PDihzstxg.jpg" data-full="https://www.soulbphotos.com/img-get2/I000045PDihzstxg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I000045PDihzstxg.jpg" alt="The Return 2026 - Photo 226" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="226">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000b2GZIYLoUkk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000b2GZIYLoUkk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000b2GZIYLoUkk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000b2GZIYLoUkk.jpg" alt="The Return 2026 - Photo 227" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="227">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000A9K7HdOR3bA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000A9K7HdOR3bA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000A9K7HdOR3bA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000A9K7HdOR3bA.jpg" alt="The Return 2026 - Photo 228" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="228">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pyYqe0xOng8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pyYqe0xOng8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pyYqe0xOng8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pyYqe0xOng8.jpg" alt="The Return 2026 - Photo 229" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="229">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000OKfJRMMekBo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000OKfJRMMekBo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000OKfJRMMekBo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000OKfJRMMekBo.jpg" alt="The Return 2026 - Photo 230" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="230">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00000aYKQsaW7dY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00000aYKQsaW7dY.jpg" data-full="https://www.soulbphotos.com/img-get2/I00000aYKQsaW7dY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00000aYKQsaW7dY.jpg" alt="The Return 2026 - Photo 231" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="231">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000dB_cyJrKOMk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000dB_cyJrKOMk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000dB_cyJrKOMk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000dB_cyJrKOMk.jpg" alt="The Return 2026 - Photo 232" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="232">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fGRGgZRitAU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fGRGgZRitAU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fGRGgZRitAU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fGRGgZRitAU.jpg" alt="The Return 2026 - Photo 233" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="233">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000rl4NvGIgbJY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000rl4NvGIgbJY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000rl4NvGIgbJY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000rl4NvGIgbJY.jpg" alt="The Return 2026 - Photo 234" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="234">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000g4TBSfWG198/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000g4TBSfWG198.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000g4TBSfWG198/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000g4TBSfWG198.jpg" alt="The Return 2026 - Photo 235" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="235">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000J6YwXGPBgnA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000J6YwXGPBgnA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000J6YwXGPBgnA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000J6YwXGPBgnA.jpg" alt="The Return 2026 - Photo 236" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="236">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_rMVfcXrkcc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_rMVfcXrkcc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_rMVfcXrkcc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_rMVfcXrkcc.jpg" alt="The Return 2026 - Photo 237" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="237">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.lh2y3bxXpo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.lh2y3bxXpo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.lh2y3bxXpo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.lh2y3bxXpo.jpg" alt="The Return 2026 - Photo 238" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="238">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000t6wUYT0LGdk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000t6wUYT0LGdk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000t6wUYT0LGdk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000t6wUYT0LGdk.jpg" alt="The Return 2026 - Photo 239" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="239">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000NT0.D_WRxDI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000NT0.D_WRxDI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000NT0.D_WRxDI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000NT0.D_WRxDI.jpg" alt="The Return 2026 - Photo 240" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="240">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fhXhBxbLuZ0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fhXhBxbLuZ0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fhXhBxbLuZ0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fhXhBxbLuZ0.jpg" alt="The Return 2026 - Photo 241" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="241">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qnmajNFx3wc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qnmajNFx3wc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qnmajNFx3wc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qnmajNFx3wc.jpg" alt="The Return 2026 - Photo 242" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="242">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000jx54H_w66Y0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000jx54H_w66Y0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000jx54H_w66Y0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000jx54H_w66Y0.jpg" alt="The Return 2026 - Photo 243" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="243">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cOWfAFvyvaQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cOWfAFvyvaQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cOWfAFvyvaQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cOWfAFvyvaQ.jpg" alt="The Return 2026 - Photo 244" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="244">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Go7_Q4hFAKY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Go7_Q4hFAKY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Go7_Q4hFAKY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Go7_Q4hFAKY.jpg" alt="The Return 2026 - Photo 245" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="245">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00002Ke.yBBnHj4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00002Ke.yBBnHj4.jpg" data-full="https://www.soulbphotos.com/img-get2/I00002Ke.yBBnHj4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00002Ke.yBBnHj4.jpg" alt="The Return 2026 - Photo 246" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="246">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000E8ByZA40qhs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000E8ByZA40qhs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000E8ByZA40qhs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000E8ByZA40qhs.jpg" alt="The Return 2026 - Photo 247" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="247">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006n9GA1v2wvU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006n9GA1v2wvU.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006n9GA1v2wvU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006n9GA1v2wvU.jpg" alt="The Return 2026 - Photo 248" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="248">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000U1ej5_QRnoI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000U1ej5_QRnoI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000U1ej5_QRnoI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000U1ej5_QRnoI.jpg" alt="The Return 2026 - Photo 249" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="249">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000VuPrOJOaPqE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000VuPrOJOaPqE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000VuPrOJOaPqE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000VuPrOJOaPqE.jpg" alt="The Return 2026 - Photo 250" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="250">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00007_hpM5LEgRE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00007_hpM5LEgRE.jpg" data-full="https://www.soulbphotos.com/img-get2/I00007_hpM5LEgRE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00007_hpM5LEgRE.jpg" alt="The Return 2026 - Photo 251" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="251">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.9bL5jPwLhw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.9bL5jPwLhw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.9bL5jPwLhw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.9bL5jPwLhw.jpg" alt="The Return 2026 - Photo 252" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="252">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00008gmsBf7dKes/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00008gmsBf7dKes.jpg" data-full="https://www.soulbphotos.com/img-get2/I00008gmsBf7dKes/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00008gmsBf7dKes.jpg" alt="The Return 2026 - Photo 253" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="253">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000AhnsMI3XQSo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000AhnsMI3XQSo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000AhnsMI3XQSo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000AhnsMI3XQSo.jpg" alt="The Return 2026 - Photo 254" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="254">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JjflIT4ChMs/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JjflIT4ChMs.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JjflIT4ChMs/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JjflIT4ChMs.jpg" alt="The Return 2026 - Photo 255" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="255">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000b175kIWMAjE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000b175kIWMAjE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000b175kIWMAjE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000b175kIWMAjE.jpg" alt="The Return 2026 - Photo 256" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="256">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000lRdgMeTeIsk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000lRdgMeTeIsk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000lRdgMeTeIsk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000lRdgMeTeIsk.jpg" alt="The Return 2026 - Photo 257" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="257">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000pdHb.MuNfy0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000pdHb.MuNfy0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000pdHb.MuNfy0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000pdHb.MuNfy0.jpg" alt="The Return 2026 - Photo 258" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="258">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nsGkukzvtLU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nsGkukzvtLU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nsGkukzvtLU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nsGkukzvtLU.jpg" alt="The Return 2026 - Photo 259" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="259">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qIGxd8rEgLY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qIGxd8rEgLY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qIGxd8rEgLY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qIGxd8rEgLY.jpg" alt="The Return 2026 - Photo 260" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="260">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000IAo6insxLUg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000IAo6insxLUg.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000IAo6insxLUg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000IAo6insxLUg.jpg" alt="The Return 2026 - Photo 261" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="261">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00007O6AoyDmUZ8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00007O6AoyDmUZ8.jpg" data-full="https://www.soulbphotos.com/img-get2/I00007O6AoyDmUZ8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00007O6AoyDmUZ8.jpg" alt="The Return 2026 - Photo 262" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="262">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000s7.RyOexvRY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000s7.RyOexvRY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000s7.RyOexvRY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000s7.RyOexvRY.jpg" alt="The Return 2026 - Photo 263" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="263">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qH0s3jqFJsE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qH0s3jqFJsE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qH0s3jqFJsE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qH0s3jqFJsE.jpg" alt="The Return 2026 - Photo 264" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="264">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000eAbCM75QJzo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000eAbCM75QJzo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000eAbCM75QJzo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000eAbCM75QJzo.jpg" alt="The Return 2026 - Photo 265" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="265">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000tT5JMEckkAw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000tT5JMEckkAw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000tT5JMEckkAw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000tT5JMEckkAw.jpg" alt="The Return 2026 - Photo 266" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="266">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000hQ2Bz.xhDT0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000hQ2Bz.xhDT0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000hQ2Bz.xhDT0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000hQ2Bz.xhDT0.jpg" alt="The Return 2026 - Photo 267" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="267">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000eBdw6_ntFro/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000eBdw6_ntFro.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000eBdw6_ntFro/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000eBdw6_ntFro.jpg" alt="The Return 2026 - Photo 268" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="268">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000CCnWWtOjDeU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000CCnWWtOjDeU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000CCnWWtOjDeU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000CCnWWtOjDeU.jpg" alt="The Return 2026 - Photo 269" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="269">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000.LQxNzmQWPQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000.LQxNzmQWPQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000.LQxNzmQWPQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000.LQxNzmQWPQ.jpg" alt="The Return 2026 - Photo 270" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="270">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000IcWci2tMsNc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000IcWci2tMsNc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000IcWci2tMsNc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000IcWci2tMsNc.jpg" alt="The Return 2026 - Photo 271" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="271">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001iKbI9sWOFY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001iKbI9sWOFY.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001iKbI9sWOFY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001iKbI9sWOFY.jpg" alt="The Return 2026 - Photo 272" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="272">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000gFigwsLy2Nw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000gFigwsLy2Nw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000gFigwsLy2Nw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000gFigwsLy2Nw.jpg" alt="The Return 2026 - Photo 273" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="273">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000mqv5bCfaKGY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000mqv5bCfaKGY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000mqv5bCfaKGY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000mqv5bCfaKGY.jpg" alt="The Return 2026 - Photo 274" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="274">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000HjNNeaRxV_Y/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000HjNNeaRxV_Y.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000HjNNeaRxV_Y/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000HjNNeaRxV_Y.jpg" alt="The Return 2026 - Photo 275" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="275">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00002XeoDMbXXio/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00002XeoDMbXXio.jpg" data-full="https://www.soulbphotos.com/img-get2/I00002XeoDMbXXio/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00002XeoDMbXXio.jpg" alt="The Return 2026 - Photo 276" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="276">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000IfJiSfC8aSw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000IfJiSfC8aSw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000IfJiSfC8aSw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000IfJiSfC8aSw.jpg" alt="The Return 2026 - Photo 277" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="277">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00005gaA37cKlMw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00005gaA37cKlMw.jpg" data-full="https://www.soulbphotos.com/img-get2/I00005gaA37cKlMw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00005gaA37cKlMw.jpg" alt="The Return 2026 - Photo 278" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="278">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Mw2jmZCrkjk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Mw2jmZCrkjk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Mw2jmZCrkjk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Mw2jmZCrkjk.jpg" alt="The Return 2026 - Photo 279" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="279">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000zEZiWj.E0r4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000zEZiWj.E0r4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000zEZiWj.E0r4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000zEZiWj.E0r4.jpg" alt="The Return 2026 - Photo 280" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="280">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000E011nJzhROY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000E011nJzhROY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000E011nJzhROY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000E011nJzhROY.jpg" alt="The Return 2026 - Photo 281" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="281">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000GkXqi3VoOPE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000GkXqi3VoOPE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000GkXqi3VoOPE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000GkXqi3VoOPE.jpg" alt="The Return 2026 - Photo 282" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="282">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000bcRfbJEu5J0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000bcRfbJEu5J0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000bcRfbJEu5J0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000bcRfbJEu5J0.jpg" alt="The Return 2026 - Photo 283" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="283">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001AbqvsXHTLg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001AbqvsXHTLg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001AbqvsXHTLg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001AbqvsXHTLg.jpg" alt="The Return 2026 - Photo 284" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="284">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000rwtxhtgW50Y/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000rwtxhtgW50Y.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000rwtxhtgW50Y/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000rwtxhtgW50Y.jpg" alt="The Return 2026 - Photo 285" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="285">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000x_P9OMizgEw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000x_P9OMizgEw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000x_P9OMizgEw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000x_P9OMizgEw.jpg" alt="The Return 2026 - Photo 286" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="286">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000mwP1eG17PEc/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000mwP1eG17PEc.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000mwP1eG17PEc/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000mwP1eG17PEc.jpg" alt="The Return 2026 - Photo 287" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="287">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000zJZ1mGTG9PM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000zJZ1mGTG9PM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000zJZ1mGTG9PM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000zJZ1mGTG9PM.jpg" alt="The Return 2026 - Photo 288" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="288">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000aqz_oCbeWXo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000aqz_oCbeWXo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000aqz_oCbeWXo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000aqz_oCbeWXo.jpg" alt="The Return 2026 - Photo 289" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="289">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000MDxP25Co82c/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000MDxP25Co82c.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000MDxP25Co82c/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000MDxP25Co82c.jpg" alt="The Return 2026 - Photo 290" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="290">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006Y.6OuyYC2Q/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006Y.6OuyYC2Q.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006Y.6OuyYC2Q/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006Y.6OuyYC2Q.jpg" alt="The Return 2026 - Photo 291" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="291">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000XQttvKeq5tM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000XQttvKeq5tM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000XQttvKeq5tM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000XQttvKeq5tM.jpg" alt="The Return 2026 - Photo 292" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="292">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ylyrYp.AujA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ylyrYp.AujA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ylyrYp.AujA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ylyrYp.AujA.jpg" alt="The Return 2026 - Photo 293" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="293">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000M4CDxMFwVtk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000M4CDxMFwVtk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000M4CDxMFwVtk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000M4CDxMFwVtk.jpg" alt="The Return 2026 - Photo 294" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="294">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000tXCtoo8jtkU/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000tXCtoo8jtkU.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000tXCtoo8jtkU/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000tXCtoo8jtkU.jpg" alt="The Return 2026 - Photo 295" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="295">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00000waMGttcCfE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00000waMGttcCfE.jpg" data-full="https://www.soulbphotos.com/img-get2/I00000waMGttcCfE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00000waMGttcCfE.jpg" alt="The Return 2026 - Photo 296" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="296">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000f2QFe5aLxJA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000f2QFe5aLxJA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000f2QFe5aLxJA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000f2QFe5aLxJA.jpg" alt="The Return 2026 - Photo 297" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="297">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000uhCWqBsvrrw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000uhCWqBsvrrw.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000uhCWqBsvrrw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000uhCWqBsvrrw.jpg" alt="The Return 2026 - Photo 298" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="298">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00000_2SwuQYegg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00000_2SwuQYegg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00000_2SwuQYegg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00000_2SwuQYegg.jpg" alt="The Return 2026 - Photo 299" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="299">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000DNUFWRWU8RI/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000DNUFWRWU8RI.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000DNUFWRWU8RI/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000DNUFWRWU8RI.jpg" alt="The Return 2026 - Photo 300" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="300">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000IdZy1.rdDyM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000IdZy1.rdDyM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000IdZy1.rdDyM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000IdZy1.rdDyM.jpg" alt="The Return 2026 - Photo 301" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="301">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00006ZcFj3O4IrY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00006ZcFj3O4IrY.jpg" data-full="https://www.soulbphotos.com/img-get2/I00006ZcFj3O4IrY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00006ZcFj3O4IrY.jpg" alt="The Return 2026 - Photo 302" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="302">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000g6A5sw83z.0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000g6A5sw83z.0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000g6A5sw83z.0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000g6A5sw83z.0.jpg" alt="The Return 2026 - Photo 303" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="303">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000CYCSQLFG_gM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000CYCSQLFG_gM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000CYCSQLFG_gM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000CYCSQLFG_gM.jpg" alt="The Return 2026 - Photo 304" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="304">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nz6o4QTK4Jk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nz6o4QTK4Jk.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nz6o4QTK4Jk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nz6o4QTK4Jk.jpg" alt="The Return 2026 - Photo 305" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="305">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000ABZVWXLMl7k/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000ABZVWXLMl7k.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000ABZVWXLMl7k/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000ABZVWXLMl7k.jpg" alt="The Return 2026 - Photo 306" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="306">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fPWuyeMEnUA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fPWuyeMEnUA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fPWuyeMEnUA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fPWuyeMEnUA.jpg" alt="The Return 2026 - Photo 307" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="307">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00001s5wlD3UWrg/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00001s5wlD3UWrg.jpg" data-full="https://www.soulbphotos.com/img-get2/I00001s5wlD3UWrg/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00001s5wlD3UWrg.jpg" alt="The Return 2026 - Photo 308" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="308">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000URVAPtYJnr0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000URVAPtYJnr0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000URVAPtYJnr0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000URVAPtYJnr0.jpg" alt="The Return 2026 - Photo 309" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="309">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000qKEkoTXXl4o/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000qKEkoTXXl4o.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000qKEkoTXXl4o/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000qKEkoTXXl4o.jpg" alt="The Return 2026 - Photo 310" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="310">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000OJxavCQ6Td0/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000OJxavCQ6Td0.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000OJxavCQ6Td0/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000OJxavCQ6Td0.jpg" alt="The Return 2026 - Photo 311" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="311">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Co0bL9u5Wto/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Co0bL9u5Wto.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Co0bL9u5Wto/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Co0bL9u5Wto.jpg" alt="The Return 2026 - Photo 312" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="312">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000fgDPG4YqYJo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000fgDPG4YqYJo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000fgDPG4YqYJo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000fgDPG4YqYJo.jpg" alt="The Return 2026 - Photo 313" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="313">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00002aSmOCj60CQ/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00002aSmOCj60CQ.jpg" data-full="https://www.soulbphotos.com/img-get2/I00002aSmOCj60CQ/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00002aSmOCj60CQ.jpg" alt="The Return 2026 - Photo 314" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="314">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00004iSN1CneOfk/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00004iSN1CneOfk.jpg" data-full="https://www.soulbphotos.com/img-get2/I00004iSN1CneOfk/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00004iSN1CneOfk.jpg" alt="The Return 2026 - Photo 315" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="315">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000lsVXAx9bSg8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000lsVXAx9bSg8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000lsVXAx9bSg8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000lsVXAx9bSg8.jpg" alt="The Return 2026 - Photo 316" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="316">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000_H1yoCLCVB8/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000_H1yoCLCVB8.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000_H1yoCLCVB8/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000_H1yoCLCVB8.jpg" alt="The Return 2026 - Photo 317" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="317">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000XyE4sk_tuWE/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000XyE4sk_tuWE.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000XyE4sk_tuWE/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000XyE4sk_tuWE.jpg" alt="The Return 2026 - Photo 318" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="318">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000nwXIBEo8xvo/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000nwXIBEo8xvo.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000nwXIBEo8xvo/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000nwXIBEo8xvo.jpg" alt="The Return 2026 - Photo 319" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="319">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000mjGYQ9ZTh3g/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000mjGYQ9ZTh3g.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000mjGYQ9ZTh3g/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000mjGYQ9ZTh3g.jpg" alt="The Return 2026 - Photo 320" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="320">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000Am05WwP12R4/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000Am05WwP12R4.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000Am05WwP12R4/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000Am05WwP12R4.jpg" alt="The Return 2026 - Photo 321" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="321">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I00009PklI9I6zpw/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I00009PklI9I6zpw.jpg" data-full="https://www.soulbphotos.com/img-get2/I00009PklI9I6zpw/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I00009PklI9I6zpw.jpg" alt="The Return 2026 - Photo 322" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="322">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000EOLEsz7ScfM/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000EOLEsz7ScfM.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000EOLEsz7ScfM/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000EOLEsz7ScfM.jpg" alt="The Return 2026 - Photo 323" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="323">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000xCt2coCso7k/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000xCt2coCso7k.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000xCt2coCso7k/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000xCt2coCso7k.jpg" alt="The Return 2026 - Photo 324" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="324">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000cZ9_HNEnl2w/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000cZ9_HNEnl2w.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000cZ9_HNEnl2w/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000cZ9_HNEnl2w.jpg" alt="The Return 2026 - Photo 325" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="325">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000PHPphYr8msA/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000PHPphYr8msA.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000PHPphYr8msA/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000PHPphYr8msA.jpg" alt="The Return 2026 - Photo 326" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="pro" data-idx="326">
+        <img loading="lazy" src="https://www.soulbphotos.com/img-get2/I0000JX40S1k7.ZY/fit=400x400/fill=/g=G0000DUGWRTxv7M0/I0000JX40S1k7.ZY.jpg" data-full="https://www.soulbphotos.com/img-get2/I0000JX40S1k7.ZY/fit=1400x1400/fill=/g=G0000DUGWRTxv7M0/I0000JX40S1k7.ZY.jpg" alt="The Return 2026 - Photo 327" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="327">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1uyXZNlzJA0aju8ECn2n3dYIXwXRCNskb&sz=w400" data-full="https://drive.google.com/thumbnail?id=1uyXZNlzJA0aju8ECn2n3dYIXwXRCNskb&sz=w1200" alt="The Return 2026 - Event Photo 1" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="328">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1-jp0BErek1-30CQrlqZlmlpATm-slhdd&sz=w400" data-full="https://drive.google.com/thumbnail?id=1-jp0BErek1-30CQrlqZlmlpATm-slhdd&sz=w1200" alt="The Return 2026 - Event Photo 2" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="329">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1UBHm8GQw0bqmLsxV1D-63gDQKC2dko3G&sz=w400" data-full="https://drive.google.com/thumbnail?id=1UBHm8GQw0bqmLsxV1D-63gDQKC2dko3G&sz=w1200" alt="The Return 2026 - Event Photo 3" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="330">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1u1PIOF5zcXyWIVGHb7KNNtW1DfUF8wuc&sz=w400" data-full="https://drive.google.com/thumbnail?id=1u1PIOF5zcXyWIVGHb7KNNtW1DfUF8wuc&sz=w1200" alt="The Return 2026 - Event Photo 4" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="331">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1DFQilTAZY2bVuKdyulx8Pe5BUEkgWPjX&sz=w400" data-full="https://drive.google.com/thumbnail?id=1DFQilTAZY2bVuKdyulx8Pe5BUEkgWPjX&sz=w1200" alt="The Return 2026 - Event Photo 5" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="332">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1aL0nm75LcVhcywmjyraN3ztwrzEYWtwH&sz=w400" data-full="https://drive.google.com/thumbnail?id=1aL0nm75LcVhcywmjyraN3ztwrzEYWtwH&sz=w1200" alt="The Return 2026 - Event Photo 6" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="333">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ZuO6IXOMo7upSM675OpQtE4S9KHUeYLV&sz=w400" data-full="https://drive.google.com/thumbnail?id=1ZuO6IXOMo7upSM675OpQtE4S9KHUeYLV&sz=w1200" alt="The Return 2026 - Event Photo 7" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="334">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1u_jPE6lrhyCLqY2DsDM0fq9iET6hVstE&sz=w400" data-full="https://drive.google.com/thumbnail?id=1u_jPE6lrhyCLqY2DsDM0fq9iET6hVstE&sz=w1200" alt="The Return 2026 - Event Photo 8" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="335">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1KKBiMzCuPridSUjyUWM72OcKaCmWWSa4&sz=w400" data-full="https://drive.google.com/thumbnail?id=1KKBiMzCuPridSUjyUWM72OcKaCmWWSa4&sz=w1200" alt="The Return 2026 - Event Photo 9" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="336">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ldJMXtlvzZAdL0qU6FtNUv8joHKWfsEM&sz=w400" data-full="https://drive.google.com/thumbnail?id=1ldJMXtlvzZAdL0qU6FtNUv8joHKWfsEM&sz=w1200" alt="The Return 2026 - Event Photo 10" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="337">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1FkiFnaAgB8_jDKUb7_-T2lIeZMhIZPlB&sz=w400" data-full="https://drive.google.com/thumbnail?id=1FkiFnaAgB8_jDKUb7_-T2lIeZMhIZPlB&sz=w1200" alt="The Return 2026 - Event Photo 11" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="338">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1HwoGrsAVsmbZBKQfqBG8dkknvlBD2iHw&sz=w400" data-full="https://drive.google.com/thumbnail?id=1HwoGrsAVsmbZBKQfqBG8dkknvlBD2iHw&sz=w1200" alt="The Return 2026 - Event Photo 12" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="339">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1XUq-pPkgWCidyyH3UbzMC0WMzH2u02Sv&sz=w400" data-full="https://drive.google.com/thumbnail?id=1XUq-pPkgWCidyyH3UbzMC0WMzH2u02Sv&sz=w1200" alt="The Return 2026 - Event Photo 13" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="340">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1R-jP-5gJFLg6LXNajONDkCNC1tLxcAAA&sz=w400" data-full="https://drive.google.com/thumbnail?id=1R-jP-5gJFLg6LXNajONDkCNC1tLxcAAA&sz=w1200" alt="The Return 2026 - Event Photo 14" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="341">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1btKUMcyb3KzunonKlFLxfHkVhuP7Y-rC&sz=w400" data-full="https://drive.google.com/thumbnail?id=1btKUMcyb3KzunonKlFLxfHkVhuP7Y-rC&sz=w1200" alt="The Return 2026 - Event Photo 15" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="342">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1dq267Cc0T57xMuMUgRxyTdWv4juQVo8w&sz=w400" data-full="https://drive.google.com/thumbnail?id=1dq267Cc0T57xMuMUgRxyTdWv4juQVo8w&sz=w1200" alt="The Return 2026 - Event Photo 16" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="343">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1AZ0NP_vYwmHvIkg-JRwXEGDDUM4aJV8O&sz=w400" data-full="https://drive.google.com/thumbnail?id=1AZ0NP_vYwmHvIkg-JRwXEGDDUM4aJV8O&sz=w1200" alt="The Return 2026 - Event Photo 17" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="344">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ULrz5hjZ0_H6ldx-Iyf5EiSJw-nI-W3k&sz=w400" data-full="https://drive.google.com/thumbnail?id=1ULrz5hjZ0_H6ldx-Iyf5EiSJw-nI-W3k&sz=w1200" alt="The Return 2026 - Event Photo 18" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="345">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1yTmNS1KmVYvBnSjP-ZrT7K_krCh53jdR&sz=w400" data-full="https://drive.google.com/thumbnail?id=1yTmNS1KmVYvBnSjP-ZrT7K_krCh53jdR&sz=w1200" alt="The Return 2026 - Event Photo 19" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="346">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1NIaKP8Zo86kqp4IuvMfybRhJ1abY77b_&sz=w400" data-full="https://drive.google.com/thumbnail?id=1NIaKP8Zo86kqp4IuvMfybRhJ1abY77b_&sz=w1200" alt="The Return 2026 - Event Photo 20" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="347">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1Zwb0xfZeOFMEoVRint2b5zF9hx3dXX_H&sz=w400" data-full="https://drive.google.com/thumbnail?id=1Zwb0xfZeOFMEoVRint2b5zF9hx3dXX_H&sz=w1200" alt="The Return 2026 - Event Photo 21" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="348">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1uP2tiEZQ5ceLXWB7Gwb7WWone_i-12Rr&sz=w400" data-full="https://drive.google.com/thumbnail?id=1uP2tiEZQ5ceLXWB7Gwb7WWone_i-12Rr&sz=w1200" alt="The Return 2026 - Event Photo 22" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="349">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1nhC_Dc9KMrtd45lrQiMTvuiaYHTabHZs&sz=w400" data-full="https://drive.google.com/thumbnail?id=1nhC_Dc9KMrtd45lrQiMTvuiaYHTabHZs&sz=w1200" alt="The Return 2026 - Event Photo 23" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="350">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1zKTfVikxmi9x9ErZGyERsnuEZy-jZKzy&sz=w400" data-full="https://drive.google.com/thumbnail?id=1zKTfVikxmi9x9ErZGyERsnuEZy-jZKzy&sz=w1200" alt="The Return 2026 - Event Photo 24" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="351">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1_UK8pmdOjNZh1oV5YoDEWOTgv0LuRWMt&sz=w400" data-full="https://drive.google.com/thumbnail?id=1_UK8pmdOjNZh1oV5YoDEWOTgv0LuRWMt&sz=w1200" alt="The Return 2026 - Event Photo 25" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="352">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1X4ygZSQwRiEDoaLi9VO6QAhU0ORWWGIr&sz=w400" data-full="https://drive.google.com/thumbnail?id=1X4ygZSQwRiEDoaLi9VO6QAhU0ORWWGIr&sz=w1200" alt="The Return 2026 - Event Photo 26" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="353">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1XNPF1QaxH92_Yq67-3-dpgv9odNpVuUb&sz=w400" data-full="https://drive.google.com/thumbnail?id=1XNPF1QaxH92_Yq67-3-dpgv9odNpVuUb&sz=w1200" alt="The Return 2026 - Event Photo 27" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="354">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1pwB_xTxRCDivT9qjL-R6Fvwv_DeGUDCg&sz=w400" data-full="https://drive.google.com/thumbnail?id=1pwB_xTxRCDivT9qjL-R6Fvwv_DeGUDCg&sz=w1200" alt="The Return 2026 - Event Photo 28" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="355">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1XROyciDgXe7KHsrpMSG-Y3Hd_pkN6VLl&sz=w400" data-full="https://drive.google.com/thumbnail?id=1XROyciDgXe7KHsrpMSG-Y3Hd_pkN6VLl&sz=w1200" alt="The Return 2026 - Event Photo 29" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="356">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1pkgoOeNmhw8g6bVx_sGGb1hhgjnREnEp&sz=w400" data-full="https://drive.google.com/thumbnail?id=1pkgoOeNmhw8g6bVx_sGGb1hhgjnREnEp&sz=w1200" alt="The Return 2026 - Event Photo 30" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="357">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1C17q_MtzISlN-XKvTkvNKAnsznBDltVF&sz=w400" data-full="https://drive.google.com/thumbnail?id=1C17q_MtzISlN-XKvTkvNKAnsznBDltVF&sz=w1200" alt="The Return 2026 - Event Photo 31" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="358">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1hX4ssnPrgaCL_Ca3YxSIl83JhcQ7vmTd&sz=w400" data-full="https://drive.google.com/thumbnail?id=1hX4ssnPrgaCL_Ca3YxSIl83JhcQ7vmTd&sz=w1200" alt="The Return 2026 - Event Photo 32" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="359">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1u02bPeIgVSCyl0ErXaXNC5WsqzEivSyq&sz=w400" data-full="https://drive.google.com/thumbnail?id=1u02bPeIgVSCyl0ErXaXNC5WsqzEivSyq&sz=w1200" alt="The Return 2026 - Event Photo 33" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="360">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=18oHvI5_NTeOjRk5MjWoCXJb1v9KTZFt9&sz=w400" data-full="https://drive.google.com/thumbnail?id=18oHvI5_NTeOjRk5MjWoCXJb1v9KTZFt9&sz=w1200" alt="The Return 2026 - Event Photo 34" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="361">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1MvKScoWIXboztkV2b9nmX3VDT_2g3BDy&sz=w400" data-full="https://drive.google.com/thumbnail?id=1MvKScoWIXboztkV2b9nmX3VDT_2g3BDy&sz=w1200" alt="The Return 2026 - Event Photo 35" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="362">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1taPfdHu2UJSB75OZgKx3jEkntaVSa6IR&sz=w400" data-full="https://drive.google.com/thumbnail?id=1taPfdHu2UJSB75OZgKx3jEkntaVSa6IR&sz=w1200" alt="The Return 2026 - Event Photo 36" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="363">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1I2FDSmJaJs-V4anz_QEOaS5B__T-UYmt&sz=w400" data-full="https://drive.google.com/thumbnail?id=1I2FDSmJaJs-V4anz_QEOaS5B__T-UYmt&sz=w1200" alt="The Return 2026 - Event Photo 37" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="364">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1nYaDowDNaAiQB1kBSKRNvGtKhGR-nQvP&sz=w400" data-full="https://drive.google.com/thumbnail?id=1nYaDowDNaAiQB1kBSKRNvGtKhGR-nQvP&sz=w1200" alt="The Return 2026 - Event Photo 38" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="365">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1x-JOLkLKBzztCgcDTJP-ve1iAfHDa0OW&sz=w400" data-full="https://drive.google.com/thumbnail?id=1x-JOLkLKBzztCgcDTJP-ve1iAfHDa0OW&sz=w1200" alt="The Return 2026 - Event Photo 39" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="366">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1Fvq90VoxWUa2IX9JaT4bCy2EWoUv116Q&sz=w400" data-full="https://drive.google.com/thumbnail?id=1Fvq90VoxWUa2IX9JaT4bCy2EWoUv116Q&sz=w1200" alt="The Return 2026 - Event Photo 40" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="367">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1o8kkhvqueSmrBuXjkxMZCJnNojXoWJeD&sz=w400" data-full="https://drive.google.com/thumbnail?id=1o8kkhvqueSmrBuXjkxMZCJnNojXoWJeD&sz=w1200" alt="The Return 2026 - Event Photo 41" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="368">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=174_ZPCRH_QvAQABDWmFdFH4kDrUn-VAu&sz=w400" data-full="https://drive.google.com/thumbnail?id=174_ZPCRH_QvAQABDWmFdFH4kDrUn-VAu&sz=w1200" alt="The Return 2026 - Event Photo 42" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="369">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1056lnvdkdlkpf5zMdYY97VB2v-fJCXmi&sz=w400" data-full="https://drive.google.com/thumbnail?id=1056lnvdkdlkpf5zMdYY97VB2v-fJCXmi&sz=w1200" alt="The Return 2026 - Event Photo 43" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="370">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1rwin8upaykWGElL5TZgbL8L1T5YZANMN&sz=w400" data-full="https://drive.google.com/thumbnail?id=1rwin8upaykWGElL5TZgbL8L1T5YZANMN&sz=w1200" alt="The Return 2026 - Event Photo 44" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="371">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1by2B8JUHNohDaj4ROkpGJr53JPLHQEI0&sz=w400" data-full="https://drive.google.com/thumbnail?id=1by2B8JUHNohDaj4ROkpGJr53JPLHQEI0&sz=w1200" alt="The Return 2026 - Event Photo 45" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="372">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=19OXfsw6ay0bKbpe-huz9eZsevmRd1Yo3&sz=w400" data-full="https://drive.google.com/thumbnail?id=19OXfsw6ay0bKbpe-huz9eZsevmRd1Yo3&sz=w1200" alt="The Return 2026 - Event Photo 46" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="373">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1ajmQnBPoXBBkuHPxL8PUJ5OvPXeRBWTx&sz=w400" data-full="https://drive.google.com/thumbnail?id=1ajmQnBPoXBBkuHPxL8PUJ5OvPXeRBWTx&sz=w1200" alt="The Return 2026 - Event Photo 47" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="374">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=17NJps1n6K06I-37KozACF6m-v7shbfOd&sz=w400" data-full="https://drive.google.com/thumbnail?id=17NJps1n6K06I-37KozACF6m-v7shbfOd&sz=w1200" alt="The Return 2026 - Event Photo 48" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="375">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1QfEH3NiS6Rsimv29tHrMe_G9PnvKgCAd&sz=w400" data-full="https://drive.google.com/thumbnail?id=1QfEH3NiS6Rsimv29tHrMe_G9PnvKgCAd&sz=w1200" alt="The Return 2026 - Event Photo 49" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item" data-cat="event" data-idx="376">
+        <img loading="lazy" src="https://drive.google.com/thumbnail?id=1zPwgK9HaJSl5tQ5mJHAdD10E_8bPKca4&sz=w400" data-full="https://drive.google.com/thumbnail?id=1zPwgK9HaJSl5tQ5mJHAdD10E_8bPKca4&sz=w1200" alt="The Return 2026 - Event Photo 50" onclick="openGalleryLightbox(this)">
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="377">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-1.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="378">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-2.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="379">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-3.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="380">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-4.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="381">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-5.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="382">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-6.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="383">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-7.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="384">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-8.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="385">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-9.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+      <div class="gallery-item gallery-video" data-cat="clips" data-idx="386">
+        <video loading="lazy" src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/clips/clip-10.mp4" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video>
+        <div class="video-play-icon">▶</div>
+      </div>
+    </div>
+
+    <!-- Load more button -->
+    <div style="text-align:center;margin-top:40px;">
+      <button class="gallery-load-more" id="loadMoreBtn" onclick="loadMore()">LOAD MORE</button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeGalleryLightbox(event)">
+  <button class="lightbox-close" onclick="closeGalleryLightbox(event)">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navGalleryLightbox(-1,event)">&#8249;</button>
+  <button class="lightbox-nav lightbox-next" onclick="navGalleryLightbox(1,event)">&#8250;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
 
 <!-- ===================== TALENT ===================== -->
 <section id="talent">
@@ -1961,7 +3420,7 @@ footer {
       <div style="padding:20px 28px;border:1px solid var(--border);background:var(--panel);">
         <p style="font-size:14px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;">Table Reservations</p>
         <p style="font-size:15px;line-height:1.8;color:var(--gray);">Reserved table seating is available on both levels, offering an elevated and comfortable guest experience. The venue also features a curated selection of appetizers, allowing guests to enjoy great food while connecting and celebrating throughout the evening.</p>
-        <a class="nav-cta" href="#tables" style="margin-top:16px;display:inline-block;">View Table Packages & Prices</a>
+        <a class="nav-cta" href="#tables" style="margin-top:16px;display:inline-block;">Table Info →</a>
       </div>
     </div>
 
@@ -2099,8 +3558,9 @@ footer {
       <h2 class="section-title">Secure<br>Your Table</h2>
     </div>
     <div class="reveal" style="text-align: center; max-width: 700px; margin: 40px auto;">
-      <p style="color: #FFD600; font-size: 24px; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">🔥 Tables Are On Sale Now 🔥</p>
-      <a href="https://embed.prod.simpletix.com/df991ebc-abc8-47f6-a89a-fc77b1c46508/262365?consent=true" target="_blank" class="hero-cta" style="display: inline-block; margin-top: 10px;">Reserve a Table →</a>
+      <p style="color: #FFD600; font-size: 20px; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; line-height: 1.5;">A Limited Quantity of Tables are Available For Purchase — Please Inquire Onsite</p>
+      <p style="color: #E53935; font-size: 18px; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">⚠️ A Ticket is Required For Party Entry! ⚠️</p>
+      <a href="tel:+13017099821" class="hero-cta" style="display: inline-block; margin-top: 10px;">Call For Info: (301) 709-9821 →</a>
     </div>
   </div>
 </section>
@@ -2198,7 +3658,7 @@ footer {
     <!-- Ticket purchase notice -->
     <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);padding:20px 32px;margin-bottom:32px;max-width:600px;text-align:center;">
       <p style="font-size:15px;line-height:1.8;color:rgba(255,255,255,0.85);margin:0;">
-        Tickets available now through <strong style="color:white;">SimpleTix</strong>. For table reservations or group inquiries, email <a href="mailto:info@umdthereturn.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">info@umdthereturn.com</a> or call <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">(301) 709-9821</a>.
+        Tickets available now through <strong style="color:white;">SimpleTix</strong>. Tables are limited — please inquire onsite (a ticket is required for party entry). For questions, email <a href="mailto:info@umdthereturn.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">info@umdthereturn.com</a> or call <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">(301) 709-9821</a>.
       </p>
     </div>
 
@@ -2210,6 +3670,9 @@ footer {
     <div class="tickets-date-badge" style="margin-top:24px;font-size:16px;letter-spacing:0.3em;color:rgba(255,255,255,0.75);">Friday, April 10, 2026 · 9:00 PM<br><br>Citizens & Culture · 8113 Georgia Ave, Silver Spring, MD 20910</div>
   </div>
 </section>
+
+
+
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
@@ -2235,6 +3698,7 @@ footer {
         <li><a href="#golf">Golf</a></li>
         <li><a href="#tables">Tables</a></li>
         <li><a href="#tickets">Buy Tickets</a></li>
+        <li><a href="#gallery">Gallery</a></li>
       </ul>
     </div>
     <div>
@@ -2347,6 +3811,216 @@ document.querySelectorAll('.menu-card').forEach(function(card){
     if(img) openLightbox(img.src);
   });
 });
+</script>
+
+
+<script>
+// Gallery state
+const ITEMS_PER_PAGE = 48;
+let currentPage = 1;
+let currentFilter = 'all';
+let lightboxItems = [];
+let lightboxIdx = 0;
+
+function applyFilter(filter) {
+  currentFilter = filter;
+  currentPage = 1;
+  document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-filter="' + filter + '"]').classList.add('active');
+  showItems();
+}
+
+function showItems() {
+  const items = document.querySelectorAll('.gallery-item');
+  let visible = 0;
+  let total = 0;
+  items.forEach(item => {
+    const cat = item.getAttribute('data-cat');
+    const matches = currentFilter === 'all' || cat === currentFilter;
+    if (matches) {
+      total++;
+      if (total <= currentPage * ITEMS_PER_PAGE) {
+        item.classList.add('visible');
+        visible++;
+      } else {
+        item.classList.remove('visible');
+      }
+    } else {
+      item.classList.remove('visible');
+    }
+  });
+  const btn = document.getElementById('loadMoreBtn');
+  if (btn) btn.style.display = visible >= total ? 'none' : 'inline-block';
+
+  // Update lightbox items list
+  lightboxItems = Array.from(document.querySelectorAll('.gallery-item.visible:not(.gallery-video) img'));
+}
+
+function loadMore() {
+  currentPage++;
+  showItems();
+}
+
+function openGalleryLightbox(img) {
+  lightboxItems = Array.from(document.querySelectorAll('.gallery-item.visible:not(.gallery-video) img'));
+  lightboxIdx = lightboxItems.indexOf(img);
+  if (lightboxIdx === -1) return;
+  const overlay = document.getElementById('lightboxOverlay');
+  const lbImg = document.getElementById('lightboxImg');
+  lbImg.src = img.getAttribute('data-full') || img.src;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateGalleryCounter();
+}
+
+function closeGalleryLightbox(e) {
+  if (e) e.stopPropagation();
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navGalleryLightbox(dir, e) {
+  if (e) e.stopPropagation();
+  lightboxIdx = (lightboxIdx + dir + lightboxItems.length) % lightboxItems.length;
+  const img = lightboxItems[lightboxIdx];
+  document.getElementById('lightboxImg').src = img.getAttribute('data-full') || img.src;
+  updateGalleryCounter();
+}
+
+function updateGalleryCounter() {
+  document.getElementById('lightboxCounter').textContent = (lightboxIdx + 1) + ' / ' + lightboxItems.length;
+}
+
+// Keyboard nav for gallery lightbox
+document.addEventListener('keydown', function(e) {
+  const overlay = document.getElementById('lightboxOverlay');
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') closeGalleryLightbox(e);
+  if (e.key === 'ArrowRight') navGalleryLightbox(1, e);
+  if (e.key === 'ArrowLeft') navGalleryLightbox(-1, e);
+});
+
+// Filter click handlers
+document.querySelectorAll('.gallery-filter').forEach(btn => {
+  btn.addEventListener('click', function() {
+    applyFilter(this.getAttribute('data-filter'));
+  });
+});
+
+// ===== GUEST UPLOAD FUNCTIONS =====
+async function handlePhotoUpload(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  const status = document.getElementById('uploadStatus');
+  status.textContent = `Uploading ${files.length} photo(s)...`;
+  let success = 0;
+  for (const file of files) {
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': file.type, 'X-Filename': file.name, 'X-Category': 'guest' },
+        body: file,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        addGuestItem(data.url, 'guest', 'photo');
+        success++;
+      }
+    } catch (e) { console.error('Upload failed:', e); }
+  }
+  status.textContent = success ? `✓ ${success} photo(s) uploaded!` : 'Upload failed. Try again.';
+  updateFilterCounts();
+  event.target.value = '';
+  setTimeout(() => { status.textContent = ''; }, 4000);
+}
+
+async function handleVideoUpload(event) {
+  const files = Array.from(event.target.files);
+  if (!files.length) return;
+  const status = document.getElementById('uploadStatus');
+  status.textContent = `Uploading ${files.length} video(s)...`;
+  let success = 0;
+  for (const file of files) {
+    if (file.size > 50 * 1024 * 1024) { status.textContent = `${file.name} is too large (max 50MB)`; continue; }
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': file.type, 'X-Filename': file.name, 'X-Category': 'videos' },
+        body: file,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        addGuestItem(data.url, 'videos', 'video');
+        success++;
+      }
+    } catch (e) { console.error('Upload failed:', e); }
+  }
+  status.textContent = success ? `✓ ${success} video(s) uploaded!` : 'Upload failed. Try again.';
+  updateFilterCounts();
+  event.target.value = '';
+  setTimeout(() => { status.textContent = ''; }, 4000);
+}
+
+function addGuestItem(url, category, type) {
+  const grid = document.getElementById('galleryGrid');
+  const idx = grid.children.length;
+  const div = document.createElement('div');
+  div.className = 'gallery-item visible' + (type === 'video' ? ' gallery-video' : '');
+  div.setAttribute('data-cat', category);
+  div.setAttribute('data-idx', idx);
+  if (type === 'video') {
+    div.innerHTML = `<video src="${url}" muted loop playsinline preload="metadata" onclick="this.paused ? this.play() : this.pause()"></video><div class="video-play-icon">▶</div>`;
+    div.addEventListener('mouseenter', () => { div.querySelector('video').play(); div.querySelector('.video-play-icon').style.opacity = '0'; });
+    div.addEventListener('mouseleave', () => { div.querySelector('video').pause(); div.querySelector('.video-play-icon').style.opacity = '1'; });
+  } else {
+    div.innerHTML = `<img src="${url}" data-full="${url}" alt="Guest Photo" onclick="openGalleryLightbox(this)">`;
+  }
+  grid.prepend(div);
+}
+
+function updateFilterCounts() {
+  const counts = { all: 0, pro: 0, event: 0, clips: 0, guest: 0, videos: 0 };
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    const cat = item.getAttribute('data-cat');
+    counts[cat] = (counts[cat] || 0) + 1;
+    counts.all++;
+  });
+  document.querySelectorAll('.gallery-filter').forEach(btn => {
+    const filter = btn.getAttribute('data-filter');
+    const countEl = btn.querySelector('.filter-count');
+    if (countEl && counts[filter] !== undefined) countEl.textContent = counts[filter];
+  });
+}
+
+// Load existing guest uploads from Vercel Blob
+async function loadGuestUploads() {
+  try {
+    const [guestRes, videosRes] = await Promise.all([
+      fetch('/api/list?category=guest'),
+      fetch('/api/list?category=videos'),
+    ]);
+    if (guestRes.ok) {
+      const { items } = await guestRes.json();
+      items.forEach(item => addGuestItem(item.url, 'guest', 'photo'));
+    }
+    if (videosRes.ok) {
+      const { items } = await videosRes.json();
+      items.forEach(item => addGuestItem(item.url, 'videos', 'video'));
+    }
+    updateFilterCounts();
+  } catch (e) { console.log('No guest uploads yet'); }
+}
+loadGuestUploads();
+
+// Auto-play videos on hover
+document.querySelectorAll('.gallery-video').forEach(item => {
+  const video = item.querySelector('video');
+  item.addEventListener('mouseenter', () => { video.play(); item.querySelector('.video-play-icon').style.opacity = '0'; });
+  item.addEventListener('mouseleave', () => { video.pause(); item.querySelector('.video-play-icon').style.opacity = '1'; });
+});
+
+// Initial load
+showItems();
 </script>
 
 </body>

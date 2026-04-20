@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Return — UMD Black Alumni Party 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,400;0,700;0,900;1,700&family=Barlow:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & ROOT
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --red: #E0001B;
+  --red-dim: rgba(224,0,27,0.7);
+  --gold: #FFD600;
+  --gold-dim: rgba(255,214,0,0.6);
+  --white: #F0EDEA;
+  --gray: #F0EDEA;
+  --dim: rgba(240,237,234,0.9);
+  --deep: #04030A;
+  --mid: #0C0B14;
+  --panel: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --red-border: rgba(224,0,27,0.25);
+  --gold-border: rgba(255,214,0,0.2);
+}
+
+body {
+  background: var(--deep);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  line-height: 1;
+}
+
+/* ============================================================
+   FILM GRAIN + SCANLINES
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.45;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+  pointer-events: none; z-index: 9998;
+}
+
+
+
+/* Hero CTA button */
+.hero-cta {
+  background: var(--red); color: white; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 14px;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  padding: 18px 48px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  box-shadow: 0 0 40px rgba(224,0,27,0.5);
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+  min-width: 300px; text-align: center;
+}
+.hero-cta:hover { background: var(--gold); color: var(--deep); box-shadow: 0 0 60px rgba(255,214,0,0.5); }
+
+.hero-cta-outline {
+  background: var(--red); color: white; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 14px;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  padding: 18px 48px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  box-shadow: 0 0 40px rgba(224,0,27,0.5);
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+  min-width: 300px; text-align: center;
+}
+.hero-cta-outline:hover { background: var(--gold); color: var(--deep); box-shadow: 0 0 60px rgba(255,214,0,0.5); }
+
+.hero-cta-row {
+  display: flex; gap: 16px; align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   ANIMATED MARQUEE BAR (top)
+   ============================================================ */
+.marquee-strip {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500;
+  background: var(--red);
+  height: 32px;
+  overflow: hidden;
+  display: flex; align-items: center;
+}
+.marquee-inner {
+  display: inline-flex; align-items: center;
+  animation: marqueeScroll 22s linear infinite;
+  white-space: nowrap;
+}
+.marquee-inner span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 0.45em; text-transform: uppercase;
+  padding: 0 36px; color: white;
+}
+.marquee-inner .dot { letter-spacing: 0; padding: 0 8px; opacity: 0.6; }
+@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 32px; left: 0; right: 0;
+  z-index: 499;
+  padding: 0 60px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(4,3,10,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--white);
+}
+.nav-brand span { color: var(--red); }
+.nav-links {
+  display: flex; gap: 40px; list-style: none;
+}
+.nav-links a {
+  font-size: 14px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--red); color: white;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 15px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 10px 28px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: all 0.2s;
+  box-shadow: 0 0 20px rgba(224,0,27,0.35);
+}
+.nav-cta:hover { background: var(--gold); color: var(--deep); box-shadow: 0 0 30px rgba(255,214,0,0.4); }
+
+
+/* ============================================================
+   HERO — CINEMATIC TYPOGRAPHY (REDESIGN)
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  padding-top: 96px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #080614;
+}
+
+/* Radial center glow — red bloom behind title */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 42%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px; height: 700px;
+  background: radial-gradient(ellipse at center, 
+    rgba(200,0,20,0.22) 0%, 
+    rgba(180,0,20,0.10) 35%, 
+    transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* CRT scanlines overlay over the whole hero */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.28) 2px,
+    rgba(0,0,0,0.28) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+  gap: 0;
+}
+
+/* Gold event details pill at top */
+.hero-event-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(255,214,0,0.4);
+  padding: 12px 34px;
+  margin-bottom: 60px;
+  margin-top: 30px;
+  animation: heroFadeUp 0.8s 0.1s ease both;
+}
+.hero-event-pill span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Main title — THE RETURN */
+.hero-main-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin-bottom: 28px;
+  animation: heroFadeUp 0.8s 0.2s ease both;
+  position: relative;
+}
+.hero-main-title .the-word {
+  display: block;
+  font-size: clamp(70px, 10vw, 140px);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.5),
+    0 0 30px rgba(255,255,255,0.2),
+    0 0 60px rgba(255,255,255,0.08);
+}
+.hero-main-title .return-word {
+  display: block;
+  font-size: clamp(110px, 18vw, 250px);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.55),
+    0 0 35px rgba(255,255,255,0.25),
+    0 0 80px rgba(255,255,255,0.1);
+}
+
+/* Subtitle — MARYLAND BLACK ALUMNI WEEKEND 2026 */
+.hero-sub-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6.5vw, 94px);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--red);
+  text-shadow:
+    0 0 25px rgba(224,0,27,1),
+    0 0 60px rgba(224,0,27,0.7),
+    0 0 120px rgba(224,0,27,0.35);
+  line-height: 1.05;
+  margin-bottom: 0px;
+  animation: heroFadeUp 0.8s 0.35s ease both;
+  position: relative;
+}
+
+/* Reflection of subtitle */
+.hero-sub-reflection {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6.5vw, 94px);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--red);
+  line-height: 1.05;
+  transform: scaleY(-1);
+  opacity: 0.09;
+  margin-bottom: 48px;
+  animation: heroFadeUp 0.8s 0.4s ease both;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 65%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 65%);
+}
+
+/* CTA row */
+.hero-cta-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: heroFadeUp 0.8s 0.55s ease both;
+  margin-top: 32px;
+  margin-bottom: 50px;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   STATS BAR
+   ============================================================ */
+.stats-bar {
+  background: var(--red);
+  padding: 0 60px;
+  display: flex; justify-content: space-around;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.stat-item {
+  padding: 28px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  flex: 1;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 42px;
+  line-height: 1; color: white;
+}
+.stat-label {
+  font-size: 14px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); margin-top: 6px;
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+section { padding: 120px 60px; position: relative; }
+
+.section-eyebrow {
+  font-size: 13px; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; font-size: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-eyebrow::after {
+  content: ''; flex: 1; height: 1px; background: var(--gold-border);
+  max-width: 80px;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.88; text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  color: #FFFFFF;
+}
+
+.section-body {
+  font-size: 16px; line-height: 1.8; color: var(--gray);
+  max-width: 560px;
+}
+
+/* ============================================================
+   MISSION SECTION
+   ============================================================ */
+#mission {
+  background: var(--mid);
+  border-top: 1px solid var(--border);
+}
+.mission-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+  align-items: center;
+}
+.mission-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic; font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  color: var(--white);
+  position: relative;
+  padding-left: 30px;
+}
+.mission-quote::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--red), var(--gold));
+}
+.mission-right {}
+.mission-body {
+  font-size: 16px; line-height: 1.9; color: var(--gray);
+  margin-bottom: 32px;
+}
+.mission-body strong { color: var(--white); font-weight: 500; }
+.mission-hashtags {
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.hashtag {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px; letter-spacing: 0.2em;
+  color: var(--red); border: 1px solid var(--red-border);
+  padding: 6px 16px;
+}
+
+/* ============================================================
+   VENUE SECTION
+   ============================================================ */
+#venue {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.venue-inner { max-width: 1300px; margin: 0 auto; }
+
+.venue-header { margin-bottom: 60px; }
+
+.venue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.venue-img-cell {
+  position: relative; overflow: hidden;
+  height: 420px;
+}
+.venue-img-cell img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  filter: brightness(0.85);
+}
+.venue-img-cell:hover img { transform: scale(1.04); filter: brightness(1); }
+.venue-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(4,3,10,0.7) 0%, transparent 50%);
+}
+.venue-img-label {
+  position: absolute; bottom: 24px; left: 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 16px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: white;
+}
+.venue-img-label span {
+  display: block; font-size: 13px; font-weight: 400;
+  letter-spacing: 0.4em; color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+
+.levels-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+}
+.level-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 48px 50px;
+  position: relative;
+  overflow: hidden;
+}
+.level-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.level-card.l1::before { background: linear-gradient(90deg, var(--gold), transparent); }
+.level-card.l2::before { background: linear-gradient(90deg, var(--red), transparent); }
+
+.level-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 80px; line-height: 0.8;
+  color: rgba(255,255,255,0.04);
+  position: absolute; top: 20px; right: 24px;
+  pointer-events: none;
+}
+.level-tag {
+  font-size: 14px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.level-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 32px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.level-features {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.level-features li {
+  font-size: 14px; line-height: 1.5; color: var(--gray);
+  padding-left: 20px; position: relative;
+}
+.level-features li::before {
+  content: '—';
+  position: absolute; left: 0; color: var(--red); font-size: 13px;
+}
+
+/* VIP strip */
+.vip-strip {
+  background: linear-gradient(90deg, rgba(224,0,27,0.12), rgba(255,214,0,0.08), rgba(224,0,27,0.12));
+  border-top: 1px solid var(--red-border);
+  border-bottom: 1px solid var(--red-border);
+  padding: 40px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2px;
+}
+.vip-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 14px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold);
+}
+.vip-desc {
+  font-size: 14px; color: var(--gray); max-width: 500px; line-height: 1.7;
+}
+
+/* ============================================================
+   TALENT SECTION
+   ============================================================ */
+#talent {
+  background: var(--mid);
+  border-top: 1px solid var(--border);
+}
+.talent-inner { max-width: 1200px; margin: 0 auto; }
+
+.talent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  margin-top: 60px;
+}
+
+.talent-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 56px 56px;
+  position: relative; overflow: hidden;
+}
+.talent-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+}
+.tc-role {
+  font-size: 14px; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 16px;
+}
+.tc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(40px, 4.5vw, 60px);
+  line-height: 0.9; text-transform: uppercase;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+.tc-divider {
+  width: 50px; height: 2px; background: var(--red);
+  margin-bottom: 24px;
+}
+.tc-bio {
+  font-size: 14px; line-height: 1.9; color: var(--gray);
+  max-width: 440px;
+}
+.tc-bio strong { color: var(--white); font-weight: 500; }
+
+/* Ghost name overlay */
+.tc-ghost {
+  position: absolute;
+  bottom: -10px; right: -10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 120px; line-height: 1;
+  text-transform: uppercase; letter-spacing: -0.04em;
+  color: rgba(255,255,255,0.025);
+  pointer-events: none; user-select: none;
+  white-space: nowrap;
+}
+
+/* Special guests */
+.guests-section {
+  margin-top: 80px;
+}
+.guests-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--dim);
+  margin-bottom: 30px;
+  display: flex; align-items: center; gap: 16px;
+}
+.guests-title::before, .guests-title::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.guests-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.guest-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  color: var(--gray);
+  transition: all 0.2s;
+  cursor: default;
+}
+.guest-tag:hover { border-color: var(--red-border); color: var(--white); }
+
+/* ============================================================
+   PERFORMERS (OTR Karaoke, Spur of the Moment, Ari O'Neal)
+   ============================================================ */
+#performers {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+}
+.performers-inner { max-width: 1200px; margin: 0 auto; }
+.performers-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 60px;
+}
+.performer-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 40px;
+  position: relative;
+}
+.performer-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.perf-role {
+  font-size: 14px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.perf-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px; line-height: 1;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.perf-desc {
+  font-size: 16px; line-height: 1.8; color: var(--gray);
+}
+
+/* ============================================================
+   EXPERIENCE / WHAT TO EXPECT
+   ============================================================ */
+#experience {
+  background: var(--mid);
+  border-top: 1px solid var(--border);
+}
+.exp-inner { max-width: 1200px; margin: 0 auto; }
+.exp-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 60px;
+}
+.exp-card {
+  background: var(--mid);
+  padding: 40px 32px;
+  position: relative;
+}
+.exp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.exp-card:nth-child(1)::before { background: var(--red); }
+.exp-card:nth-child(2)::before { background: var(--gold); }
+.exp-card:nth-child(3)::before { background: var(--red); }
+.exp-card:nth-child(4)::before { background: var(--gold); }
+.exp-icon {
+  font-size: 28px; margin-bottom: 20px;
+  display: block;
+}
+.exp-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 20px; text-transform: uppercase;
+  letter-spacing: 0.05em; margin-bottom: 12px;
+}
+.exp-desc { font-size: 16px; line-height: 1.8; color: var(--gray); }
+
+/* ============================================================
+   COMMITTEE
+   ============================================================ */
+#committee {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  padding: 80px 60px;
+}
+.committee-inner { max-width: 1200px; margin: 0 auto; }
+.committee-grid {
+  display: grid; grid-template-columns: repeat(8, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 48px;
+}
+.committee-card {
+  background: var(--deep);
+  padding: 24px 20px;
+  text-align: center;
+}
+.cc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 14px; text-transform: uppercase;
+  letter-spacing: 0.05em; margin-bottom: 6px;
+  line-height: 1.2;
+}
+.cc-class {
+  font-size: 13px; letter-spacing: 0.3em; color: var(--gold); margin-top: 4px;
+}
+
+/* ============================================================
+   SPONSORS / PARTNERS SECTION
+   ============================================================ */
+#sponsors {
+  background: var(--mid);
+  border-top: 1px solid var(--border);
+}
+.sponsors-inner { max-width: 1200px; margin: 0 auto; }
+.sponsor-tiers {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 60px;
+}
+.sponsor-tier {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 48px 40px;
+  position: relative;
+}
+.sponsor-tier::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.tier-title { background: var(--red); }
+.tier-platinum { background: linear-gradient(90deg, #E8E8E8, #B8B8B8); }
+.tier-gold-line { background: linear-gradient(90deg, var(--gold), #C8A000); }
+
+.tier-label {
+  font-size: 14px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 8px;
+}
+.tier-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px; text-transform: uppercase;
+  letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.tier-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 48px; color: var(--white);
+  line-height: 1; margin-bottom: 24px;
+}
+.tier-divider { width: 40px; height: 1px; background: var(--border); margin-bottom: 24px; }
+.tier-perks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.tier-perks li {
+  font-size: 16px; line-height: 1.5; color: var(--gray);
+  padding-left: 18px; position: relative;
+}
+.tier-perks li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-size: 14px; }
+.tier-cta {
+  display: block; margin-top: 32px;
+  background: var(--red); color: white;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 15px; letter-spacing: 0.4em; text-transform: uppercase;
+  padding: 14px; text-align: center; text-decoration: none;
+  transition: all 0.2s;
+}
+.tier-cta:hover { background: var(--gold); color: var(--deep); }
+
+/* ============================================================
+   TICKETS CTA SECTION
+   ============================================================ */
+#tickets {
+  background: var(--red);
+  padding: 100px 60px;
+  position: relative; overflow: hidden;
+}
+#tickets::before {
+  content: 'THE RETURN';
+  position: absolute; top: -40px; left: -20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 300px;
+  color: rgba(0,0,0,0.08);
+  letter-spacing: -0.03em;
+  pointer-events: none; user-select: none;
+  white-space: nowrap;
+}
+.tickets-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; position: relative; z-index: 1;
+}
+.tickets-tag {
+  font-size: 13px; letter-spacing: 0.6em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); margin-bottom: 20px;
+}
+.tickets-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(60px, 8vw, 100px);
+  text-transform: uppercase; line-height: 0.88;
+  color: white; margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+.tickets-sub {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(255,255,255,0.75); max-width: 540px;
+  margin-bottom: 48px;
+}
+.tickets-btn {
+  background: white; color: var(--red);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 16px;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  padding: 22px 70px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: all 0.25s;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.tickets-btn:hover { background: var(--gold); color: var(--deep); transform: translateY(-2px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.tickets-date-badge {
+  margin-top: 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  padding: 60px;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px; align-items: start;
+}
+.footer-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.footer-brand span { color: var(--red); }
+.footer-brand-wrapper { text-align: center; margin-bottom: 40px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+.footer-tagline {
+  font-size: 14px; color: var(--dim); letter-spacing: 0.1em;
+  margin-top: 8px; line-height: 1.6;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--dim); text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-copy {
+  font-size: 14px; color: var(--dim); letter-spacing: 0.1em; line-height: 1.7;
+}
+.footer-hashtag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 16px; letter-spacing: 0.15em;
+  color: var(--red); margin-top: 8px;
+}
+.footer-bottom {
+  max-width: 1200px; margin: 40px auto 0;
+  padding-top: 24px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom-text {
+  font-size: 13px; letter-spacing: 0.3em; color: var(--dim);
+}
+
+/* ============================================================
+   ANIMATIONS / SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-left { align-items: center; }
+  .mission-blurb { text-align: left; }
+  .hero-right { align-items: center; }
+  .hero-eyebrow { justify-content: center; }
+  .flyer-wrap { width: 300px; }
+  .talent-grid { grid-template-columns: 1fr; }
+  .exp-grid { grid-template-columns: 1fr 1fr; }
+  .committee-grid { grid-template-columns: repeat(4, 1fr); }
+  .sponsor-tiers { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  nav .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  .stats-bar { padding: 0 24px; flex-wrap: wrap; }
+  .mission-inner { grid-template-columns: 1fr; gap: 48px; }
+  .venue-grid { grid-template-columns: 1fr; }
+  .levels-row { grid-template-columns: 1fr; }
+  .performers-grid { grid-template-columns: 1fr; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .committee-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  #tickets { padding: 80px 24px; }
+  footer { padding: 48px 24px; }
+  .vip-strip { flex-direction: column; gap: 16px; padding: 30px 24px; text-align: center; }
+  .hero-content { padding: 0 24px; gap: 40px; }
+}
+
+
+/* Fix: talent role subtitle contrast */
+.tc-role { color: #ff4d4d !important; letter-spacing: 0.3em; }
+
+
+/* Fix: equal-height sponsor tier cards */
+.sponsor-tiers { display: flex; gap: 24px; align-items: stretch; }
+.sponsor-tier { display: flex; flex-direction: column; flex: 1; }
+.tier-cta { margin-top: auto !important; }
+
+
+/* ============================================================
+   FLYER SECTION
+   ============================================================ */
+#flyer-section {
+  padding: 120px 60px;
+  position: relative;
+  overflow: hidden;
+}
+#flyer-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--deep) 0%, rgba(20,5,10,0.95) 50%, var(--deep) 100%);
+  z-index: 0;
+}
+.flyer-layout {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.flyer-image-wrap {
+  position: relative;
+}
+.flyer-image-wrap::before {
+  content: '';
+  position: absolute; inset: -30px;
+  background: radial-gradient(ellipse, rgba(224,0,27,0.15) 0%, transparent 70%);
+  z-index: 0;
+  animation: glowPulse 4s ease infinite;
+}
+.flyer-image-wrap img {
+  position: relative; z-index: 1;
+  width: 530px;
+  box-shadow: 0 0 60px rgba(224,0,27,0.25), 0 30px 60px rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,214,0,0.12);
+}
+.flyer-corner {
+  position: absolute; width: 18px; height: 18px; z-index: 2;
+}
+.flyer-corner.tl { top: -6px; left: -6px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.flyer-corner.tr { top: -6px; right: -6px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+.flyer-corner.bl { bottom: -6px; left: -6px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.flyer-corner.br { bottom: -6px; right: -6px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+.flyer-details {
+  display: flex; flex-direction: column; gap: 32px;
+}
+.flyer-details .fd-eyebrow {
+  font-size: 14px; letter-spacing: 0.55em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 12px;
+}
+.flyer-details .fd-eyebrow::before {
+  content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
+}
+.flyer-details .fd-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(68px, 7vw, 100px);
+  text-transform: uppercase; line-height: 0.9;
+  color: var(--white);
+}
+.flyer-details .fd-meta {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.flyer-details .fd-meta-row {
+  display: flex; align-items: baseline; gap: 12px;
+}
+.flyer-details .fd-meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dim); min-width: 120px;
+}
+.flyer-details .fd-meta-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 24px; letter-spacing: 0.03em;
+  color: var(--white);
+}
+.flyer-details .fd-body {
+  font-size: 21px; line-height: 1.75; color: var(--gray);
+  max-width: 620px;
+  border-left: 3px solid var(--red-border);
+  padding-left: 20px;
+}
+.flyer-details .fd-body strong {
+  color: var(--white); font-weight: 500;
+}
+.flyer-details .fd-tagline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 26px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red);
+}
+
+
+/* Committee row — inline under talent heading */
+.committee-row {
+  text-align: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.committee-row-label {
+  font-size: 20px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.committee-row-names {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  line-height: 2.2;
+}
+.cr-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.05em;
+  color: var(--white);
+}
+.cr-name em {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-left: 5px;
+}
+.cr-sep {
+  color: var(--dim);
+  padding: 0 16px;
+  font-size: 18px;
+}
+
+
+/* Special Invited Guests — prominent grid */
+.sig-guest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 40px;
+}
+.sig-guest {
+  text-align: center;
+  padding: 28px 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  transition: all 0.3s;
+}
+.sig-guest:hover {
+  border-color: var(--red-border);
+  background: rgba(224,0,27,0.06);
+}
+.sig-guest-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+.sig-guest-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 8px;
+  opacity: 0.7;
+}
+@media (max-width: 900px) {
+  .sig-guest-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .sig-guest-grid { grid-template-columns: 1fr; }
+}
+
+
+/* Table Reservations Section */
+#tables {
+  padding: 100px 60px;
+  position: relative;
+}
+#tables::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--deep) 0%, rgba(15,5,10,0.97) 50%, var(--deep) 100%);
+  z-index: 0;
+}
+.tables-inner {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto;
+}
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 50px;
+}
+.table-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.table-card:hover {
+  border-color: var(--red-border);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.table-card.featured {
+  border-color: var(--gold);
+  box-shadow: 0 0 40px rgba(255,214,0,0.08);
+}
+.table-card.featured .tc-header {
+  background: linear-gradient(135deg, rgba(255,214,0,0.1), rgba(224,0,27,0.1));
+}
+.tc-header {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+.tc-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--deep); background: var(--gold);
+  padding: 4px 12px;
+  font-weight: 700;
+}
+.tc-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+.tc-tier-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 32px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+.tc-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 56px;
+  color: var(--white);
+  line-height: 1;
+  margin-top: 8px;
+}
+.tc-price sup {
+  font-size: 28px; vertical-align: super;
+  font-weight: 700;
+}
+.tc-features {
+  padding: 28px 28px 20px;
+  flex: 1;
+}
+.tc-features ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.tc-features li {
+  font-size: 16px;
+  color: var(--gray);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.4;
+}
+.tc-features li::before {
+  content: '✓';
+  position: absolute; left: 0; top: 0;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+.tc-cta-wrap {
+  padding: 0 28px 28px;
+  margin-top: auto;
+}
+.tc-cta {
+  display: block; text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 13px;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  padding: 16px 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.tc-cta-red {
+  background: var(--red); color: white;
+  box-shadow: 0 0 30px rgba(224,0,27,0.3);
+}
+.tc-cta-red:hover { background: var(--gold); color: var(--deep); }
+.tc-cta-gold {
+  background: transparent; color: var(--gold);
+  border: 2px solid var(--gold);
+}
+.tc-cta-gold:hover { background: var(--gold); color: var(--deep); }
+@media (max-width: 900px) {
+  .table-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+}
+
+
+
+
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out;
+  opacity: 0; transition: opacity 0.3s;
+}
+.lightbox-overlay.active { display: flex; opacity: 1; }
+.lightbox-overlay img {
+  max-width: 90vw; max-height: 90vh;
+  object-fit: contain;
+  box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.lightbox-close {
+  position: absolute; top: 24px; right: 32px;
+  font-size: 36px; color: white; cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300; opacity: 0.7;
+  transition: opacity 0.2s;
+  z-index: 10000;
+}
+.lightbox-close:hover { opacity: 1; }
+.menu-card { cursor: zoom-in; }
+
+
+/* ============================================================
+   COMPREHENSIVE MOBILE RESPONSIVE
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .flyer-layout {
+    grid-template-columns: 1fr !important;
+    gap: 50px !important;
+    text-align: center;
+    max-width: 600px !important;
+  }
+  .flyer-image-wrap img { width: 100% !important; max-width: 450px; margin: 0 auto; display: block; }
+  .flyer-details { align-items: center; }
+  .flyer-details .fd-body { text-align: left; }
+  .table-grid { grid-template-columns: 1fr 1fr !important; }
+  .sig-guest-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-event-pill { 
+    padding: 10px 16px !important; 
+    margin-top: 10px !important;
+    margin-bottom: 40px !important;
+  }
+  .hero-event-pill span { font-size: 11px !important; letter-spacing: 0.2em !important; }
+  .hero-main-title .the-word { font-size: 80px !important; }
+  .hero-main-title .return-word { font-size: 120px !important; }
+  .hero-main-title { margin-bottom: 12px !important; }
+  .hero-sub-title { font-size: 44px !important; }
+  .hero-sub-reflection { font-size: 44px !important; }
+  .hero-cta-row { 
+    flex-direction: column !important; 
+    gap: 12px !important; 
+    align-items: center !important;
+  }
+  .hero-cta, .hero-cta-outline { 
+    min-width: 260px !important; 
+    padding: 16px 32px !important;
+    font-size: 13px !important;
+  }
+  .scroll-hint { display: none; }
+  
+  /* Marquee */
+  .top-ticker { font-size: 11px !important; }
+  
+  /* Nav */
+  nav { padding: 0 16px !important; }
+  nav .nav-links { display: none !important; }
+  .nav-cta { font-size: 11px !important; padding: 10px 20px !important; }
+  
+  /* Stats */
+  .stats-bar { 
+    flex-direction: column !important; 
+    gap: 20px !important; 
+    padding: 40px 24px !important;
+  }
+  .stat-num { font-size: 28px !important; }
+  
+  /* Mission */
+  .mission-inner { padding: 0 !important; }
+  .mission-quote { font-size: 20px !important; }
+  .section-title { font-size: clamp(32px, 8vw, 48px) !important; }
+  .mission-body { font-size: 15px !important; }
+  
+  /* Flyer section */
+  #flyer-section { padding: 60px 20px !important; }
+  .flyer-layout { 
+    grid-template-columns: 1fr !important; 
+    gap: 40px !important; 
+    max-width: 100% !important;
+  }
+  .flyer-image-wrap img { width: 100% !important; max-width: 100% !important; }
+  .flyer-details .fd-title { font-size: 48px !important; }
+  .flyer-details .fd-meta-value { font-size: 18px !important; }
+  .flyer-details .fd-body { 
+    font-size: 15px !important; 
+    max-width: 100% !important; 
+  }
+  .flyer-details .fd-tagline { font-size: 20px !important; }
+  
+  /* Venue */
+  .venue-grid { grid-template-columns: 1fr !important; }
+  .levels-row { grid-template-columns: 1fr !important; }
+  .level-features li { font-size: 14px !important; }
+  .vip-strip { 
+    flex-direction: column !important; 
+    text-align: center !important; 
+    padding: 24px 20px !important;
+  }
+  
+  /* Talent */
+  .talent-grid { grid-template-columns: 1fr !important; }
+  .talent-card { padding: 40px 20px !important; }
+  .tc-name { font-size: clamp(48px, 12vw, 72px) !important; }
+  .tc-ghost { display: none !important; }
+  
+  /* Committee row */
+  #committee { padding: 30px 20px !important; }
+  .committee-row { margin-top: 20px !important; margin-bottom: 20px !important; }
+  .committee-row-names { gap: 0 !important; }
+  .cr-name { font-size: 15px !important; }
+  .cr-sep { padding: 0 8px !important; }
+  
+  /* Guests */
+  .sig-guest-grid { 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 16px !important;
+  }
+  .sig-guest { padding: 20px 12px !important; }
+  .sig-guest-name { font-size: 18px !important; }
+  
+  /* Tables */
+  #tables { padding: 60px 20px !important; }
+  .table-grid { grid-template-columns: 1fr !important; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .tc-price { font-size: 44px !important; }
+  .tc-tier-name { font-size: 26px !important; }
+  
+  
+  /* Sponsors */
+  .sponsor-tiers { flex-direction: column !important; }
+  
+  /* Footer */
+  .footer-inner { grid-template-columns: 1fr !important; gap: 32px !important; }
+  footer { padding: 40px 20px !important; }
+  
+  /* General sections */
+  section { padding: 60px 20px !important; }
+  .section-eyebrow { font-size: 12px !important; }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .hero-main-title .the-word { font-size: 64px !important; }
+  .hero-main-title .return-word { font-size: 96px !important; }
+  .hero-main-title { margin-bottom: 10px !important; }
+  .hero-sub-title { font-size: 36px !important; }
+  .hero-sub-reflection { font-size: 36px !important; }
+  .sig-guest-grid { grid-template-columns: 1fr !important; }
+  .committee-row-names { flex-direction: column !important; gap: 4px !important; }
+  .cr-sep { display: none !important; }
+  .stats-bar .stat-item { text-align: center; }
+}
+
+
+/* ============================================================
+   MOBILE ALIGNMENT FIXES
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Center all section headers */
+  .section-eyebrow, .section-title, .section-body {
+    text-align: center !important;
+  }
+  
+  /* Center mission text */
+  .mission-quote { text-align: center !important; }
+  .mission-body { text-align: center !important; }
+  .mission-hashtags { justify-content: center !important; }
+  
+  /* Center flyer details */
+  .flyer-details { align-items: center !important; text-align: center !important; }
+  .flyer-details .fd-body { 
+    text-align: center !important; 
+    border-left: none !important; 
+    padding-left: 0 !important;
+    border-top: 2px solid var(--red-border);
+    padding-top: 16px;
+  }
+  .flyer-details .fd-tagline { text-align: center !important; }
+  .flyer-details .fd-meta { align-items: center !important; }
+  .flyer-details .fd-meta-row { 
+    flex-direction: column !important; 
+    align-items: center !important; 
+    gap: 2px !important; 
+    text-align: center !important;
+    margin-bottom: 8px !important;
+  }
+  .flyer-details .fd-meta-label { 
+    min-width: unset !important; 
+    font-size: 12px !important; 
+    text-align: center !important; 
+  }
+  .flyer-details .fd-meta-value { 
+    font-size: 20px !important; 
+    text-align: center !important; 
+  }
+  
+  /* Center venue text */
+  .venue-header { text-align: center !important; }
+  .venue-header p { text-align: center !important; }
+  
+  /* Even spacing on talent cards */
+  .talent-card { 
+    text-align: center !important; 
+    margin-bottom: 20px !important;
+  }
+  .tc-img { margin: 0 auto !important; display: block !important; }
+  .tc-role { text-align: center !important; }
+  .tc-bio { text-align: center !important; }
+  .tc-bar { margin: 16px auto !important; }
+  
+  /* Center performers */
+  .performers-grid { justify-items: center !important; }
+  .perf-card { text-align: center !important; }
+  
+  /* Center committee row */
+  .committee-row { text-align: center !important; }
+  
+  /* Uniform section spacing */
+  section { padding-top: 60px !important; padding-bottom: 60px !important; }
+  
+  /* Stats bar centered */
+  .stat-item { text-align: center !important; width: 100% !important; }
+  
+  /* Venue images full width */
+  .venue-img-cell img { width: 100% !important; }
+  
+  /* Level cards even */
+  .level-card { margin-bottom: 20px !important; }
+  
+  /* Sponsor cards even */
+  .sponsor-tier { margin-bottom: 20px !important; }
+  
+  /* Footer centered */
+  .footer-col { text-align: center !important; }
+  .footer-bottom { text-align: center !important; }
+  .footer-bottom-text { text-align: center !important; }
+  .footer-links { justify-content: center !important; }
+  
+  /* CTA section */
+  #tickets { text-align: center !important; }
+  #tickets .section-title { text-align: center !important; }
+  
+  /* VIP strip centered */
+  .vip-label, .vip-desc { text-align: center !important; }
+  .nav-cta { margin: 0 auto !important; display: inline-block !important; }
+  
+  /* Consistent padding */
+  .talent-inner, .exp-inner, .venue-inner, .mission-inner {
+    padding-left: 0 !important; padding-right: 0 !important;
+  }
+  
+  /* Menu cards even spacing */
+  .menu-card { margin-bottom: 16px !important; }
+  
+  /* Guest cards even */
+  .sig-guest { margin-bottom: 0 !important; }
+  
+  /* Table cards even */  
+  .table-card { margin-bottom: 0 !important; }
+  
+  /* Ensure no horizontal overflow */
+  body { overflow-x: hidden !important; }
+  .top-ticker { overflow: hidden !important; }
+}
+
+
+/* ============================================================
+   MOBILE FIXES — NEW ELEMENTS (2/28)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Venue grid: 1 column on mobile */
+  .venue-grid { grid-template-columns: 1fr !important; }
+  
+  /* Pricing tiles stack vertically */
+  #tickets div[style*="display:flex"][style*="gap:24px"] {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  #tickets div[style*="min-width:260px"] {
+    max-width: 100% !important;
+    min-width: auto !important;
+    width: 100% !important;
+  }
+  
+  /* Registration notice box */
+  #tickets div[style*="max-width:600px"] {
+    max-width: 100% !important;
+    padding: 16px 20px !important;
+  }
+  
+  /* Parking & venue link row stack */
+  #venue div[style*="display:flex"][style*="gap:24px"][style*="flex-wrap"] {
+    flex-direction: column !important;
+  }
+  
+  /* Nav links — hamburger not implemented, just hide overflow gracefully */
+  .nav-links { gap: 20px !important; overflow-x: auto; }
+  .nav-links a { font-size: 11px !important; letter-spacing: 0.2em !important; white-space: nowrap; }
+  
+  /* Committee row inside talent */
+  .committee-row-label { font-size: 16px !important; }
+  .cr-name { font-size: 18px !important; }
+  
+  /* Golf section */
+  #golf { padding: 60px 20px !important; }
+  
+  /* Table reservations button */
+  #tables .hero-cta { min-width: auto !important; width: 100% !important; max-width: 320px; }
+  
+  /* Ticket section pricing */
+  .tickets-btn { padding: 18px 40px !important; font-size: 14px !important; }
+  
+  /* UMDBA link */
+  #tickets a[href*="simpletix"] { font-size: 15px !important; }
+  
+  /* Date badge */
+  .tickets-date-badge { font-size: 13px !important; line-height: 1.8 !important; }
+  
+  /* Footer links */
+  .footer-links { align-items: center !important; }
+  .footer-links a { font-size: 13px !important; }
+}
+
+@media (max-width: 420px) {
+  /* Talent cards tighter */
+  .talent-card { padding: 32px 16px !important; }
+  .tc-bio { font-size: 13px !important; }
+  
+  /* Table cards */
+  .tc-price { font-size: 40px !important; }
+  
+  /* Guest grid single column */
+  .sig-guest-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .sig-guest { padding: 16px 10px !important; }
+  .sig-guest-name { font-size: 16px !important; }
+}
+
+.venue-grid-2x2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 768px) { .venue-grid-2x2 { grid-template-columns: 1fr !important; } }
+
+@media (max-width: 768px) { .venue-info-row { flex-direction: column !important; } }
+
+/* Hamburger menu */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex !important; }
+  .nav-links {
+    display: none !important;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: rgba(4,3,10,0.97); backdrop-filter: blur(16px);
+    flex-direction: column; padding: 20px 24px; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.nav-open { display: flex !important; }
+  .nav-links a { font-size: 14px !important; letter-spacing: 0.3em !important; color: var(--gold) !important; }
+  .nav-links a:hover { color: var(--white) !important; }
+}
+
+@media (max-width: 768px) {
+  .marquee-strip { height: 28px; }
+  .marquee-inner span { font-size: 12px !important; letter-spacing: 0.2em !important; padding: 0 20px !important; }
+  .marquee-inner .dot { padding: 0 6px !important; }
+  /* Push nav down for marquee */
+  nav { top: 28px !important; }
+  /* Push hero down for nav+marquee */
+  #hero { padding-top: 92px !important; }
+}
+
+@media (max-width: 768px) {
+  .tickets-date-badge { font-size: 12px !important; letter-spacing: 0.15em !important; padding: 0 16px !important; word-wrap: break-word !important; white-space: normal !important; }
+}
+@media (max-width: 420px) {
+  .tickets-date-badge { font-size: 11px !important; letter-spacing: 0.1em !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP MARQUEE ===================== -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>The Return</span><span class="dot">◆</span>
+    <span>Maryland Black Alumni Weekend</span><span class="dot">◆</span>
+    <span>Friday, April 10</span><span class="dot">◆</span>
+    <span>Citizens & Culture</span><span class="dot">◆</span>
+    <span>Silver Spring, MD</span><span class="dot">◆</span>
+    <span>9PM – 2AM</span><span class="dot">◆</span>
+    <span>Big Tigger</span><span class="dot">◆</span>
+    <span>Robyn Dixon</span><span class="dot">◆</span>
+    <span>DJ M.O.S.</span><span class="dot">◆</span>
+    <span>UMBA</span><span class="dot">◆</span>
+    <span>One Night · One Community · All Terps</span><span class="dot">◆</span>
+    <!-- repeat for infinite -->
+    <span>The Return</span><span class="dot">◆</span>
+    <span>Maryland Black Alumni Weekend</span><span class="dot">◆</span>
+    <span>Friday, April 10</span><span class="dot">◆</span>
+    <span>Citizens & Culture</span><span class="dot">◆</span>
+    <span>Silver Spring, MD</span><span class="dot">◆</span>
+    <span>9PM – 2AM</span><span class="dot">◆</span>
+    <span>Big Tigger</span><span class="dot">◆</span>
+    <span>Robyn Dixon</span><span class="dot">◆</span>
+    <span>DJ M.O.S.</span><span class="dot">◆</span>
+    <span>UMBA</span><span class="dot">◆</span>
+    <span>One Night · One Community · All Terps</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="nav-brand">THE <span>RETURN</span></div>
+  <ul class="nav-links">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#flyer-section">Event</a></li>
+    <li><a href="#talent">Talent</a></li>
+    <li><a href="#venue">Venue</a></li>
+    <li><a href="#experience">Special Guests</a></li>
+    <li><a href="#tables">Tables</a></li>
+    <li><a href="#golf">Golf</a></li>
+  </ul>
+  <a class="nav-cta" href="http://umdthereturn.simpletix.com" target="_blank">Buy Tickets</a>
+
+  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('nav-open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="hero-content">
+
+    <!-- Gold event pill -->
+    <div class="hero-event-pill">
+      <span>Friday, April 10 &nbsp;·&nbsp; 9PM – 2AM &nbsp;·&nbsp; Citizens &amp; Culture</span>
+    </div>
+
+    <!-- Main title -->
+    <h1 class="hero-main-title">
+      <span class="the-word">The</span>
+      <span class="return-word">Return</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <div class="hero-sub-title">University of Maryland Black Alumni<br>Weekend</div>
+
+    <!-- CTA buttons -->
+    <div class="hero-cta-row">
+      <a class="hero-cta" href="http://umdthereturn.simpletix.com" target="_blank">Buy Tickets →</a>
+      <a class="hero-cta-outline" href="mailto:info@umdthereturn.com">Reserve a Table →</a>
+    </div>
+    <div style="margin-top:18px;font-family:'Barlow',sans-serif;font-size:15px;letter-spacing:0.15em;color:rgba(240,237,234,0.7);text-align:center;">For more information please call <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);padding-bottom:1px;">(301) 709-9821</a></div>
+    <div style="margin-top:14px;font-family:'Barlow',sans-serif;font-size:14px;letter-spacing:0.12em;color:rgba(240,237,234,0.6);text-align:center;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;">Tables — A Limited Quantity of Tables are Available For Purchase — Please Inquire Onsite <span style="display:block;margin-top:4px;color:var(--gold);font-weight:600;">(A Ticket is Required For Party Entry!)</span></div>
+
+  </div>
+
+</section>
+
+<!-- ===================== STATS BAR ===================== -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <div class="stat-num">55,000+</div>
+    <div class="stat-label">Total Black Alumni</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">16,000+</div>
+    <div class="stat-label">Email Subscribers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2M+</div>
+    <div class="stat-label">Social Reach</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1,500</div>
+    <div class="stat-label">Event Capacity</div>
+  </div>
+</div>
+
+<!-- ===================== MISSION ===================== -->
+<section id="mission">
+  <div class="mission-inner">
+    <div class="reveal">
+      <div class="mission-quote">
+        "For years, we dreamed about the future at the University of Maryland. Today we are the future."
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="section-eyebrow">The Mission</div>
+      <h2 class="section-title">A Movement,<br>Not a Moment.</h2>
+      <p class="mission-body">
+        The 2026 Maryland Black Alumni Weekend is more than a reunion—it's a declaration. <strong>The time is now. A return. A reconnection.</strong> A reminder that our power is greatest when we move together.<br><br>
+        We're sounding the horn for our most successful, creative, and influential alumni to come home—because reunion is unity, and unity is legacy. We are curating a space where <strong>trailblazers of industry, icons of culture, and the leaders of tomorrow</strong> gather where it all began.
+      </p>
+      <div class="mission-hashtags">
+        <div class="hashtag">#UMDBAW2026</div>
+        <div class="hashtag">#TheReturn</div>
+        <div class="hashtag">#BlackTerp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== FLYER ===================== -->
+<section id="flyer-section">
+  <div class="flyer-layout reveal">
+    <div class="flyer-image-wrap">
+      <div class="flyer-corner tl"></div>
+      <div class="flyer-corner tr"></div>
+      <div class="flyer-corner bl"></div>
+      <div class="flyer-corner br"></div>
+      <img src="images/flyer.jpg" alt="The Return — Event Flyer">
+    </div>
+    <div class="flyer-details">
+      <div class="fd-eyebrow">The Event</div>
+      <div class="fd-title">The Return</div>
+      <div class="fd-meta">
+        <div class="fd-meta-row">
+          <span class="fd-meta-label">Date</span>
+          <span class="fd-meta-value">Friday, April 10</span>
+        </div>
+        <div class="fd-meta-row">
+          <span class="fd-meta-label">Time</span>
+          <span class="fd-meta-value">9:00 PM – 2:00 AM</span>
+        </div>
+        <div class="fd-meta-row">
+          <span class="fd-meta-label">Venue</span>
+          <span class="fd-meta-value">Citizens & Culture</span>
+        </div>
+        <div class="fd-meta-row">
+          <span class="fd-meta-label">Address</span>
+          <span class="fd-meta-value">8113 Georgia Ave, Silver Spring, MD 20910</span>
+        </div>
+      </div>
+      <p class="fd-body">
+        UMBA presents <strong>The Return</strong>, the signature Friday night experience of 2026 Maryland Black Alumni Weekend. Join fellow Terps for a night of music, connection, and celebration—hosted by media personality <strong>Big Tigger</strong>, co-hosted by <strong>Robyn Dixon</strong> of <em>Real Housewives of Potomac</em> (RHOP), with sounds by <strong>DJ M.O.S.</strong>
+      </p>
+      <p class="fd-body">
+        This isn't just a party. It's alumni, culture, and community all in one room. Dress sharp. Bring your people. Come ready to reconnect.
+      </p>
+      <div class="fd-tagline">One night. One community. All Terps.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TALENT ===================== -->
+<section id="talent">
+  <div class="talent-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Headlining Talent</div>
+      <h2 class="section-title">The Names<br>Behind the Night</h2>
+    </div>
+
+
+
+    <div class="talent-grid">
+      <!-- Big Tigger -->
+      <div class="talent-card reveal">
+        <div class="tc-ghost">TIGGER</div>
+        <img class="tc-photo" src="images/artist-tigger.jpg" alt="Big Tigger">
+          <div class="tc-role">Host · UMD Alumnus</div>
+        <div class="tc-name">Big<br>Tigger</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">
+          Darian "Big Tigger" Morgan is a defining voice in hip-hop culture and broadcast media — best known as the legendary host of <strong>BET's Rap City: Tha Basement</strong> and <strong>106 &amp; Park</strong>. An Emmy Award-winning talent, Tigger's journey began right here at <strong>University of Maryland, College Park</strong>, interning at WPGC 95.5 FM before dominating the airwaves as the region's highest-rated nighttime host.<br><br>
+          Over two decades, Tigger has interviewed and worked alongside the biggest names in music, sports, and entertainment — from <strong>Jay-Z and Nas to LeBron James</strong>. His influence extends beyond the microphone: he's a cultural connector who has shaped how a generation experiences hip-hop.<br><br>
+          Today he hosts <strong>The Big Tigger Morning Show on V-103</strong> in Atlanta — the city's #1 urban radio station — and serves as the official resident DJ for the <strong>Atlanta Hawks and Falcons</strong>, energizing sold-out crowds at State Farm Arena and Mercedes-Benz Stadium. A proud Terp who never forgot where it started, his return to College Park for Black Alumni Weekend is a true homecoming celebration.
+        </p>
+      </div>
+
+      <!-- Robyn Dixon -->
+      <div class="talent-card reveal reveal-delay-2">
+        <div class="tc-ghost">ROBYN</div>
+        <img class="tc-photo" src="images/artist-robyn.jpg" alt="Robyn Dixon">
+          <div class="tc-role">Special Co-Host · RHOP · UMD Alumna</div>
+        <div class="tc-name">Robyn<br>Dixon</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">
+          Television personality, entrepreneur, and star of Bravo's <strong>The Real Housewives of Potomac</strong>, Robyn Dixon is a proud <strong>University of Maryland</strong> alumna who brings undeniable star power and authentic Terp pride to an already legendary lineup.<br><br>
+          Beyond her dynamic presence on screen, Robyn is a successful businesswoman and co-host of the popular podcast <strong>Reasonably Shady</strong>, where she engages audiences with candid conversations on life, relationships, and navigating the spotlight. Her voice extends beyond television, connecting with a broad and loyal community across platforms.<br><br>
+          Robyn's return to College Park is more than a homecoming—it's a celebration of <strong>Black alumni excellence, influence, and legacy</strong>. As a Terp who has built her brand with resilience and authenticity, her presence highlights the impact of Maryland graduates across entertainment, media, and entrepreneurship while inspiring the next generation to dream boldly and lead confidently.
+        </p>
+      </div>
+
+      <!-- DJ M.O.S. -->
+      <div class="talent-card reveal reveal-delay-3">
+        <div class="tc-ghost">MOS</div>
+        <img class="tc-photo" src="images/artist-mos.jpg" alt="DJ M.O.S.">
+          <div class="tc-role">Music · Official DJ of the Academy Awards · UMD Alumnus</div>
+        <div class="tc-name">DJ<br>M.O.S.</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">
+          One of the most sought-after DJs in the entertainment industry, <strong>DJ M.O.S.</strong> (Masud Semple) is an alumnus of the <strong>University of Maryland, College Park</strong> who has taken the global stage by storm. As co-host and <strong>"Voice of God"</strong> for the Oscars Red Carpet Show on ABC — now in his 8th consecutive year — alongside Vanessa Hudgens and Terrence J, M.O.S. has become synonymous with Hollywood's biggest night.<br><br>
+          Featured in <strong>Vogue, The New York Times, Interview Magazine, and GQ</strong>, and recognized by <strong>Vanity Fair</strong> as one of the best-dressed DJs in the world. He has performed for <strong>Beyoncé, George Lucas, Robert De Niro, and President Barack Obama</strong>, and has been the DJ of choice for brands like <strong>Dior, Netflix, Disney/Marvel Studios</strong>, and the legendary <strong>amfAR Gala</strong> in Cannes.<br><br>
+          A proud ambassador for <strong>Don Julio 1942</strong>, M.O.S. has held residencies at <strong>Hakkasan Las Vegas, LIV Miami, L'Arc Paris, Base Dubai, 1OAK Dubai, and Tao Chicago</strong>. His return to College Park — where his career began spinning at campus parties — is a full-circle moment and a testament to what happens when Terp dreams meet relentless hustle.
+        </p>
+      </div>
+    </div>
+
+    
+    
+
+    
+
+  </div>
+</section>
+
+<!-- ===================== COMMITTEE ===================== -->
+<section id="committee" style="padding:60px 60px;background:var(--deep);border-top:1px solid var(--border);">
+  <div style="max-width:1200px;margin:0 auto;">
+    
+    <div class="committee-row reveal" style="margin-top:40px; margin-bottom:60px;">
+      <div class="committee-row-label">Event Committee</div>
+      <div class="committee-row-names">
+        <span class="cr-name">JAMES BROWN <em>'82</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">WAYNE BRUCE <em>'89</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">TIMI JORDAN <em>'91</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">FLAVIUS GAILBER <em>'91</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">CARMEN JONES <em>'93</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">LAURIN BROWN <em>'95</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">DERRIN WOODHOUSE <em>'95</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">JASON WILES <em>'00</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">MASUD SEMPLE <em>'01</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">DARIEN STRACHAN JR. <em>'18</em></span>
+        <span class="cr-sep">·</span>
+        <span class="cr-name">JULIAN HALL <em>'19</em></span>
+      </div>
+    
+
+
+    <!-- Performers section removed - talent consolidated above -->
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VENUE ===================== -->
+<section id="venue">
+  <div class="venue-inner">
+    <div class="venue-header reveal">
+      <div class="section-eyebrow">The Venue</div>
+      <h2 class="section-title">Citizens<br>& Culture</h2>
+      <p style="margin-top:8px;"><a href="https://www.citizensculture.com" target="_blank" style="color:var(--gold);text-decoration:none;font-size:14px;letter-spacing:0.3em;text-transform:uppercase;border-bottom:1px solid var(--gold-border);padding-bottom:2px;transition:color 0.2s;">Visit Venue Website →</a></p>
+      <p class="section-body">Hosted at the premier Citizens & Culture venue in Downtown Silver Spring, this full multi-level takeover is designed to spark organic connection and high-energy celebration. With capacity for 1,000+ attendees, the space delivers a high-impact, high-density branding environment.</p>
+      <p style="font-size:15px;color:var(--dim);letter-spacing:0.2em;margin-top:12px;font-family:'DM Mono',monospace;">8113 GEORGIA AVENUE · SILVER SPRING, MD 20910</p>
+      
+    </div>
+
+    <div class="venue-grid venue-grid-2x2 reveal">
+      <div class="venue-img-cell">
+        <img src="images/social-lounge.jpg" alt="Citizens & Culture — Social Lounge">
+        <div class="venue-img-overlay"></div>
+        <div class="venue-img-label">
+          <span>Level 1</span>
+          Social Lounge
+        </div>
+      </div>
+      <div class="venue-img-cell">
+        <img src="images/venue-main.jpg" alt="Citizens & Culture — Main Hall">
+        <div class="venue-img-overlay"></div>
+        <div class="venue-img-label">
+          <span>Level 2</span>
+          Main Stage
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div style="margin-top:24px;">
+      <div style="padding:20px 28px;border:1px solid var(--border);background:var(--panel);">
+        <p style="font-size:14px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;">Table Reservations</p>
+        <p style="font-size:15px;line-height:1.8;color:var(--gray);">Reserved table seating is available on both levels, offering an elevated and comfortable guest experience. The venue also features a curated selection of appetizers, allowing guests to enjoy great food while connecting and celebrating throughout the evening.</p>
+        <a class="nav-cta" href="#tables" style="margin-top:16px;display:inline-block;">Table Info →</a>
+      </div>
+    </div>
+
+    <div class="venue-info-row" style="margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+      <div style="flex:1;min-width:280px;padding:20px 28px;border:1px solid var(--border);background:var(--panel);">
+        <p style="font-size:14px;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;font-weight:700;">Parking & Transportation</p>
+        <p style="font-size:15px;line-height:1.8;color:var(--gray);">Convenient garage parking is available just around the corner from the venue. For a seamless and stress-free evening, we encourage guests to utilize rideshare services.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SPECIAL GUESTS ===================== -->
+<section id="experience" style="padding: 100px 60px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="reveal">
+      <div class="section-eyebrow">Notable Alumni</div>
+      <h2 class="section-title">Special Invited<br>Guests</h2>
+    </div>
+    <div class="sig-guest-grid reveal" style="margin-top: 50px;">
+      <div class="sig-guest">
+        <div class="sig-guest-name">Lonny Baxter</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Jeff Baxter</div>
+        <div class="sig-guest-role">Former UMD Basketball Player</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Steve Blake</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Juan Dixon</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Michael Ealy</div>
+        <div class="sig-guest-role">Actor</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Kevin Glover</div>
+        <div class="sig-guest-role">Retired NFL</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Mya Harrison</div>
+        <div class="sig-guest-role">Grammy-Winning Artist</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Lamont Jordan</div>
+        <div class="sig-guest-role">Retired NFL</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Gayle King</div>
+        <div class="sig-guest-role">CBS This Morning</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Crystal Langhorne</div>
+        <div class="sig-guest-role">Retired WNBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Demetria L. Lucas</div>
+        <div class="sig-guest-role">Author</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Tony Massenburg</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Aaron McGruder</div>
+        <div class="sig-guest-role">The Boondocks</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Dawn Moore</div>
+        <div class="sig-guest-role">First Lady of MD</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Ari O'Neal</div>
+        <div class="sig-guest-role">Entertainment</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Derik Queen</div>
+        <div class="sig-guest-role">UMD Basketball</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Duane Simpkins</div>
+        <div class="sig-guest-role">UMD Basketball</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Jalen Smith</div>
+        <div class="sig-guest-role">UMD Basketball</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Joe Smith</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Aaron Wiggins</div>
+        <div class="sig-guest-role">NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Buck Williams</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Walt Williams</div>
+        <div class="sig-guest-role">Retired NBA</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Christy Winters-Scott</div>
+        <div class="sig-guest-role">Basketball Analyst</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Josh Woods</div>
+        <div class="sig-guest-role">Atlanta Falcons</div>
+      </div>
+      <div class="sig-guest">
+        <div class="sig-guest-name">Madelyne Woods</div>
+        <div class="sig-guest-role">Media &amp; TV</div>
+      </div>
+    
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ===================== TABLE RESERVATIONS ===================== -->
+<section id="tables">
+  <div class="tables-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Table Packages</div>
+      <h2 class="section-title">Secure<br>Your Table</h2>
+    </div>
+    <div class="reveal" style="text-align: center; max-width: 700px; margin: 40px auto;">
+      <p style="color: #FFD600; font-size: 20px; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; line-height: 1.5;">A Limited Quantity of Tables are Available For Purchase — Please Inquire Onsite</p>
+      <p style="color: #E53935; font-size: 18px; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;">⚠️ A Ticket is Required For Party Entry! ⚠️</p>
+      <a href="tel:+13017099821" class="hero-cta" style="display: inline-block; margin-top: 10px;">Call For Info: (301) 709-9821 →</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- ===================== GOLF ===================== -->
+<section id="golf">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="reveal">
+      <div class="section-eyebrow">Alumni Golf</div>
+      <h2 class="section-title">Black Alumni<br>Fairway Classic</h2>
+
+      <!-- Golf course photo -->
+      <div style="margin: 30px auto; max-width: 800px; border-radius: 12px; overflow: hidden;">
+        <img src="oak-creek-golf.webp" alt="Oak Creek Golf Club, Upper Marlboro MD" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+      </div>
+
+            <!-- Tagline -->
+      <p style="color: #FFD600; font-size: 18px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin: 20px auto 10px;">A Celebration of Black Alumni, Culture &amp; Terp Pride</p>
+      <p style="color: #ccc; font-size: 15px; text-align: center; max-width: 700px; margin: 0 auto 30px; line-height: 1.7;">The inaugural UMD Black Alumni Fairway Golf Classic tees off at 10:00 AM at Oak Creek Golf Club. Rooted in a celebration of Black alumni, culture and Terp pride, the event brings together fellow Terps for a dynamic day honoring the legacy, leadership, and lasting impact of Maryland's Black alumni community. Registration includes a golf cart, breakfast, and a commemorative polo. More than a tournament, the Fairway Classic launches a bold new tradition designed to unite generations of Terps for years to come.</p>
+
+      <!-- Event details -->
+      <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin: 40px auto; max-width: 900px;">
+
+        <!-- Details card -->
+        <div style="flex: 1; min-width: 280px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,214,0,0.2); border-radius: 12px; padding: 30px; text-align: left;">
+          <h3 style="color: #FFD600; font-family: 'Oswald', sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Event Details</h3>
+          <div style="color: #ccc; font-size: 16px; line-height: 2;">
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <strong style="color: #fff;">Friday, April 10, 2026</strong></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V2"/><path d="M7 7c0-2.8 2.2-5 5-5v10"/><circle cx="12" cy="20" r="2" fill="#FFD600"/></svg> <strong style="color: #fff;">Oak Creek Golf Club</strong></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <strong style="color: #fff;">600 Bowieville Manor Ln, Upper Marlboro, MD 20774</strong></div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <strong style="color: #fff;">8:30 AM – 5:00 PM</strong></div>
+          </div>
+          <p style="color: #999; font-size: 13px; margin-top: 15px; line-height: 1.6;"></p>
+        </div>
+
+        <!-- Pricing card -->
+        <div style="flex: 1; min-width: 280px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,214,0,0.2); border-radius: 12px; padding: 30px; text-align: left;">
+          <h3 style="color: #FFD600; font-family: 'Oswald', sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Registration</h3>
+          <div style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <span style="color: #fff; font-size: 16px; font-weight: 600;">Golf Foursome</span>
+              <span style="color: #FFD600; font-size: 22px; font-family: 'Oswald', sans-serif; font-weight: 700;">$700</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+              <span style="color: #fff; font-size: 16px; font-weight: 600;">Individual Player</span>
+              <span style="color: #FFD600; font-size: 22px; font-family: 'Oswald', sans-serif; font-weight: 700;">$175</span>
+            </div>
+          </div>
+          <h4 style="color: #FFD600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Includes</h4>
+          <div style="color: #ccc; font-size: 15px; line-height: 2.2;">
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7c0 0 2-3 9-3s9 3 9 3"/><path d="M3 7v2c0 4 4 7 9 7s9-3 9-7V7"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg> Breakfast</div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><path d="M12 2v13"/><path d="M7 7c0-2.8 2.2-5 5-5v10"/></svg> Range Balls</div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="10" width="16" height="8" rx="2"/><circle cx="6" cy="20" r="2"/><circle cx="14" cy="20" r="2"/><path d="M18 10V6a2 2 0 0 0-2-2H8"/><line x1="18" y1="8" x2="22" y2="8"/><line x1="22" y1="8" x2="22" y2="14"/></svg> Golf Cart</div>
+            <div style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C9 2 4 3 4 3v6s2.5 1 8 1 8-1 8-1V3S15 2 12 2z"/><path d="M4 9l-1 11h3l1-5"/><path d="M20 9l1 11h-3l-1-5"/></svg> Commemorative Polo</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pre-registration note -->
+      <p style="color: #FFD600; font-size: 15px; text-align: center; margin: 10px auto 0; font-weight: 600;">All players must pre-register.</p>
+      <p style="color: #999; font-size: 14px; text-align: center; margin: 8px auto 0; line-height: 1.7;">For questions, contact <a href="mailto:gtrwb62@gmail.com" style="color: #FFD600; text-decoration: underline;">gtrwb62@gmail.com</a></p>
+
+
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===================== TICKETS CTA ===================== -->
+<section id="tickets" style="scroll-margin-top:96px;">
+  <div class="tickets-inner">
+    <div class="tickets-tag">One Night · One Community · All Terps</div>
+    <h2 class="tickets-title">Don't Watch<br>the Recap.</h2>
+    <p class="tickets-sub">
+      Be in the room. Join fellow Terps for a night of music, connection, and celebration. Dress sharp. Bring your people. Come ready to reconnect.
+    </p>
+
+    <!-- Pricing -->
+    <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-bottom:36px;">
+      <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);padding:24px 36px;text-align:center;min-width:260px;flex:1;max-width:300px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:42px;color:white;line-height:1;"><sup style="font-size:22px;">$</sup>25</div>
+        <div style="font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:8px;font-weight:700;">Pre Sale</div>
+        <div style="font-size:14px;color:#FFD600;margin-top:4px;font-weight:700;">Available Now</div>
+      </div>
+    </div>
+
+    <!-- Ticket purchase notice -->
+    <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);padding:20px 32px;margin-bottom:32px;max-width:600px;text-align:center;">
+      <p style="font-size:15px;line-height:1.8;color:rgba(255,255,255,0.85);margin:0;">
+        Tickets available now through <strong style="color:white;">SimpleTix</strong>. Tables are limited — please inquire onsite (a ticket is required for party entry). For questions, email <a href="mailto:info@umdthereturn.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">info@umdthereturn.com</a> or call <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);">(301) 709-9821</a>.
+      </p>
+    </div>
+
+    <a class="tickets-btn" href="http://umdthereturn.simpletix.com" target="_blank">Buy Tickets</a>
+
+    <!-- UMDBA callout -->
+
+
+    <div class="tickets-date-badge" style="margin-top:24px;font-size:16px;letter-spacing:0.3em;color:rgba(255,255,255,0.75);">Friday, April 10, 2026 · 9:00 PM<br><br>Citizens & Culture · 8113 Georgia Ave, Silver Spring, MD 20910</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-brand-wrapper">
+    <div class="footer-brand">THE <span>RETURN</span></div>
+  </div>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-tagline">
+        Maryland Black Alumni Weekend 2026<br>
+        <a href="https://alumni.umd.edu/events/marquee/black-alumni-weekend" target="_blank" style="color:var(--gold);text-decoration:none;font-size:14px;letter-spacing:0.25em;text-transform:uppercase;margin-top:8px;display:inline-block;border-bottom:1px solid var(--gold-border);padding-bottom:2px;">alumni.umd.edu/events/marquee/black-alumni-weekend</a><br><br>
+        Presented by UMD Black Alumni Network<br>
+        <a href="https://alumni.umd.edu/networks/umba" target="_blank" style="color:var(--gold);text-decoration:none;font-size:14px;letter-spacing:0.25em;text-transform:uppercase;margin-top:8px;display:inline-block;border-bottom:1px solid var(--gold-border);padding-bottom:2px;">alumni.umd.edu/networks/umba</a>
+      </div>
+    </div>
+    <div>
+      <ul class="footer-links">
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#flyer-section">Event</a></li>
+        <li><a href="#talent">Talent</a></li>
+        <li><a href="#venue">Venue</a></li>
+        <li><a href="#experience">Special Guests</a></li>
+        <li><a href="#golf">Golf</a></li>
+        <li><a href="#tables">Tables</a></li>
+        <li><a href="#tickets">Buy Tickets</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-copy">
+        Citizens & Culture<br>
+        8113 Georgia Avenue<br>
+        Silver Spring, MD 20910<br><br>
+        Friday, April 10, 2026<br>
+        9:00 PM – 2:00 AM<br><br>
+        <a href="tel:+13017099821" style="color:var(--gold);text-decoration:none;letter-spacing:0.15em;border-bottom:1px solid var(--gold-border);padding-bottom:2px;">📞 (301) 709-9821</a>
+      </div>
+      <div class="footer-hashtag">#UMDBAW2026</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-text">© 2026 The Return · University of Maryland Black Alumni Weekend</div>
+    <div class="footer-bottom-text" style="color:var(--red);">#UMDBAW2026</div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// COUNTDOWN
+// ============================================================
+function updateCountdown() {
+  const target = new Date('April 10, 2026 21:00:00').getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  const dEl = document.getElementById('cd-days');
+  if (!dEl) return; // countdown elements removed from hero
+
+  if (diff <= 0) {
+    dEl.textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ============================================================
+// SCROLL REVEAL
+// ============================================================
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in-view');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// ============================================================
+// NAV ACTIVE STATE
+// ============================================================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--white)' : '';
+  });
+});
+</script>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+
+<script>
+function openLightbox(src) {
+  var lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  lb.style.display = 'flex';
+  requestAnimationFrame(function(){ lb.classList.add('active'); });
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  var lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  setTimeout(function(){ lb.style.display = 'none'; }, 300);
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+// Attach click handlers to all menu cards
+document.querySelectorAll('.menu-card').forEach(function(card){
+  card.addEventListener('click', function(){
+    var img = this.querySelector('img');
+    if(img) openLightbox(img.src);
+  });
+});
+</script>
+
+</body>
+</html>
