@@ -4188,7 +4188,7 @@ async function handlePhotoUpload(event) {
   let success = 0;
   for (const file of files) {
     try {
-      const res = await fetch('/api/upload', {
+      const res = await fetch('https://the-return-2026.vercel.app/api/upload', {
         method: 'POST',
         headers: { 'Content-Type': file.type, 'X-Filename': file.name, 'X-Category': 'guest' },
         body: file,
@@ -4215,7 +4215,7 @@ async function handleVideoUpload(event) {
     if (file.size > 100 * 1024 * 1024) { status.textContent = `${file.name} is too large (max 100MB)`; continue; }
     status.textContent = `Uploading ${file.name} (${(file.size/1024/1024).toFixed(1)}MB)...`;
     try {
-      const res = await fetch('/api/upload-url', {
+      const res = await fetch('https://the-return-2026.vercel.app/api/upload-url', {
         method: 'POST',
         headers: { 'Content-Type': file.type, 'X-Filename': file.name, 'X-Category': 'videos' },
         body: file,
@@ -4273,7 +4273,7 @@ function updateFilterCounts() {
 // Load existing guest uploads from Vercel Blob
 async function loadGuestUploads() {
   try {
-    const res = await fetch('/api/list?category=guest');
+    const res = await fetch('https://the-return-2026.vercel.app/api/list?category=guest');
     if (res.ok) {
       const { items } = await res.json();
       items.forEach(item => addGuestItem(item.url, 'guest', 'photo'));
