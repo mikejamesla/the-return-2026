@@ -1987,7 +1987,7 @@ footer {
 .slideshow-btn:hover { background: var(--gold); color: var(--deep); }
 .slideshow-btn.playing { background: var(--gold); color: var(--deep); }
 #downloadBtn {
-  position: fixed;
+  position: absolute;
   top: 20px;
   left: 20px;
   z-index: 10002;
@@ -2002,7 +2002,6 @@ footer {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s;
-  display: none;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 #downloadBtn:hover { background: var(--gold); color: var(--deep); }
@@ -4497,7 +4496,6 @@ function openGalleryLightbox(img) {
   lbImg.src = img.getAttribute('data-full') || img.src;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.getElementById('downloadBtn').style.display = 'block';
   updateGalleryCounter();
 }
 
@@ -4506,7 +4504,6 @@ function closeGalleryLightbox(e) {
   stopSlideshow();
   document.getElementById('lightboxOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  document.getElementById('downloadBtn').style.display = 'none';
 }
 
 function navGalleryLightbox(dir, e) {
