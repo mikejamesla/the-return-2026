@@ -1986,25 +1986,7 @@ footer {
 }
 .slideshow-btn:hover { background: var(--gold); color: var(--deep); }
 .slideshow-btn.playing { background: var(--gold); color: var(--deep); }
-#downloadBtn {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 10002;
-  background: var(--red);
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-#downloadBtn:hover { background: var(--gold); color: var(--deep); }
+
 
 .slideshow-speed {
   display: flex;
@@ -3786,12 +3768,13 @@ footer {
 <!-- Lightbox / Slideshow overlay -->
 <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeGalleryLightbox(event)">
   <button class="lightbox-close" onclick="closeGalleryLightbox(event)">&times;</button>
-  <button id="downloadBtn" onclick="downloadCurrentPhoto(event)">⬇ DOWNLOAD</button>
+
   <button class="lightbox-nav lightbox-prev" onclick="navGalleryLightbox(-1,event)">&#8249;</button>
   <button class="lightbox-nav lightbox-next" onclick="navGalleryLightbox(1,event)">&#8250;</button>
   <img id="lightboxImg" src="" alt="">
   <div class="lightbox-bottom-bar">
     <button class="slideshow-btn" id="slideshowPlayBtn" onclick="toggleSlideshow(event)">&#9654; SLIDESHOW</button>
+    <button class="slideshow-btn" onclick="downloadCurrentPhoto(event)" style="background:rgba(255,255,255,0.15);">⬇ DOWNLOAD</button>
 
     <div class="lightbox-counter" id="lightboxCounter"></div>
     <div class="slideshow-speed" id="slideshowSpeed">
