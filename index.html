@@ -1960,15 +1960,15 @@ footer {
 
 .lightbox-bottom-bar {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 16px;
   padding: 16px 24px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
   z-index: 10001;
 }
 
@@ -1986,6 +1986,8 @@ footer {
 }
 .slideshow-btn:hover { background: var(--gold); color: var(--deep); }
 .slideshow-btn.playing { background: var(--gold); color: var(--deep); }
+#dlBtn { background: rgba(255,255,255,0.15); margin-left: 8px; }
+#dlBtn:hover { background: var(--gold); color: var(--deep); }
 
 
 .slideshow-speed {
@@ -3774,7 +3776,7 @@ footer {
   <img id="lightboxImg" src="" alt="">
   <div class="lightbox-bottom-bar">
     <button class="slideshow-btn" id="slideshowPlayBtn" onclick="toggleSlideshow(event)">&#9654; SLIDESHOW</button>
-    <button class="slideshow-btn" onclick="downloadCurrentPhoto(event)" style="background:rgba(255,255,255,0.15);">⬇ DOWNLOAD</button>
+    <button class="slideshow-btn" id="dlBtn" onclick="downloadCurrentPhoto(event)">⬇ DOWNLOAD</button>
 
     <div class="lightbox-counter" id="lightboxCounter"></div>
     <div class="slideshow-speed" id="slideshowSpeed">
