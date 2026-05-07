@@ -906,6 +906,344 @@ footer {
 .reveal-delay-3 { transition-delay: 0.3s; }
 
 /* ============================================================
+   RECAP FILM SECTION
+   ============================================================ */
+#recap-film {
+  position: relative;
+  padding: 140px 60px 160px;
+  background:
+    radial-gradient(60% 50% at 50% 40%, rgba(224,0,27,0.14) 0%, rgba(224,0,27,0) 60%),
+    linear-gradient(180deg, var(--deep) 0%, #08060F 50%, var(--deep) 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+#recap-film::before {
+  /* Soft red ambient pulse behind the phone */
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 70vmin; height: 70vmin;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(224,0,27,0.28) 0%, rgba(224,0,27,0) 65%);
+  filter: blur(40px);
+  z-index: 0;
+  animation: recapPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes recapPulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 0.85; transform: translate(-50%, -50%) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #recap-film::before { animation: none; opacity: 0.6; }
+}
+
+.recap-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 420px) 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.recap-copy-left { text-align: right; }
+.recap-copy-right { text-align: left; }
+.recap-copy-left .section-eyebrow { justify-content: flex-end; }
+.recap-copy-left .section-eyebrow::after { display: none; }
+.recap-copy-left .section-eyebrow::before {
+  content: ''; flex: 1; height: 1px; background: var(--gold-border); max-width: 80px;
+}
+.recap-copy-left .section-title { font-size: clamp(40px, 4.5vw, 64px); }
+.recap-copy-left .section-body { margin-left: auto; }
+
+.recap-stat-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.recap-copy-right .recap-stat-row { justify-content: flex-start; }
+.recap-stat {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.recap-stat .num {
+  font-size: 36px; font-weight: 900; color: var(--gold);
+  line-height: 1; letter-spacing: -0.02em;
+}
+.recap-stat .label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim); margin-top: 6px;
+}
+
+.recap-pullquote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1.4;
+  color: var(--gray);
+  margin-top: 28px;
+  max-width: 360px;
+  border-left: none; /* avoid side-stripe slop */
+  padding-left: 0;
+}
+.recap-pullquote::before {
+  content: '“';
+  font-size: 56px;
+  color: var(--red);
+  line-height: 0;
+  display: block;
+  margin-bottom: 14px;
+  font-style: normal;
+}
+.recap-pullquote .attr {
+  display: block;
+  font-style: normal;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-top: 14px;
+}
+.recap-copy-right .recap-pullquote { margin-left: 0; }
+
+/* Vertical 9:16 phone-style frame */
+.recap-frame {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 1px rgba(255,214,0,0.10),
+    0 30px 80px -20px rgba(224,0,27,0.45),
+    0 60px 120px -40px rgba(0,0,0,0.9);
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+.recap-frame:hover {
+  box-shadow:
+    0 0 0 1px rgba(255,214,0,0.25),
+    0 35px 90px -20px rgba(224,0,27,0.6),
+    0 60px 140px -40px rgba(0,0,0,0.95);
+}
+/* Cinematic reveal on the wrap (uses site's existing .reveal observer) */
+.recap-frame-wrap {
+  transform: translateY(40px) scale(0.96);
+  opacity: 0;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
+}
+.recap-frame-wrap.in-view {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.recap-frame video {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+/* Gold corner brackets (matches site's flyer-corner motif) */
+.recap-frame .bracket {
+  position: absolute;
+  width: 28px; height: 28px;
+  border: 2px solid var(--gold);
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.recap-frame .bracket.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.recap-frame .bracket.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.recap-frame .bracket.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.recap-frame .bracket.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* Initial overlay before user interacts */
+.recap-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0) 35%, rgba(0,0,0,0.55) 100%);
+  z-index: 3;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.recap-overlay.hidden { opacity: 0; }
+.recap-play-btn {
+  pointer-events: auto;
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: rgba(224,0,27,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 0 rgba(224,0,27,0.7);
+  animation: recapPlayPulse 2.2s ease-out infinite;
+}
+@keyframes recapPlayPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(224,0,27,0.55); }
+  70%  { box-shadow: 0 0 0 22px rgba(224,0,27,0); }
+  100% { box-shadow: 0 0 0 0 rgba(224,0,27,0); }
+}
+.recap-play-btn:hover { transform: scale(1.08); background: var(--gold); }
+.recap-play-btn:hover svg path { fill: var(--deep); }
+.recap-play-btn svg { width: 26px; height: 26px; margin-left: 4px; }
+.recap-play-btn svg path { fill: white; transition: fill 0.3s ease; }
+
+/* Sound + fullscreen controls */
+.recap-controls {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.recap-frame.is-playing .recap-controls { opacity: 1; pointer-events: auto; }
+.recap-frame:hover .recap-controls { opacity: 1; pointer-events: auto; }
+.recap-ctrl {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--white);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.recap-ctrl:hover { background: var(--red); border-color: var(--red); transform: scale(1.06); }
+.recap-ctrl svg { width: 18px; height: 18px; }
+.recap-ctrl path { fill: currentColor; }
+
+/* "Tap for sound" nudge */
+.recap-sound-nudge {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 4;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--gold-border);
+  border-radius: 999px;
+  padding: 8px 14px 8px 10px;
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--white);
+  cursor: pointer;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  animation: recapNudgeIn 1.2s cubic-bezier(0.16,1,0.3,1) 1.6s both;
+}
+.recap-sound-nudge svg { width: 14px; height: 14px; }
+.recap-sound-nudge svg path { fill: var(--gold); }
+.recap-sound-nudge.dismissed { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+@keyframes recapNudgeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar at bottom of frame */
+.recap-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.12);
+  z-index: 5;
+  pointer-events: none;
+}
+.recap-progress span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--red) 0%, var(--gold) 100%);
+  transition: width 0.1s linear;
+}
+
+/* Caption strip below frame */
+.recap-caption {
+  margin-top: 18px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.recap-caption .dot {
+  display: inline-block;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--red);
+  vertical-align: middle;
+  margin: 0 10px;
+  animation: recapDot 2s ease-in-out infinite;
+}
+@keyframes recapDot {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+
+/* Tablet: collapse to two columns (copy left, video right) */
+@media (max-width: 1100px) {
+  .recap-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .recap-copy-left, .recap-copy-right {
+    text-align: center;
+    order: 2;
+  }
+  .recap-copy-left .section-eyebrow,
+  .recap-copy-right .section-eyebrow {
+    justify-content: center;
+  }
+  .recap-copy-left .section-eyebrow::before { display: none; }
+  .recap-copy-left .section-eyebrow::after,
+  .recap-copy-right .section-eyebrow::after {
+    display: none;
+  }
+  .recap-copy-left .section-body,
+  .recap-copy-right .section-body {
+    margin: 0 auto;
+  }
+  .recap-stat-row { justify-content: center; }
+  .recap-copy-right .recap-stat-row { justify-content: center; }
+  .recap-pullquote { margin-left: auto; margin-right: auto; }
+  .recap-frame-wrap { order: 1; }
+}
+
+@media (max-width: 720px) {
+  #recap-film { padding: 80px 20px 100px; }
+  .recap-frame { max-width: 320px; border-radius: 14px; }
+  .recap-frame .bracket { width: 22px; height: 22px; }
+  .recap-play-btn { width: 70px; height: 70px; }
+  .recap-sound-nudge { font-size: 9px; padding: 6px 12px 6px 8px; }
+  .recap-stat .num { font-size: 28px; }
+  .recap-pullquote { font-size: 16px; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
@@ -2078,7 +2416,8 @@ footer {
 <nav>
   <div class="nav-brand">THE <span>RETURN</span></div>
   <ul class="nav-links">
-    <li><a href="#gallery" style="color:var(--gold);">Gallery ✦</a></li>
+    <li><a href="#recap-film" style="color:var(--gold);">Recap ✦</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#talent">Talent</a></li>
     <li><a href="#experience">Special Guests</a></li>
   </ul>
@@ -2108,6 +2447,105 @@ footer {
 
   </div>
 
+</section>
+
+<!-- ===================== RECAP FILM ===================== -->
+<section id="recap-film" style="scroll-margin-top:96px;">
+  <div class="recap-grid">
+
+    <!-- Left copy -->
+    <div class="recap-copy-left reveal">
+      <div class="section-eyebrow">The Recap Film</div>
+      <h2 class="section-title">Last Year.<br>Unforgettable.</h2>
+      <p class="section-body" style="margin-left:auto;">
+        One night. Fifteen hundred Black Terps. The energy that proved this isn't a reunion—it's a movement. Watch what happened, then come back home in 2026.
+      </p>
+      <div class="recap-stat-row">
+        <div class="recap-stat">
+          <div class="num">1,500</div>
+          <div class="label">In the Room</div>
+        </div>
+        <div class="recap-stat">
+          <div class="num">1°38°29</div>
+          <div class="label">Minutes / Pure Vibes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video frame -->
+    <div class="recap-frame-wrap reveal reveal-delay-1">
+      <div class="recap-frame" id="recap-frame" tabindex="0" role="button" aria-label="Play recap video">
+        <span class="bracket tl"></span>
+        <span class="bracket tr"></span>
+        <span class="bracket bl"></span>
+        <span class="bracket br"></span>
+
+        <video
+          id="recap-video"
+          poster="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/recap/recap-2025-poster.jpg"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          x-webkit-airplay="allow">
+          <source
+            src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/recap/recap-2025-540.mp4"
+            type="video/mp4"
+            media="(max-width: 720px)">
+          <source
+            src="https://j8jw8ropygyeho7f.public.blob.vercel-storage.com/recap/recap-2025-720.mp4"
+            type="video/mp4">
+          Your browser doesn’t support embedded video.
+        </video>
+
+        <!-- Initial play overlay -->
+        <div class="recap-overlay" id="recap-overlay">
+          <button class="recap-play-btn" id="recap-play-btn" aria-label="Play recap film with sound">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+
+        <!-- Tap-for-sound nudge (only shows after autoplay starts muted) -->
+        <div class="recap-sound-nudge" id="recap-sound-nudge" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM3 9v6h4l5 5V4L7 9H3z"/></svg>
+          <span>Tap for sound</span>
+        </div>
+
+        <!-- Hover/playing controls -->
+        <div class="recap-controls">
+          <button class="recap-ctrl" id="recap-mute" aria-label="Toggle sound" type="button">
+            <svg id="recap-mute-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM3 9v6h4l5 5V4L7 9H3z"/></svg>
+          </button>
+          <button class="recap-ctrl" id="recap-fullscreen" aria-label="Fullscreen" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zm-3-12v2h3v3h2V5h-5z"/></svg>
+          </button>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="recap-progress"><span id="recap-progress-bar"></span></div>
+      </div>
+      <div class="recap-caption">UMD Black Alumni Weekend <span class="dot"></span> Official Recap</div>
+    </div>
+
+    <!-- Right copy -->
+    <div class="recap-copy-right reveal reveal-delay-2">
+      <blockquote class="recap-pullquote">
+        We didn’t just throw a party. We threw a flag in the ground.
+        <span class="attr">— The Return, 2025</span>
+      </blockquote>
+      <div class="recap-stat-row">
+        <div class="recap-stat">
+          <div class="num">387</div>
+          <div class="label">Photos &amp; Clips</div>
+        </div>
+        <div class="recap-stat">
+          <div class="num">2M+</div>
+          <div class="label">Social Reach</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- ===================== STATS BAR ===================== -->
@@ -4191,6 +4629,7 @@ footer {
     </div>
     <div>
       <ul class="footer-links">
+        <li><a href="#recap-film">Recap</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#talent">Talent</a></li>
         <li><a href="#experience">Special Guests</a></li>
@@ -4246,6 +4685,198 @@ function updateCountdown() {
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// ============================================================
+// RECAP FILM — autoplay-on-scroll, sound, fullscreen, progress
+// ============================================================
+(function initRecapFilm() {
+  const frame = document.getElementById('recap-frame');
+  const video = document.getElementById('recap-video');
+  const overlay = document.getElementById('recap-overlay');
+  const playBtn = document.getElementById('recap-play-btn');
+  const muteBtn = document.getElementById('recap-mute');
+  const muteIcon = document.getElementById('recap-mute-icon');
+  const fsBtn = document.getElementById('recap-fullscreen');
+  const progressBar = document.getElementById('recap-progress-bar');
+  const soundNudge = document.getElementById('recap-sound-nudge');
+  if (!frame || !video) return;
+
+  // Reduced-motion: don't autoplay; just show poster + play button.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const ICON_SOUND_ON = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+  const ICON_SOUND_OFF = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+
+  let userInteracted = false;
+  let nudgeShown = false;
+
+  function setMuteIcon(muted) {
+    if (!muteIcon) return;
+    muteIcon.innerHTML = muted ? ICON_SOUND_OFF : ICON_SOUND_ON;
+  }
+
+  function dismissNudge() {
+    if (soundNudge) soundNudge.classList.add('dismissed');
+  }
+
+  function showNudge() {
+    if (nudgeShown || !soundNudge) return;
+    soundNudge.hidden = false;
+    nudgeShown = true;
+  }
+
+  function hideOverlay() {
+    if (overlay) overlay.classList.add('hidden');
+  }
+
+  function showOverlay() {
+    if (overlay) overlay.classList.remove('hidden');
+  }
+
+  // Autoplay muted when frame enters viewport. Pause when it leaves.
+  const playObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.45) {
+        if (prefersReducedMotion) return;
+        if (video.paused) {
+          video.muted = true;
+          setMuteIcon(true);
+          const p = video.play();
+          if (p && typeof p.then === 'function') {
+            p.then(() => {
+              hideOverlay();
+              frame.classList.add('is-playing');
+              if (!userInteracted) showNudge();
+            }).catch(() => {
+              // Autoplay blocked — keep overlay visible so user can tap.
+              showOverlay();
+            });
+          } else {
+            hideOverlay();
+            frame.classList.add('is-playing');
+            if (!userInteracted) showNudge();
+          }
+        }
+      } else if (!entry.isIntersecting && !document.fullscreenElement) {
+        if (!video.paused) video.pause();
+      }
+    });
+  }, { threshold: [0, 0.45, 0.6, 1] });
+  playObserver.observe(frame);
+
+  // Big play button: unmute + play (treat as user interaction).
+  function userPlayWithSound() {
+    userInteracted = true;
+    dismissNudge();
+    video.muted = false;
+    video.currentTime = 0;
+    setMuteIcon(false);
+    const p = video.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => {
+        hideOverlay();
+        frame.classList.add('is-playing');
+      }).catch(() => {
+        // Last resort — play muted.
+        video.muted = true;
+        setMuteIcon(true);
+        video.play();
+        hideOverlay();
+        frame.classList.add('is-playing');
+      });
+    } else {
+      hideOverlay();
+      frame.classList.add('is-playing');
+    }
+  }
+  if (playBtn) playBtn.addEventListener('click', userPlayWithSound);
+
+  // Click on the frame (anywhere except controls) toggles sound on first tap,
+  // play/pause after.
+  frame.addEventListener('click', (e) => {
+    if (e.target.closest('.recap-ctrl') || e.target.closest('.recap-play-btn') || e.target.closest('.recap-sound-nudge')) return;
+    if (!userInteracted) {
+      userPlayWithSound();
+      return;
+    }
+    if (video.paused) {
+      video.play();
+      frame.classList.add('is-playing');
+    } else {
+      video.pause();
+      frame.classList.remove('is-playing');
+    }
+  });
+
+  // Keyboard: space / enter on the focused frame.
+  frame.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      frame.click();
+    }
+  });
+
+  // Mute toggle
+  if (muteBtn) {
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userInteracted = true;
+      dismissNudge();
+      video.muted = !video.muted;
+      setMuteIcon(video.muted);
+      if (video.paused) video.play();
+    });
+  }
+
+  // Sound nudge — clicking it unmutes.
+  if (soundNudge) {
+    soundNudge.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userInteracted = true;
+      dismissNudge();
+      video.muted = false;
+      setMuteIcon(false);
+      if (video.paused) video.play();
+    });
+  }
+
+  // Fullscreen
+  if (fsBtn) {
+    fsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const target = video;
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else if (target.requestFullscreen) {
+        target.requestFullscreen();
+      } else if (target.webkitEnterFullscreen) {
+        // iOS Safari
+        target.webkitEnterFullscreen();
+      }
+      // When user goes fullscreen, unmute too — fullscreen always counts as intent.
+      userInteracted = true;
+      dismissNudge();
+      video.muted = false;
+      setMuteIcon(false);
+    });
+  }
+
+  // Progress bar
+  video.addEventListener('timeupdate', () => {
+    if (!progressBar || !video.duration) return;
+    progressBar.style.width = ((video.currentTime / video.duration) * 100).toFixed(2) + '%';
+  });
+
+  video.addEventListener('play', () => frame.classList.add('is-playing'));
+  video.addEventListener('pause', () => {
+    if (!document.fullscreenElement) frame.classList.remove('is-playing');
+  });
+
+  // Auto-dismiss nudge after 6s if user never interacts.
+  setTimeout(() => { if (!userInteracted) dismissNudge(); }, 8000);
+
+  setMuteIcon(true);
+})();
 
 // ============================================================
 // SCROLL REVEAL

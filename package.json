@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mikejamesla/the-return-2026#readme",
   "description": "",
   "dependencies": {
-    "@vercel/blob": "^2.3.3"
+    "@vercel/blob": "^2.3.3",
+    "dotenv": "^17.4.2"
   }
 }
