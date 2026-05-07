@@ -979,38 +979,54 @@ footer {
   color: var(--dim); margin-top: 6px;
 }
 
-.recap-pullquote {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(18px, 1.8vw, 22px);
-  line-height: 1.4;
-  color: var(--gray);
-  margin-top: 28px;
+/* Right-side CTA block (Homecoming Round Two) */
+.recap-cta-block {
   max-width: 360px;
-  border-left: none; /* avoid side-stripe slop */
-  padding-left: 0;
 }
-.recap-pullquote::before {
-  content: '“';
-  font-size: 56px;
-  color: var(--red);
-  line-height: 0;
-  display: block;
-  margin-bottom: 14px;
-  font-style: normal;
-}
-.recap-pullquote .attr {
-  display: block;
-  font-style: normal;
+.recap-cta-eyebrow {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.recap-cta-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(36px, 3.6vw, 52px);
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+.recap-cta-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+.recap-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold-dim);
-  margin-top: 14px;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gold-border);
+  transition: color 0.3s ease, border-color 0.3s ease, gap 0.3s ease;
 }
-.recap-copy-right .recap-pullquote { margin-left: 0; }
+.recap-cta-link:hover {
+  color: var(--red);
+  border-color: var(--red-border);
+  gap: 14px;
+}
 
 /* Vertical 9:16 phone-style frame */
 .recap-frame {
@@ -2456,20 +2472,10 @@ footer {
     <!-- Left copy -->
     <div class="recap-copy-left reveal">
       <div class="section-eyebrow">The Recap Film</div>
-      <h2 class="section-title">Last Year.<br>Unforgettable.</h2>
+      <h2 class="section-title">The Return<br>Recap Film.</h2>
       <p class="section-body" style="margin-left:auto;">
-        One night. Fifteen hundred Black Terps. The energy that proved this isn't a reunion—it's a movement. Watch what happened, then come back home in 2026.
+        The Return Party for Black Alumni Weekend was epic. The energy proved this isn’t a reunion—it’s a movement. If you couldn’t make it, here’s what you missed.
       </p>
-      <div class="recap-stat-row">
-        <div class="recap-stat">
-          <div class="num">1,500</div>
-          <div class="label">In the Room</div>
-        </div>
-        <div class="recap-stat">
-          <div class="num">1°38°29</div>
-          <div class="label">Minutes / Pure Vibes</div>
-        </div>
-      </div>
     </div>
 
     <!-- Video frame -->
@@ -2529,19 +2535,13 @@ footer {
 
     <!-- Right copy -->
     <div class="recap-copy-right reveal reveal-delay-2">
-      <blockquote class="recap-pullquote">
-        We didn’t just throw a party. We threw a flag in the ground.
-        <span class="attr">— The Return, 2025</span>
-      </blockquote>
-      <div class="recap-stat-row">
-        <div class="recap-stat">
-          <div class="num">387</div>
-          <div class="label">Photos &amp; Clips</div>
-        </div>
-        <div class="recap-stat">
-          <div class="num">2M+</div>
-          <div class="label">Social Reach</div>
-        </div>
+      <div class="recap-cta-block">
+        <div class="recap-cta-eyebrow">See You at Part Two</div>
+        <h3 class="recap-cta-headline">Homecoming.<br>Round Two.</h3>
+        <p class="recap-cta-body">
+          We’re doing it again—bigger—for Homecoming Weekend. Same family. Same energy. New chapter.
+        </p>
+        <a href="#tickets" class="recap-cta-link">Get on the List <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
