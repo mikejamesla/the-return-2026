@@ -9,10 +9,17 @@
       "memory": 1024
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/api/home"
+      "src": "^/$",
+      "dest": "/api/home.js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
