@@ -2414,6 +2414,12 @@ footer {
 @media (max-width: 768px) {
   #hero { min-height: auto !important; padding-bottom: 24px !important; }
   #recap-film { padding-top: 32px !important; }
+
+  /* Put "The Return Recap Film." copy ABOVE the video on mobile.
+     Keep the right-side "Homecoming Round Two" CTA below the video. */
+  .recap-grid .recap-copy-left  { order: 1 !important; }
+  .recap-grid .recap-frame-wrap { order: 2 !important; }
+  .recap-grid .recap-copy-right { order: 3 !important; }
 }
 
 </style>
