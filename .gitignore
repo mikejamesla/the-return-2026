@@ -2,3 +2,8 @@ node_modules
 .env.local
 .env
 .vercel
+.gstack/
+promo/
+*.bak*
+index.html.bak*
+.DS_Store

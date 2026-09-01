@@ -1,0 +1,7 @@
+promo/
+*.bak*
+index.html.bak*
+.DS_Store
+node_modules
+archive/
+research-screenshots/
